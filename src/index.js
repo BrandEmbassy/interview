@@ -6,7 +6,17 @@ import { createStore } from 'redux';
 import contactsApp from './reducers';
 import App from './components/App';
 
-const persistedState = {};
+const persistedState = {
+  contacts: [
+    {
+      id: 'john-smith',
+      fullName: 'John Smith',
+      bio: 'Human beings are a disease, a cancer of this planet. You\'re a plague and we are the cure.',
+      phone: 123456789,
+      email: 'john.smith@matrix.com',
+    },
+  ],
+};
 const store = createStore(contactsApp, persistedState);
 
 render(
