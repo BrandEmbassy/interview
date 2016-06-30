@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ContactLink from './ContactLink';
 
-const List = ({ contacts, onContactClick }) => (
+const List = ({ contacts, selectedContact, onContactClick }) => (
   <div className="list">
     <div className="list__header">
       <div className="heading">Contact List</div>
@@ -11,6 +11,7 @@ const List = ({ contacts, onContactClick }) => (
         <ContactLink
           key={contact.id}
           {...contact}
+          selected={selectedContact && contact.id === selectedContact.id}
           onClick={() => onContactClick(contact.id)}
         />
       )}
@@ -24,6 +25,9 @@ List.propTypes = {
     fullName: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   onContactClick: PropTypes.func.isRequired,
+  selectedContact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
 };
 
 export default List;
