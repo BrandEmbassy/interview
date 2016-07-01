@@ -34,14 +34,20 @@ Controller.prototype.getJson = function () {
 }
 
 Controller.prototype.savePressed = function (index, newObj) {
+	console.log(JSON.stringify(this.data))
+	console.log(JSON.stringify(newObj))
+	
 	for (let i in newObj) {
 		this.data.contactList[index][i] = newObj[i];
+		console.log("putting " + i + " with value: " + newObj[i])
 	}
-	if (app !== null) {
-		app.render();
+	console.log("save Pressed:" + JSON.stringify(this.data));
+	if (this.app !== null) {
+		this.app.render();
 	}
 }
 
 Controller.prototype.setApp = function (app) {
 	this.app = app;
+	console.log("APP SET")
 }
