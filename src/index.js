@@ -17,10 +17,16 @@ const persistedState = {
     },
   ],
 };
-const store = createStore(contactsApp, persistedState);
+
+function configureStore(initialState) {
+  const store = createStore(contactsApp, initialState,
+    window.devToolsExtension && window.devToolsExtension()
+  );
+  return store;
+}
 
 render(
-  <Provider store={store}>
+  <Provider store={configureStore(persistedState)}>
     <App />
   </Provider>,
   document.getElementById('app')
