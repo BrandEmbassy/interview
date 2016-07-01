@@ -204,6 +204,7 @@ class ListFooter extends React.Component {
 }
 
 class AddBtn extends React.Component {
+	
 	render() {
 		return (
 			<div className="add-bttn">
@@ -217,9 +218,9 @@ class AddBtn extends React.Component {
 }
 
 class Detail extends React.Component {
-	
+		
 	render() {
-		let contats = this.props.data.contactList
+		let contacts = this.props.data.contactList
 		
 		return (
 			<div className="detail">
@@ -228,7 +229,7 @@ class Detail extends React.Component {
 						return <DetailItem data={contats}/>
 					} )
 				*/}
-				<DetailItem data={contats[this.props.activeContact]}/>
+				<DetailItem data={contacts[this.props.activeContact]} myID={this.props.activeContact}/>
 			</div>
 		
 		)
@@ -240,27 +241,62 @@ class DetailItem extends React.Component {
 		super(props);
 		this.state = {
 			disabled: true,
-			do_setDisabled: this.setDisabled.bind(this)
+			do_setDisabled: this.setDisabled.bind(this),
+			data: {
+				fullName: this.props.data.fullName,
+				bio: this.props.data.bio,
+				phone: this.props.data.phone,
+				email: this.props.data.email,
+				myID: this.props.myID
+			},
+			saveMethod: this.mySaveMethod.bind(this)
 		};
 		//this.state.do_setDiabled = ;
 	}
 	
+	mySaveMethod(newValues) {
+		controller.savePressed(newValues)
+	}
+	
+	componentWillReceiveProps(newprops) {
+		
+		this.setState({
+			disabled: true,
+			do_setDisabled: this.setDisabled.bind(this),
+			data: {
+				fullName: newprops.data.fullName,
+				bio: newprops.data.bio,
+				phone: newprops.data.phone,
+				email: newprops.data.email,
+				myID: newprops.myID
+			}
+			
+		});
+	}
+	
+	myValuesChanged() {
+		
+	}
 	/**
 	 * Sets all Availible fields to editable.
 	 */
 	setDisabled (value) {
+		if (value === true) {
+			console.log("I dont know how to continue. I need a pause but I am far from done.")
+		}
 		this.setState({
 			disabled: value
 		});
 	}
 	
 	render() {
+		
 		return (
 		<div className="item">
 
-			<DetailItemHeader data={this.props.data} disabledVal={this.state.disabled}/>
-			<DetailItemContent data={this.props.data} disabled={this.state.disabled}/>
-			<DetailItemFooter onclickedit={this.state.do_setDisabled} onclickdelete={this.do_setDisabled} disabled={this.state.disabled}/>
+			<DetailItemHeader data={this.state.data} disabledVal={this.state.disabled} myID={this.state.myID}/>
+			<DetailItemContent data={this.state.data} disabled={this.state.disabled} myID={this.state.myID}/>
+			<DetailItemFooter onclickedit={this.state.do_setDisabled} onclickdelete={this.do_setDisabled} disabled={this.state.disabled} saveMethod={this.state.saveMethod}/>
 		</div>
 		)
 	}
@@ -275,29 +311,61 @@ class DetailItemHeader extends React.Component {
 				<ProfilePic />
 				
 				
-				<Input value={this.props.data.fullName} infoName={""} infoClass={"name"} infoPH={"Full Name"} infoType={"text"} disabled={this.props.disabledVal}/>
+				<Input value={this.props.data.fullName} infoName={""} infoClass={"name"} infoPH={"Full Name"} infoType={"text"} disabled={this.props.disabledVal} myID={this.props.myID}/>
 			</div>
 		)
 	}
 }
 
 class Input extends React.Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			value: this.props.value
+		}
+	}
+	handleChange(ev) {
+		console.log("Saving is not implemented yet: " + ev.target.value);
+		this.setState({
+			value: ev.target.value
+		});
+	}
+	
+	componentWillReceiveProps(newprobs) {
+		this.setState({
+			value: newprobs.value
+		});
+	}
+	
 	render() {
 		
 		return (
-			<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.props.value} placeholder={this.props.infoPH} disabled={this.props.disabled} onChange={this.render}/>
+			<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.state.value} placeholder={this.props.infoPH} disabled={this.props.disabled} onChange={this.handleChange.bind(this)}/>
 		)
 	}
 }
 
 class DetailInputWrapWithLabel extends React.Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			value: this.props.infoValue
+		}
+	}
+	handleChange(ev) {
+		console.log("Saving is not implemented yet: " + ev.target.value);
+		this.setState({
+			value: ev.target.value
+		});
+	}
+	
 	render() {
 		return (
 			<div className="input-wrap">
 				<label forName={this.props.infoClass}>
 					{this.props.infoLabel}
 				</label>
-				<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.props.infoValue} placeholder={this.props.infoPH} disabled={this.props.infoEnabled} />
+				<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.state.value} placeholder={this.props.infoPH} disabled={this.props.infoEnabled} onChange={this.handleChange.bind(this)}/>
 			</div>
 		)
 	}
@@ -306,7 +374,7 @@ class DetailItemContent extends React.Component {
 	render() {
 		return (
 			<div className="item__content">
-				<DetailInputWrap infoName={"bio"} infoClass={"bio"} infoPH={"Description"} infoValue={this.props.data.bio} infoLabel={"Bio"} infoEnabled={this.props.disabled}/>
+				<DetailInputWrap infoName={"bio"} infoClass={"bio"} infoPH={"Description"} infoValue={this.props.data.bio} infoLabel={"Bio"} infoEnabled={this.props.disabled} />
 				<DetailInputWrapWithLabel infoType={"text"} infoName={"tel"} infoClass={"tel"} infoPH={"+XXX XXX XXX XXX"} infoValue={this.props.data.phone} infoLabel={"Phone"} infoEnabled={this.props.disabled}/>
 				<DetailInputWrapWithLabel infoType={"text"} infoName={""} infoClass={"email"} infoPH={"E-mail"} infoValue={this.props.data.email} infoLabel={"E-mail"} infoEnabled={this.props.disabled}/>
 				
@@ -318,6 +386,18 @@ class DetailItemContent extends React.Component {
 }
 
 class DetailInputWrap extends React.Component {
+	constructor (props) {
+		super(props)
+		this.state = {
+			value: this.props.infoValue
+		}
+	}
+	handleChange(ev) {
+		console.log("Saving is not implemented yet: " + ev.target.value);
+		this.setState({
+			value: ev.target.value
+		});
+	}
 	
 	render() {
 		
@@ -326,7 +406,7 @@ class DetailInputWrap extends React.Component {
 				<label forName={this.props.infoName}>
 					{this.props.infoLabel}
 				</label>
-                <textarea name={this.props.infoName} className={this.props.infoClass} placeholder={this.props.infoPH} value={this.props.infoValue} disabled={this.props.infoEnabled} onChange={this.render}>
+                <textarea name={this.props.infoName} className={this.props.infoClass} placeholder={this.props.infoPH} value={this.state.value} disabled={this.props.infoEnabled} onChange={this.handleChange.bind(this)}>
 				</textarea>
 			</div>
 		
@@ -350,8 +430,12 @@ class DetailItemFooter extends React.Component {
 
 class ButtonEdit extends React.Component {
 	constructor(props){
-		super(props);
-		this.swapTo = false;
+		super(props)
+		this.state = {
+			swapTo: false, //FALSE === "Edit"; TRUE === "Save"
+			buttonName: "Edit",
+			buttonClass: "button"
+		}
 		
 		//this.state.do_setDiabled = ;
 	}
@@ -360,15 +444,24 @@ class ButtonEdit extends React.Component {
 		console.log("Edit not implemented yet.");
 		//console.log(JSON.stringify(controller.data));
 		
-		this.props.onclickMethod(this.swapTo);
-		this.swapTo = !this.swapTo;
+		
+		this.props.onclickMethod(this.state.swapTo);
+		
+		
+		this.setState({
+			swapTo: !this.state.swapTo,
+			buttonName: this.state.swapTo ? "Edit" : "Save", //condition is resolved before swapTo is changed
+			buttonClass: this.state.swapTo ?  "button" : "button button--positive"
+		})
+		
+		
 	}
 	
 	render() {
 
 		return (
-			<div className="button" onClick={this.editContact.bind(this)} >
-				Edit
+			<div className={this.state.buttonClass} onClick={this.editContact.bind(this)} >
+				{this.state.buttonName}
 			</div>
 		)
 	}
@@ -412,7 +505,7 @@ class Application extends React.Component {
 		this.setState({
 			active: val
 		});
-		this.state.active = val;
+		//this.state.active = val;
 		
 	}
 	render() {

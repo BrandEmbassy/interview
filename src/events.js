@@ -3,6 +3,7 @@ var Controller = function () {
 	this.testMessage = "Go for it.";
 	this.iteration = 0;
 	this.data = null;
+	this.app = null;
 }
 
 Controller.prototype.fireAlert = function (time) {
@@ -32,6 +33,15 @@ Controller.prototype.getJson = function () {
 	//this defines if we can edit this element or not
 }
 
-Controller.prototype.editPressed = function (index) {
-	
+Controller.prototype.savePressed = function (index, newObj) {
+	for (let i in newObj) {
+		this.data.contactList[index][i] = newObj[i];
+	}
+	if (app !== null) {
+		app.render();
+	}
+}
+
+Controller.prototype.setApp = function (app) {
+	this.app = app;
 }
