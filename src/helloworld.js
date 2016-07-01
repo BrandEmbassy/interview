@@ -106,11 +106,12 @@ class ListHeader extends React.Component {
 
 class ContactListSite extends React.Component{
 	render() {
+		
 		return (
 			<div className="list">
 			
 			<ListHeader />
-			<ListContent data={this.props.data}/>
+			<ListContent data={this.props.data} active={this.props.activeContact} onclickMethod={this.props.changeActive}/>
 			<ListFooter />
 			</div>
 		);
@@ -121,11 +122,14 @@ class ListContent extends React.Component {
 	render() {
 		let contats = this.props.data.contactList
 		let id = 0
+		let activeID = this.props.active
+		let onclickMethod = this.props.onclickMethod
+		
 		return (
 			<div className="list__content">
 				{
 					contats.map(function (contats) {
-						return <Item key={id++}  data={contats}/> //keyID={id}
+						return <Item myID={id} key={id++}  data={contats} active={activeID} onclickMethod={onclickMethod}/>
 					})
 				}
 				
@@ -137,11 +141,26 @@ class ListContent extends React.Component {
 }
 
 class Item extends React.Component {
+	reportClick() {
+		this.props.onclickMethod(this.props.myID);
+	}
+	
 	render() {
-		//console.log("myID: " + this.props.keyID)
+		
+		let itemClass = null;
+		
+		if (this.props.myID === this.props.active){
+			itemClass = "item item--active";
+			
+		} else {
+			itemClass = "item";
+			
+		}
+		
+		
 		return (
-			<div className="item">
-
+			
+			<div className={itemClass} onClick={this.reportClick.bind(this)} >
 			<ItemIn data={this.props.data}/>
 			</div>
 			
@@ -198,8 +217,10 @@ class AddBtn extends React.Component {
 }
 
 class Detail extends React.Component {
+	
 	render() {
 		let contats = this.props.data.contactList
+		
 		return (
 			<div className="detail">
 				{/*
@@ -207,7 +228,7 @@ class Detail extends React.Component {
 						return <DetailItem data={contats}/>
 					} )
 				*/}
-				<DetailItem data={contats[0]}/>
+				<DetailItem data={contats[this.props.activeContact]}/>
 			</div>
 		
 		)
@@ -262,7 +283,7 @@ class DetailItemHeader extends React.Component {
 
 class Input extends React.Component {
 	render() {
-		console.log(this.props.disabled)
+		
 		return (
 			<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.props.value} placeholder={this.props.infoPH} disabled={this.props.disabled} onChange={this.render}/>
 		)
@@ -314,9 +335,7 @@ class DetailInputWrap extends React.Component {
 }
 
 class DetailItemFooter extends React.Component {
-	EditPressed() {
-		console.log("somebody told me you pressed Edit...you know what? FUCK YOU MAN")
-	}
+	
 	render() {
 
 		return (
@@ -377,11 +396,31 @@ class ButtonDelete extends React.Component {
 
 
 class Application extends React.Component {
+	constructor (props) {
+		super (props);
+		this.state = {
+			active: 0,
+			changeActive: this.myChangeActive.bind(this)
+		}
+	}
+	myChangeActive(val) {
+		let maxVal = this.props.data.contactList.length;
+		
+		if (val < 0 || val >= maxVal) {
+			return
+		} 
+		this.setState({
+			active: val
+		});
+		this.state.active = val;
+		
+	}
 	render() {
+		//this.myChangeActive(1);
 		return (
 			<div className="app">
-				<ContactListSite data={this.props.data}/>
-				<Detail data={this.props.data}/>
+				<ContactListSite data={this.props.data} activeContact={this.state.active} changeActive={this.state.changeActive}/>
+				<Detail data={this.props.data} activeContact={this.state.active}/>
 			</div>
 		
 		)
