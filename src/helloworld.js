@@ -110,7 +110,7 @@ class ContactListSite extends React.Component{
 			<div className="list">
 			
 			<ListHeader />
-			<ListContent />
+			<ListContent data={this.props.data}/>
 			<ListFooter />
 			</div>
 		);
@@ -119,10 +119,17 @@ class ContactListSite extends React.Component{
 
 class ListContent extends React.Component {
 	render() {
+		let contats = this.props.data.contactList
+		let id = 0
 		return (
 			<div className="list__content">
-
-				<Item />
+				{
+					contats.map(function (contats) {
+						return <Item key={id++}  data={contats}/> //keyID={id}
+					})
+				}
+				
+				
 			</div>
 		
 		)
@@ -131,10 +138,11 @@ class ListContent extends React.Component {
 
 class Item extends React.Component {
 	render() {
+		//console.log("myID: " + this.props.keyID)
 		return (
 			<div className="item">
 
-			<ItemIn />
+			<ItemIn data={this.props.data}/>
 			</div>
 			
 		)
@@ -146,7 +154,7 @@ class ItemIn extends React.Component {
 		return (
 			<div className="in">
 			<ProfilePic />
-			Roman Nikrmajer
+			{this.props.data.fullName}
 			</div>
 		
 		)
@@ -191,10 +199,15 @@ class AddBtn extends React.Component {
 
 class Detail extends React.Component {
 	render() {
+		let contats = this.props.data.contactList
 		return (
 			<div className="detail">
-
-				<DetailItem />
+				{/*
+					contats.map(function (contats) {
+						return <DetailItem data={contats}/>
+					} )
+				*/}
+				<DetailItem data={contats[0]}/>
 			</div>
 		
 		)
@@ -202,13 +215,31 @@ class Detail extends React.Component {
 }
 
 class DetailItem extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			disabled: true,
+			do_setDisabled: this.setDisabled.bind(this)
+		};
+		//this.state.do_setDiabled = ;
+	}
+	
+	/**
+	 * Sets all Availible fields to editable.
+	 */
+	setDisabled (value) {
+		this.setState({
+			disabled: value
+		});
+	}
+	
 	render() {
 		return (
 		<div className="item">
 
-			<DetailItemHeader />
-			<DetailItemContent />
-			<DetailItemFooter />
+			<DetailItemHeader data={this.props.data} disabledVal={this.state.disabled}/>
+			<DetailItemContent data={this.props.data} disabled={this.state.disabled}/>
+			<DetailItemFooter onclickedit={this.state.do_setDisabled} onclickdelete={this.do_setDisabled} disabled={this.state.disabled}/>
 		</div>
 		)
 	}
@@ -221,7 +252,9 @@ class DetailItemHeader extends React.Component {
 			<div className="item__header">
 
 				<ProfilePic />
-				<Input />
+				
+				
+				<Input value={this.props.data.fullName} infoName={""} infoClass={"name"} infoPH={"Full Name"} infoType={"text"} disabled={this.props.disabledVal}/>
 			</div>
 		)
 	}
@@ -229,18 +262,34 @@ class DetailItemHeader extends React.Component {
 
 class Input extends React.Component {
 	render() {
+		console.log(this.props.disabled)
 		return (
-			<input className="name" type="text" name="" value="Patrik Vrbovsky" placeholder="Full Name" disabled />
+			<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.props.value} placeholder={this.props.infoPH} disabled={this.props.disabled} onChange={this.render}/>
 		)
 	}
 }
 
+class DetailInputWrapWithLabel extends React.Component {
+	render() {
+		return (
+			<div className="input-wrap">
+				<label forName={this.props.infoClass}>
+					{this.props.infoLabel}
+				</label>
+				<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.props.infoValue} placeholder={this.props.infoPH} disabled={this.props.infoEnabled} />
+			</div>
+		)
+	}
+}
 class DetailItemContent extends React.Component {
 	render() {
 		return (
 			<div className="item__content">
-
-				<DetailInputWrap />
+				<DetailInputWrap infoName={"bio"} infoClass={"bio"} infoPH={"Description"} infoValue={this.props.data.bio} infoLabel={"Bio"} infoEnabled={this.props.disabled}/>
+				<DetailInputWrapWithLabel infoType={"text"} infoName={"tel"} infoClass={"tel"} infoPH={"+XXX XXX XXX XXX"} infoValue={this.props.data.phone} infoLabel={"Phone"} infoEnabled={this.props.disabled}/>
+				<DetailInputWrapWithLabel infoType={"text"} infoName={""} infoClass={"email"} infoPH={"E-mail"} infoValue={this.props.data.email} infoLabel={"E-mail"} infoEnabled={this.props.disabled}/>
+				
+				
 			</div>
 		
 		)
@@ -248,13 +297,15 @@ class DetailItemContent extends React.Component {
 }
 
 class DetailInputWrap extends React.Component {
+	
 	render() {
+		
 		return (
 			<div className="input-wrap">
-				<label formName="bio">
-					Bio
+				<label forName={this.props.infoName}>
+					{this.props.infoLabel}
 				</label>
-                <textarea name="bio" className="bio" placeholder="Decsription" value="dkfkjgi hiduhiodsuhfiuh iuwhrfiusdshfi uhdsfiuh siufhsailu fhiuhf disufhidsuhf isdufhidu hfihf isdufhidu hfihf isdufhidu hfiu" disabled>
+                <textarea name={this.props.infoName} className={this.props.infoClass} placeholder={this.props.infoPH} value={this.props.infoValue} disabled={this.props.infoEnabled} onChange={this.render}>
 				</textarea>
 			</div>
 		
@@ -263,25 +314,41 @@ class DetailInputWrap extends React.Component {
 }
 
 class DetailItemFooter extends React.Component {
+	EditPressed() {
+		console.log("somebody told me you pressed Edit...you know what? FUCK YOU MAN")
+	}
 	render() {
+
 		return (
 			<div className="item__footer">
 
-				<ButtonEdit />
-				<ButtonDelete />
+				<ButtonEdit onclickMethod={this.props.onclickedit}/>
+				<ButtonDelete onclickMethod={this.props.onclickdelete}/>
 			</div>
 		)
 	}
 }
 
 class ButtonEdit extends React.Component {
+	constructor(props){
+		super(props);
+		this.swapTo = false;
+		
+		//this.state.do_setDiabled = ;
+	}
+	
 	editContact () {
 		console.log("Edit not implemented yet.");
-		console.log(JSON.stringify(controller.data));
+		//console.log(JSON.stringify(controller.data));
+		
+		this.props.onclickMethod(this.swapTo);
+		this.swapTo = !this.swapTo;
 	}
+	
 	render() {
+
 		return (
-			<div className="button" onClick={this.editContact}>
+			<div className="button" onClick={this.editContact.bind(this)} >
 				Edit
 			</div>
 		)
@@ -313,8 +380,8 @@ class Application extends React.Component {
 	render() {
 		return (
 			<div className="app">
-				<ContactListSite />
-				<Detail />
+				<ContactListSite data={this.props.data}/>
+				<Detail data={this.props.data}/>
 			</div>
 		
 		)

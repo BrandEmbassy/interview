@@ -29,6 +29,9 @@ Controller.prototype.getJson = function () {
     return json;
 	})(); 
 	
+	//this defines if we can edit this element or not
+}
+
+Controller.prototype.editPressed = function (index) {
 	
-    console.log("JSONOBJ: " + JSON.stringify(this.data));
 }
