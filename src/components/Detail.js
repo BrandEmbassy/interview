@@ -1,8 +1,13 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import { getSelectedContact } from '../reducers';
+import Item from './Item';
 
-const Detail = () => (
-  <div>
-  </div>
-);
+const mapStateToProps = (state) => ({
+  selectedContact: getSelectedContact(state),
+});
+
+const Detail = connect(
+  mapStateToProps
+)(Item);
 
 export default Detail;
