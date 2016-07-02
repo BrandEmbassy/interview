@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import ValidatingInput from './ValidatingInput';
+import util from '../util';
 
 export default class Item extends Component {
   constructor(props) {
     super(props);
+    this.validityChanged = this.validityChanged.bind(this);
     this.setContactFromProps(props);
   }
 
@@ -19,6 +22,7 @@ export default class Item extends Component {
     this.state = {
       contact: props.selectedContact || {},
       disabled: true,
+      validatedFields: {},
     };
   }
 
@@ -28,15 +32,27 @@ export default class Item extends Component {
     });
   }
 
+  validityChanged(key, value) {
+    const field = {};
+    field[key] = value;
+    this.setState({
+      validatedFields: Object.assign({}, this.state.validatedFields, field),
+    });
+  }
+
+  allValid(validatedFields) {
+    return Object.keys(validatedFields).every(k => validatedFields[k]);
+  }
+
   render() {
-    const { contact: { fullName, bio, phone, email }, contact, disabled } = this.state;
+    const { contact: { fullName, bio, phone, email }, contact, disabled, validatedFields } = this.state;
 
     if (!this.props.selectedContact) return null;
     let mainActionButton;
     if (disabled) {
       mainActionButton = <div className="button button--edit" onClick={() => this.setState({ disabled: false })}>Edit</div>;
     } else {
-      mainActionButton = <div className="button button--positive" onClick={() => this.onSaveClick(contact)}>Save</div>;
+      mainActionButton = <div className="button button--positive" onClick={() => { if (this.allValid(validatedFields)) this.onSaveClick(contact); }}>Save</div>;
     }
     return (
       <div className="detail">
@@ -51,14 +67,24 @@ export default class Item extends Component {
                 <label htmlFor="bio">Bio</label>
                 <textarea name="bio" className="bio" value={bio} onChange={(e) => this.updateContactField({ bio: e.target.value })} placeholder="Decsription" disabled={disabled}></textarea>
               </div>
-              <div className="input-wrap">
-                <label htmlFor="tel">Phone</label>
-                <input type="text" name="tel" className="tel" value={phone} onChange={(e) => this.updateContactField({ phone: e.target.value })} placeholder="+XXX XXX XXX XXX" disabled={disabled} />
-              </div>
-              <div className="input-wrap">
-                <label htmlFor="email">E-mail</label>
-                <input type="text" className="email" value={email} onChange={(e) => this.updateContactField({ email: e.target.value })} placeholder="E-mail" disabled={disabled} />
-              </div>
+              <ValidatingInput
+                className="tel"
+                label="Phone"
+                onChange={(e) => this.updateContactField({ phone: e.target.value })}
+                validityChanged={this.validityChanged}
+                value={phone}
+                validator={util.isPhone}
+                disabled={disabled}
+              />
+              <ValidatingInput
+                className="email"
+                label="E-mail"
+                onChange={(e) => this.updateContactField({ email: e.target.value })}
+                validityChanged={this.validityChanged}
+                value={email}
+                validator={util.isEmail}
+                disabled={disabled}
+              />
             </div>
             <div className="item__footer">
               {mainActionButton}

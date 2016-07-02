@@ -17,10 +17,12 @@ describe('contacts reducer', () => {
       }], actions.saveContact({
           id: 'id',
           fullName: 'test gal',
+          phone: 0,
       }))
     ).toEqual([{
       id: 'id',
       fullName: 'test gal',
+      phone: 0,
     }])
   })
 })

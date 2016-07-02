@@ -4,7 +4,7 @@ const contact = (state, action) => {
       if (state.id !== action.contact.id) {
         return state;
       }
-      return action.contact;
+      return Object.assign({}, action.contact, { phone: Number(action.contact.phone) });
     default:
       return state;
   }
