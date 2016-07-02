@@ -116,7 +116,7 @@ class ContactListSite extends React.Component{
 				active={this.props.activeContact} 
 				onclickMethod={this.props.changeActive}/>
 				
-			<ListFooter />
+			<ListFooter changeActive={this.props.changeActive}/>
 			</div>
 		);
 	}
@@ -206,7 +206,7 @@ class ListFooter extends React.Component {
 	render() {
 		return (
 			<div className="list__footer">
-				<AddBtn />
+				<AddBtn changeActive={this.props.changeActive}/>
 			</div>
 		
 		)
@@ -218,7 +218,9 @@ class AddBtn extends React.Component {
 	
 	addContact() {
 		let index = controller.addContact()
+		this.props.changeActive(index)
 		console.log(index)
+		
 	}
 	
 	render() {
@@ -742,6 +744,7 @@ class Application extends React.Component {
 				<Detail 
 					data={this.props.data} 
 					activeContact={this.state.active}/>
+					
 					
 			</div>
 		
