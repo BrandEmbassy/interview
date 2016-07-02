@@ -42,9 +42,7 @@ Controller.prototype.savePressed = function (index, newObj) {
 		console.log("putting " + i + " with value: " + newObj[i]);
 	}
 	console.log("save Pressed:" + JSON.stringify(this.data));
-	if (this.app !== null) {
-		this.app.setState({data: this.data});
-	}
+	this.rerenderApp();
 }
 
 Controller.prototype.deletePressed = function (index, typeOfDelete) {
@@ -53,12 +51,31 @@ Controller.prototype.deletePressed = function (index, typeOfDelete) {
 		this.data.contactList.splice(index,1);
 		
 		//force app to rerender
-		if (this.app !== null) {
-			this.app.setState({data: this.data});
-		}
+		this.rerenderApp();
 	} else {
 		this.savePressed(index, {});
 	}
+}
+
+Controller.prototype.rerenderApp = function () {
+	if (this.app !== null) {
+			this.app.setState({data: this.data});
+	}
+}
+
+Controller.prototype.addContact = function () {
+	let index = -1;
+	let newContact = {
+		fullName: "",
+		bio: "",
+		phone: "",
+		email: ""
+		
+	};
+	index = this.data.contactList.push(newContact) - 1;
+	console.log("new Contact index: " + index);
+	this.rerenderApp();
+	return index;
 }
 
 Controller.prototype.setApp = function (app) {

@@ -216,9 +216,14 @@ class ListFooter extends React.Component {
 
 class AddBtn extends React.Component {
 	
+	addContact() {
+		let index = controller.addContact()
+		console.log(index)
+	}
+	
 	render() {
 		return (
-			<div className="add-bttn">
+			<div className="add-bttn" onClick={this.addContact.bind(this)}>
 				<span className="in">
 					Add new contact
 			    </span>
@@ -251,7 +256,7 @@ class DetailItem extends React.Component {
 		let arr = []
 		this.state = {
 			disabled: true,
-			do_setDisabled: this.setDisabled.bind(this),
+			do_setDisabled: this.saveMethod.bind(this),
 			do_delete: this.deleteMethod.bind(this),
 			data: {
 				fullName: this.props.data.fullName,
@@ -311,7 +316,7 @@ class DetailItem extends React.Component {
 		
 		this.setState({
 			disabled: true,
-			do_setDisabled: this.setDisabled.bind(this),
+			do_setDisabled: this.saveMethod.bind(this),
 			do_delete: this.deleteMethod.bind(this),
 			data: {
 				fullName: newprops.data.fullName,
@@ -330,18 +335,22 @@ class DetailItem extends React.Component {
 	/**
 	 * Sets all Availible fields to editable.
 	 */
-	setDisabled (value) {
-		if (value === true) {
-			console.log("I dont know how to continue. I need a pause but I am far from done.")
-			this.mySaveMethod()
-		}
+	setDisabled () {
+
 		this.setState({
-			disabled: value
+			disabled: !this.state.disabled
 		});
+	}
+	
+	saveMethod (val) {
+		if (val === true)
+			this.mySaveMethod()
+		this.setDisabled()
 	}
 	
 	deleteMethod () {
 		controller.deletePressed(this.state.data.myID, this.state.disabled)
+		this.setDisabled()
 	}
 	
 	render() {
