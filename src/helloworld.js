@@ -111,7 +111,11 @@ class ContactListSite extends React.Component{
 			<div className="list">
 			
 			<ListHeader />
-			<ListContent data={this.props.data} active={this.props.activeContact} onclickMethod={this.props.changeActive}/>
+			<ListContent 
+				data={this.props.data} 
+				active={this.props.activeContact} 
+				onclickMethod={this.props.changeActive}/>
+				
 			<ListFooter />
 			</div>
 		);
@@ -129,7 +133,12 @@ class ListContent extends React.Component {
 			<div className="list__content">
 				{
 					contats.map(function (contats) {
-						return <Item myID={id} key={id++}  data={contats} active={activeID} onclickMethod={onclickMethod}/>
+						return <Item 
+									myID={id} 
+									key={id++} 
+									data={contats} 
+									active={activeID} 
+									onclickMethod={onclickMethod}/>
 					})
 				}
 				
@@ -160,8 +169,10 @@ class Item extends React.Component {
 		
 		return (
 			
-			<div className={itemClass} onClick={this.reportClick.bind(this)} >
-			<ItemIn data={this.props.data}/>
+			<div 
+				className={itemClass} 
+				onClick={this.reportClick.bind(this)} >
+				<ItemIn data={this.props.data}/>
 			</div>
 			
 		)
@@ -173,7 +184,7 @@ class ItemIn extends React.Component {
 		return (
 			<div className="in">
 			<ProfilePic />
-			{this.props.data.fullName}
+				{this.props.data.fullName}
 			</div>
 		
 		)
@@ -224,12 +235,10 @@ class Detail extends React.Component {
 		
 		return (
 			<div className="detail">
-				{/*
-					contats.map(function (contats) {
-						return <DetailItem data={contats}/>
-					} )
-				*/}
-				<DetailItem data={contacts[this.props.activeContact]} myID={this.props.activeContact}/>
+				<DetailItem 
+					data={contacts[this.props.activeContact]} 
+					myID={this.props.activeContact}/>
+					
 			</div>
 		
 		)
@@ -243,6 +252,7 @@ class DetailItem extends React.Component {
 		this.state = {
 			disabled: true,
 			do_setDisabled: this.setDisabled.bind(this),
+			do_delete: this.deleteMethod.bind(this),
 			data: {
 				fullName: this.props.data.fullName,
 				bio: this.props.data.bio,
@@ -264,19 +274,17 @@ class DetailItem extends React.Component {
 	}
 	
 	setHeaderState(method) {
-		console.log("typeof header method: " + typeof method)
+		
 		this.setState({
 			getHeaderState: method
 		})
 	}
 	
 	setContentState(method) {
-		console.log(typeof method)
-		console.log(typeof this.state.getContentState)
 		
 		//@TODO: I think this is not legal
 		this.state.getContentState.push(method)
-		console.log(this.state.getContentState.length)
+		
 	}
 	
 	mySaveMethod() {
@@ -304,6 +312,7 @@ class DetailItem extends React.Component {
 		this.setState({
 			disabled: true,
 			do_setDisabled: this.setDisabled.bind(this),
+			do_delete: this.deleteMethod.bind(this),
 			data: {
 				fullName: newprops.data.fullName,
 				bio: newprops.data.bio,
@@ -331,14 +340,33 @@ class DetailItem extends React.Component {
 		});
 	}
 	
+	deleteMethod () {
+		controller.deletePressed(this.state.data.myID, this.state.disabled)
+	}
+	
 	render() {
-		
+		console.log("DetailItem: delete method: " + typeof this.state.do_delete)
 		return (
 		<div className="item">
 
-			<DetailItemHeader data={this.state.data} disabledVal={this.state.disabled} myID={this.state.myID} setStateGetter={this.setHeaderState.bind(this)}/>
-			<DetailItemContent data={this.state.data} disabled={this.state.disabled} myID={this.state.myID} setStateGetter={this.setContentState.bind(this)}/>
-			<DetailItemFooter onclickedit={this.state.do_setDisabled} onclickdelete={this.do_setDisabled} disabled={this.state.disabled} saveMethod={this.state.saveMethod}/>
+			<DetailItemHeader 
+				data={this.state.data} 
+				disabledVal={this.state.disabled} 
+				myID={this.state.myID} 
+				setStateGetter={this.setHeaderState.bind(this)}/>
+				
+			<DetailItemContent 
+				data={this.state.data} 
+				disabled={this.state.disabled} 
+				myID={this.state.myID} 
+				setStateGetter={this.setContentState.bind(this)}/>
+				
+			<DetailItemFooter 
+				onclickedit={this.state.do_setDisabled} 
+				onclickdelete={this.state.do_delete} 
+				disabled={this.state.disabled} 
+				saveMethod={this.state.saveMethod}/>
+				
 		</div>
 		)
 	}
@@ -352,8 +380,16 @@ class DetailItemHeader extends React.Component {
 
 				<ProfilePic />
 				
-				
-				<Input value={this.props.data.fullName} infoName={""} infoClass={"name"} infoPH={"Full Name"} infoType={"text"} disabled={this.props.disabledVal} myID={this.props.myID} setStateGetter={this.props.setStateGetter}/>
+				<Input 
+					value={this.props.data.fullName} 
+					infoName={""} 
+					infoClass={"name"} 
+					infoPH={"Full Name"} 
+					infoType={"text"} 
+					disabled={this.props.disabledVal} 
+					myID={this.props.myID} 
+					setStateGetter={this.props.setStateGetter}/>
+					
 			</div>
 		)
 	}
@@ -384,7 +420,7 @@ class Input extends React.Component {
 	}
 	
 	componentWillReceiveProps(newprobs) {
-		console.log("new props?")
+		
 		this.setState({
 			value: newprobs.value
 		});
@@ -393,7 +429,14 @@ class Input extends React.Component {
 	render() {
 		
 		return (
-			<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.state.value} placeholder={this.props.infoPH} disabled={this.props.disabled} onChange={this.handleChange.bind(this)}/>
+			<input 
+				className={this.props.infoClass} 
+				type={this.props.infoType} 
+				name={this.props.infoName} 
+				value={this.state.value} 
+				placeholder={this.props.infoPH} 
+				disabled={this.props.disabled} 
+				onChange={this.handleChange.bind(this)}/>
 		)
 	}
 }
@@ -403,27 +446,34 @@ class DetailInputWrapWithLabel extends React.Component {
 		super(props)
 		this.state = {
 			value: this.props.infoValue,
-			label: this.props.infoClass
+			label: this.props.infoLabel,
+			reportLabel: this.props.reportLabel
 		}
 		
 	}
 	
 	componentWillMount() {
 		this.props.setStateGetter(this.reportState.bind(this))
-		console.log("setCOntentGetter called")
+		
 	}
 	
 	
-	componentWillReceiveProps(newprobs) {
+	componentWillReceiveProps(newprops) {
+		
 		this.setState({
-			value: newprobs.infoValue,
-			label: newprobs.infoClass
+			value: newprops.infoValue,
+			label: newprops.infoLabel
 			
 		});
 	}
 	
 	reportState() {
-		return this.state
+		this.report = {
+			value: this.state.value,
+			label: this.state.reportLabel
+		}
+		
+		return this.report
 	}
 	
 	handleChange(ev) {
@@ -439,18 +489,55 @@ class DetailInputWrapWithLabel extends React.Component {
 				<label forName={this.props.infoClass}>
 					{this.state.label}
 				</label>
-				<input className={this.props.infoClass} type={this.props.infoType} name={this.props.infoName} value={this.state.value} placeholder={this.props.infoPH} disabled={this.props.infoEnabled} onChange={this.handleChange.bind(this)}/>
+				
+				<input 
+					className={this.props.infoClass} 
+					type={this.props.infoType} 
+					name={this.props.infoName} 
+					value={this.state.value} 
+					placeholder={this.props.infoPH} 
+					disabled={this.props.infoEnabled} 
+					onChange={this.handleChange.bind(this)}/>
+					
 			</div>
 		)
 	}
 }
 class DetailItemContent extends React.Component {
+	
 	render() {
 		return (
 			<div className="item__content">
-				<DetailInputWrap infoName={"bio"} infoClass={"bio"} infoPH={"Description"} infoValue={this.props.data.bio} infoLabel={"Bio"} infoEnabled={this.props.disabled} setStateGetter={this.props.setStateGetter}/>
-				<DetailInputWrapWithLabel infoType={"text"} infoName={"tel"} infoClass={"tel"} infoPH={"+XXX XXX XXX XXX"} infoValue={this.props.data.phone} infoLabel={"Phone"} infoEnabled={this.props.disabled} setStateGetter={this.props.setStateGetter}/>
-				<DetailInputWrapWithLabel infoType={"text"} infoName={""} infoClass={"email"} infoPH={"E-mail"} infoValue={this.props.data.email} infoLabel={"E-mail"} infoEnabled={this.props.disabled} setStateGetter={this.props.setStateGetter}/>
+				<DetailInputWrap 
+					infoName={"bio"} 
+					infoClass={"bio"} 
+					infoPH={"Description"} 
+					infoValue={this.props.data.bio} 
+					infoLabel={"Bio"} 
+					infoEnabled={this.props.disabled} 
+					setStateGetter={this.props.setStateGetter}/>
+					
+				<DetailInputWrapWithLabel 
+					infoType={"text"} 
+					infoName={"tel"} 
+					infoClass={"tel"} 
+					infoPH={"+XXX XXX XXX XXX"} 
+					infoValue={this.props.data.phone} 
+					infoLabel={"Phone"} 
+					reportLabel={"phone"} 
+					infoEnabled={this.props.disabled} 
+					setStateGetter={this.props.setStateGetter}/>
+					
+				<DetailInputWrapWithLabel 
+					infoType={"text"} 
+					infoName={""} 
+					infoClass={"email"} 
+					infoPH={"E-mail"} 
+					infoValue={this.props.data.email} 
+					reportLabel={"email"} 
+					infoLabel={"E-mail"} 
+					infoEnabled={this.props.disabled} 
+					setStateGetter={this.props.setStateGetter}/>
 				
 				
 			</div>
@@ -471,7 +558,15 @@ class DetailInputWrap extends React.Component {
 	
 	componentWillMount() {
 		this.props.setStateGetter(this.reportState.bind(this))
-		console.log("setCOntentGetter called")
+		
+	}
+	
+	componentWillReceiveProps(newprops) {
+		
+		this.setState({
+			value: newprops.infoValue,
+			label: newprops.infoClass
+		});
 	}
 	
 	reportState() {
@@ -492,7 +587,15 @@ class DetailInputWrap extends React.Component {
 				<label forName={this.props.infoName}>
 					{this.props.infoLabel}
 				</label>
-                <textarea name={this.props.infoName} className={this.state.label} placeholder={this.props.infoPH} value={this.state.value} disabled={this.props.infoEnabled} onChange={this.handleChange.bind(this)}>
+				
+                <textarea 
+					name={this.props.infoName} 
+					className={this.state.label} 
+					placeholder={this.props.infoPH} 
+					value={this.state.value} 
+					disabled={this.props.infoEnabled} 
+					onChange={this.handleChange.bind(this)}>
+					
 				</textarea>
 			</div>
 		
@@ -503,7 +606,7 @@ class DetailInputWrap extends React.Component {
 class DetailItemFooter extends React.Component {
 	
 	render() {
-
+	console.log("type delete " + typeof this.props.onclickdelete)
 		return (
 			<div className="item__footer">
 
@@ -523,43 +626,44 @@ class ButtonEdit extends React.Component {
 			buttonClass: "button"
 		}
 		
-		//this.state.do_setDiabled = ;
+		
 	}
 	
 	editContact () {
-		console.log("Edit not implemented yet.");
-		//console.log(JSON.stringify(controller.data));
-		
-		
-		this.props.onclickMethod(this.state.swapTo);
-		
+		this.props.onclickMethod(this.state.swapTo)
 		
 		this.setState({
 			swapTo: !this.state.swapTo,
 			buttonName: this.state.swapTo ? "Edit" : "Save", //condition is resolved before swapTo is changed
 			buttonClass: this.state.swapTo ?  "button" : "button button--positive"
 		})
-		
-		
 	}
 	
 	render() {
 
 		return (
-			<div className={this.state.buttonClass} onClick={this.editContact.bind(this)} >
-				{this.state.buttonName}
+			<div 
+				className={this.state.buttonClass} 
+				onClick={this.editContact.bind(this)} >
+				
+					{this.state.buttonName}
 			</div>
 		)
 	}
 }
 
 class ButtonDelete extends React.Component {
+		
+	
 	deleteContact() {
 		console.log("deleteContact is note implemented yet");
+		console.log("type of method " + typeof this.props.onclickMethod)
+		this.props.onclickMethod();
 	}
+	
 	render() {
 		return (
-			<div className="button button--negative" onClick={this.deleteContact}>
+			<div className="button button--negative" onClick={this.deleteContact.bind(this)}>
 				Delete
 			</div>
 		)
@@ -573,16 +677,73 @@ class ButtonDelete extends React.Component {
 
 
 
-
+/**
+ * @description - base React class of this webpage - Main rendering element that contains everything on page.
+ */
 class Application extends React.Component {
 	constructor (props) {
 		super (props);
+		/**
+		 * @private
+		 * @description - defines all state related values, that needs to be watched 
+		 * and if changed Class and all its childs should rerender
+		 */
 		this.state = {
-			active: 0,
-			changeActive: this.myChangeActive.bind(this)
+			/**
+			 * @description - defined which of contats is active right now.
+			 * @type Number
+			 * @protected
+			 */
+			active: 0, 
+			/**
+			 * @description - defines method that changes active contact number.
+			 * @protected
+			 * @type Function
+			 */
+			changeActive: this.myChangeActive.bind(this),
+			/**
+			 * @description - data is an object with values for all parts of page
+			 * @protected
+			 * @type Object
+			 */
+			data: this.props.data
 		}
+		
+		// Application is now defined so we can finally give Controller it's reference.
+		// It needs it for proper work with data.
 		controller.setApp(this)
 	}
+	
+	componentWillReceiveProps(newprobs) {
+		
+		this.setState({
+			data: this.props.data
+		})
+		this.myChangeActive(this.state.active)
+	}
+	
+	render() {
+		return (
+			<div className="app">
+				<ContactListSite 
+					data={this.state.data} 
+					activeContact={this.state.active} 
+					changeActive={this.state.changeActive}/>
+					
+				<Detail 
+					data={this.props.data} 
+					activeContact={this.state.active}/>
+					
+			</div>
+		
+		)
+	}
+	
+	/**
+	 * @decsription - Method change this.state.active to new value and triggers rerendering of all related React objects
+	 * @param {Number} val - new value for this.state.active
+	 * @returns {undefined}
+	 */
 	myChangeActive(val) {
 		let maxVal = this.props.data.contactList.length;
 		
@@ -592,34 +753,17 @@ class Application extends React.Component {
 		this.setState({
 			active: val
 		});
-		//this.state.active = val;
+		
 		
 	}
 	
 	
 	
-	render() {
-		//this.myChangeActive(1);
-		return (
-			<div className="app">
-				<ContactListSite data={this.props.data} activeContact={this.state.active} changeActive={this.state.changeActive}/>
-				<Detail data={this.props.data} activeContact={this.state.active}/>
-			</div>
-		
-		)
-	}
+	
 	
 }
-/*
 
-*/
 ReactDOM.render(
 	<Application data={controller.data}/>, 	//<div><ContactListSite /><Detail /></div>,
 	document.body					//document.getElementById("app")
 );
-
-/*ReactDOM.render(
-	<div><ContactListSite /><Detail /></div>,
-	document.getElementById("app")
-
-);*/

@@ -34,16 +34,30 @@ Controller.prototype.getJson = function () {
 }
 
 Controller.prototype.savePressed = function (index, newObj) {
-	console.log(JSON.stringify(this.data))
-	console.log(JSON.stringify(newObj))
+	console.log(JSON.stringify(this.data));
+	console.log(JSON.stringify(newObj));
 	
 	for (let i in newObj) {
 		this.data.contactList[index][i] = newObj[i];
-		console.log("putting " + i + " with value: " + newObj[i])
+		console.log("putting " + i + " with value: " + newObj[i]);
 	}
 	console.log("save Pressed:" + JSON.stringify(this.data));
 	if (this.app !== null) {
-		this.app.render();
+		this.app.setState({data: this.data});
+	}
+}
+
+Controller.prototype.deletePressed = function (index, typeOfDelete) {
+	console.log("Controller.deletePressed " + typeOfDelete);
+	if (typeOfDelete) {
+		this.data.contactList.splice(index,1);
+		
+		//force app to rerender
+		if (this.app !== null) {
+			this.app.setState({data: this.data});
+		}
+	} else {
+		this.savePressed(index, {});
 	}
 }
 
