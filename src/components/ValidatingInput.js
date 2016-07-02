@@ -2,6 +2,12 @@ import React, { PropTypes, Component } from 'react';
 
 export default class ValidatingInput extends Component {
 
+  componentWillMount() {
+    const { validator, value, className, validityChanged } = this.props;
+    const isValid = validator(value);
+    validityChanged(className, isValid);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { value, className, validator, validityChanged } = nextProps;
     const isValid = validator(value);

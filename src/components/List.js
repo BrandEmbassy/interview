@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ContactLink from './ContactLink';
 
-const List = ({ contacts, selectedContact, onContactClick }) => (
+const List = ({ contacts, selectedContact, onContactClick, onNewContactClick }) => (
   <div className="list">
     <div className="list__header">
       <div className="heading">Contact List</div>
@@ -16,6 +16,11 @@ const List = ({ contacts, selectedContact, onContactClick }) => (
         />
       )}
     </div>
+    <div className="list__footer">
+      <div className="add-bttn" onClick={() => onNewContactClick()}>
+        <span className="in">Add new contact</span>
+      </div>
+    </div>
   </div>
 );
 
@@ -25,6 +30,7 @@ List.propTypes = {
     fullName: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   onContactClick: PropTypes.func.isRequired,
+  onNewContactClick: PropTypes.func.isRequired,
   selectedContact: PropTypes.shape({
     id: PropTypes.string.isRequired,
   }),

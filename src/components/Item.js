@@ -19,9 +19,10 @@ export default class Item extends Component {
   }
 
   setContactFromProps(props) {
+    const contact = props.selectedContact || {};
     this.state = {
-      contact: props.selectedContact || {},
-      disabled: true,
+      contact,
+      disabled: !!contact.fullName,
       validatedFields: {},
     };
   }

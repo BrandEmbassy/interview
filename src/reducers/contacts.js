@@ -1,5 +1,13 @@
 const contact = (state, action) => {
   switch (action.type) {
+    case 'NEW_CONTACT':
+      return {
+        id: action.id,
+        fullName: '',
+        bio: '',
+        phone: '',
+        email: '',
+      };
     case 'SAVE_CONTACT':
       if (state.id !== action.contact.id) {
         return state;
@@ -12,6 +20,11 @@ const contact = (state, action) => {
 
 const contacts = (state = [], action) => {
   switch (action.type) {
+    case 'NEW_CONTACT':
+      return [
+        ...state,
+        contact(undefined, action),
+      ];
     case 'SAVE_CONTACT':
       return state.map(t =>
         contact(t, action)

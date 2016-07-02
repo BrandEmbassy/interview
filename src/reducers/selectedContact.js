@@ -3,6 +3,8 @@ const selectedContact = (state = '', action) => {
   switch (action.type) {
     case 'SELECT_CONTACT':
       return action.id;
+    case 'NEW_CONTACT':
+      return action.id;
     default:
       return state;
   }

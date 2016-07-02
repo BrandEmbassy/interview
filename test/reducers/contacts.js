@@ -25,4 +25,13 @@ describe('contacts reducer', () => {
       phone: 0,
     }])
   })
+
+  it('should handle NEW_CONTACT', () => {
+    expect(
+      reducer([{
+        id: 'id',
+        fullName: 'test guy',
+      }], actions.newContact()).length
+    ).toEqual(2)
+  })
 })

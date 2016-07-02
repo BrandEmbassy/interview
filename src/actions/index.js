@@ -1,3 +1,4 @@
+import { v4 } from 'node-uuid';
 
 export const selectContact = (id) => ({
   type: 'SELECT_CONTACT',
@@ -7,4 +8,9 @@ export const selectContact = (id) => ({
 export const saveContact = (contact) => ({
   type: 'SAVE_CONTACT',
   contact,
+});
+
+export const newContact = () => ({
+  type: 'NEW_CONTACT',
+  id: v4(),
 });

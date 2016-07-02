@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { selectContact } from '../actions';
+import { selectContact, newContact } from '../actions';
 import { getSelectedContact } from '../reducers';
 import List from './List';
 
@@ -11,6 +11,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onContactClick(id) {
     dispatch(selectContact(id));
+  },
+  onNewContactClick() {
+    dispatch(newContact());
   },
 });
 
