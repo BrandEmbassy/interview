@@ -15,14 +15,14 @@ let contact = {
 describe('components', () => {
   describe('Item', () => {
     it('should render correctly', () => {
-      let wrapper = shallow(<Item />);
+      let wrapper = shallow(<Item onSaveClick={() => {}} />);
       wrapper.setProps({selectedContact: contact});
 
       expect(wrapper.find('.name').get(0).props.value).toBe(contact.fullName);
     })
 
     it('should enable input when edit is clicked', () => {
-      let wrapper = shallow(<Item />);
+      let wrapper = shallow(<Item onSaveClick={() => {}} />);
       wrapper.setProps({selectedContact: contact});
 
       expect(wrapper.find('.name').get(0).props.disabled).toBe(true);

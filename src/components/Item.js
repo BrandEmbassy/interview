@@ -1,25 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class Item extends Component {
+  constructor(props) {
+    super(props);
+    this.setContactFromProps(props);
+  }
 
   componentWillReceiveProps(nextProps) {
-    const { fullName, bio, phone, email } = nextProps.selectedContact || {};
+    this.setContactFromProps(nextProps);
+  }
+
+  onSaveClick(contact) {
+    this.props.onSaveClick(contact);
+    this.setState({ disabled: true });
+  }
+
+  setContactFromProps(props) {
     this.state = {
-      fullName,
-      bio,
-      phone,
-      email,
+      contact: props.selectedContact || {},
       disabled: true,
     };
   }
 
+  updateContactField(field) {
+    this.setState({
+      contact: Object.assign({}, this.state.contact, field),
+    });
+  }
+
   render() {
+    const { contact: { fullName, bio, phone, email }, contact, disabled } = this.state;
+
     if (!this.props.selectedContact) return null;
     let mainActionButton;
-    if (this.state.disabled) {
+    if (disabled) {
       mainActionButton = <div className="button button--edit" onClick={() => this.setState({ disabled: false })}>Edit</div>;
     } else {
-      mainActionButton = <div className="button button--positive">Save</div>;
+      mainActionButton = <div className="button button--positive" onClick={() => this.onSaveClick(contact)}>Save</div>;
     }
     return (
       <div className="detail">
@@ -27,20 +44,20 @@ export default class Item extends Component {
           <form>
             <div className="item__header">
               <div className="profile-pic"></div>
-              <input className="name" value={this.state.fullName} onChange={(e) => this.setState({ fullName: e.target.value })} placeholder="Full Name" disabled={this.state.disabled} />
+              <input className="name" value={fullName} onChange={(e) => this.updateContactField({ fullName: e.target.value })} placeholder="Full Name" disabled={disabled} />
             </div>
             <div className="item__content">
               <div className="input-wrap">
                 <label htmlFor="bio">Bio</label>
-                <textarea name="bio" className="bio" value={this.state.bio} onChange={(e) => this.setState({ bio: e.target.value })} placeholder="Decsription" disabled={this.state.disabled}></textarea>
+                <textarea name="bio" className="bio" value={bio} onChange={(e) => this.updateContactField({ bio: e.target.value })} placeholder="Decsription" disabled={disabled}></textarea>
               </div>
               <div className="input-wrap">
                 <label htmlFor="tel">Phone</label>
-                <input type="text" name="tel" className="tel" value={this.state.phone} onChange={(e) => this.setState({ phone: e.target.value })} placeholder="+XXX XXX XXX XXX" disabled={this.state.disabled} />
+                <input type="text" name="tel" className="tel" value={phone} onChange={(e) => this.updateContactField({ phone: e.target.value })} placeholder="+XXX XXX XXX XXX" disabled={disabled} />
               </div>
               <div className="input-wrap">
                 <label htmlFor="email">E-mail</label>
-                <input type="text" className="email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} placeholder="E-mail" disabled={this.state.disabled} />
+                <input type="text" className="email" value={email} onChange={(e) => this.updateContactField({ email: e.target.value })} placeholder="E-mail" disabled={disabled} />
               </div>
             </div>
             <div className="item__footer">
@@ -56,6 +73,7 @@ export default class Item extends Component {
 }
 
 Item.propTypes = {
+  onSaveClick: PropTypes.func.isRequired,
   selectedContact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     fullName: PropTypes.string.isRequired,
