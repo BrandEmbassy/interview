@@ -14,3 +14,8 @@ export const newContact = () => ({
   type: 'NEW_CONTACT',
   id: v4(),
 });
+
+export const deleteContact = (id) => ({
+  type: 'DELETE_CONTACT',
+  id,
+});

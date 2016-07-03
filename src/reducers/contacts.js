@@ -29,6 +29,8 @@ const contacts = (state = [], action) => {
       return state.map(t =>
         contact(t, action)
       );
+    case 'DELETE_CONTACT':
+      return state.filter(t => t.id !== action.id);
     default:
       return state;
   }

@@ -18,6 +18,12 @@ export default class Item extends Component {
     this.setState({ disabled: true });
   }
 
+  onDeleteClick(id) {
+    /* eslint-disable no-alert */
+    if (confirm('Do you want to delete this contact?')) this.props.onDeleteClick(id);
+    /* eslint-enable no-alert */
+  }
+
   setContactFromProps(props) {
     const contact = props.selectedContact || {};
     this.state = {
@@ -46,7 +52,7 @@ export default class Item extends Component {
   }
 
   render() {
-    const { contact: { fullName, bio, phone, email }, contact, disabled, validatedFields } = this.state;
+    const { contact: { id, fullName, bio, phone, email }, contact, disabled, validatedFields } = this.state;
 
     if (!this.props.selectedContact) return null;
     let mainActionButton;
@@ -56,44 +62,45 @@ export default class Item extends Component {
       mainActionButton = <div className="button button--positive" onClick={() => { if (this.allValid(validatedFields)) this.onSaveClick(contact); }}>Save</div>;
     }
     return (
-      <div className="detail">
-        <div className="item">
-          <form>
-            <div className="item__header">
-              <div className="profile-pic"></div>
-              <input className="name" value={fullName} onChange={(e) => this.updateContactField({ fullName: e.target.value })} placeholder="Full Name" disabled={disabled} />
+      <div className="item">
+        <form>
+          <div className="item__header">
+            <div className="profile-pic"></div>
+            <input className="name" value={fullName} onChange={(e) => this.updateContactField({ fullName: e.target.value })} placeholder="Full Name" disabled={disabled} />
+          </div>
+          <div className="item__content">
+            <div className="input-wrap">
+              <label htmlFor="bio">Bio</label>
+              <textarea name="bio" className="bio" value={bio} onChange={(e) => this.updateContactField({ bio: e.target.value })} placeholder="Decsription" disabled={disabled}></textarea>
             </div>
-            <div className="item__content">
-              <div className="input-wrap">
-                <label htmlFor="bio">Bio</label>
-                <textarea name="bio" className="bio" value={bio} onChange={(e) => this.updateContactField({ bio: e.target.value })} placeholder="Decsription" disabled={disabled}></textarea>
-              </div>
-              <ValidatingInput
-                className="tel"
-                label="Phone"
-                onChange={(e) => this.updateContactField({ phone: e.target.value })}
-                validityChanged={this.validityChanged}
-                value={phone}
-                validator={util.isPhone}
-                disabled={disabled}
-              />
-              <ValidatingInput
-                className="email"
-                label="E-mail"
-                onChange={(e) => this.updateContactField({ email: e.target.value })}
-                validityChanged={this.validityChanged}
-                value={email}
-                validator={util.isEmail}
-                disabled={disabled}
-              />
-            </div>
-            <div className="item__footer">
-              {mainActionButton}
-              &nbsp;
-              <div className="button button--negative">Delete</div>
-            </div>
-          </form>
-        </div>
+            <ValidatingInput
+              className="tel"
+              label="Phone"
+              onChange={(e) => this.updateContactField({ phone: e.target.value })}
+              validityChanged={this.validityChanged}
+              value={phone}
+              validator={util.isPhone}
+              disabled={disabled}
+            />
+            <ValidatingInput
+              className="email"
+              label="E-mail"
+              onChange={(e) => this.updateContactField({ email: e.target.value })}
+              validityChanged={this.validityChanged}
+              value={email}
+              validator={util.isEmail}
+              disabled={disabled}
+            />
+          </div>
+          <div className="item__footer">
+            {mainActionButton}
+            &nbsp;
+            <div
+              className="button button--negative"
+              onClick={() => this.onDeleteClick(id)}
+            >Delete</div>
+          </div>
+        </form>
       </div>
     );
   }
@@ -101,6 +108,7 @@ export default class Item extends Component {
 
 Item.propTypes = {
   onSaveClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
   selectedContact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     fullName: PropTypes.string.isRequired,
