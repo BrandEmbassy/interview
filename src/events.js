@@ -10,6 +10,11 @@ Controller.prototype.fireAlert = function (time) {
 	setInterval(this.cron.bind(this),time, this.testMessage);
 };
 
+/**
+ * @description - 	this method was for testing purposes of ECMAScript6 syntax only and now it is not used.
+ *					It will be deleted in final version of project.
+ *
+ */
 Controller.prototype.cron = function (message) {
 	this.iteration++;
 	console.log(message + " " + this.iteration);
@@ -29,24 +34,24 @@ Controller.prototype.getJson = function () {
 		});
     return json;
 	})(); 
-	
+	this.data.newContact = false;
 	//this defines if we can edit this element or not
 }
 
 Controller.prototype.savePressed = function (index, newObj) {
-	console.log(JSON.stringify(this.data));
-	console.log(JSON.stringify(newObj));
+	//console.log(JSON.stringify(this.data));
+	//console.log(JSON.stringify(newObj));
 	
 	for (let i in newObj) {
 		this.data.contactList[index][i] = newObj[i];
-		console.log("putting " + i + " with value: " + newObj[i]);
+		//console.log("putting " + i + " with value: " + newObj[i]);
 	}
-	console.log("save Pressed:" + JSON.stringify(this.data));
+	//console.log("save Pressed:" + JSON.stringify(this.data));
 	this.rerenderApp();
 }
 
 Controller.prototype.deletePressed = function (index, typeOfDelete) {
-	console.log("Controller.deletePressed " + typeOfDelete);
+	//console.log("Controller.deletePressed " + typeOfDelete);
 	if (typeOfDelete) {
 		this.data.contactList.splice(index,1);
 		
@@ -73,12 +78,17 @@ Controller.prototype.addContact = function () {
 		
 	};
 	index = this.data.contactList.push(newContact) - 1;
-	console.log("new Contact index: " + index);
+	this.data.newContact = true;
+	//console.log("new Contact index: " + index);
 	this.rerenderApp();
 	return index;
 }
 
+Controller.prototype.addContactCallback = function() {
+	this.data.newContact = false;
+}
+
 Controller.prototype.setApp = function (app) {
 	this.app = app;
-	console.log("APP SET")
+	//console.log("APP SET")
 }
