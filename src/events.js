@@ -55,6 +55,7 @@ Controller.prototype.deletePressed = function (index, typeOfDelete) {
 	if (typeOfDelete) {
 		this.data.contactList.splice(index,1);
 		
+		this.app.checkAfterDelete(this.data.contactList.length - 1);
 		//force app to rerender
 		this.rerenderApp();
 	} else {

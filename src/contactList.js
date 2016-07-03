@@ -48,6 +48,12 @@ class Application extends React.Component {
 		this.myChangeActive(this.state.active)
 	}
 	
+	checkAfterDelete (last) {
+		if (this.state.active > last) {
+			this.setState({active: last})
+		}
+	}
+	
 	render() {
 		
 		return (
