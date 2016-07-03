@@ -48,6 +48,11 @@ class Application extends React.Component {
 		this.myChangeActive(this.state.active)
 	}
 	
+	/**
+	 * @description - checks if active contat is not out of contact array and 
+	 * change active contact when it is.
+	 * @param {Number} last - index of last contact in array
+	 */
 	checkAfterDelete (last) {
 		if (this.state.active > last) {
 			this.setState({active: last})
@@ -97,6 +102,9 @@ class Application extends React.Component {
 	
 }
 
+/*
+ * Connects this React App to HTML content
+ */
 ReactDOM.render(
 			<Application data={controller.data}/>, 	//<div><ContactListSite /><Detail /></div>,
 			document.body					//document.getElementById("app")	

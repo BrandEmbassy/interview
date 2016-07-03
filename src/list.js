@@ -4,7 +4,9 @@
 
 
 
-
+/**
+ * @describe - Main Element of contact overwiev
+ */
 class ContactListSite extends React.Component{
 	render() {
 		
@@ -23,6 +25,9 @@ class ContactListSite extends React.Component{
 	}
 }
 
+/**
+ * Defines headline of contact overview
+ */
 class ListHeader extends React.Component {
 	render() {
 		return (
@@ -35,6 +40,9 @@ class ListHeader extends React.Component {
 	}
 }
 
+/**
+ * Holds content of contactList overview
+ */
 class ListContent extends React.Component {
 	render() {
 		let contats = this.props.data.contactList

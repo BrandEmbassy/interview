@@ -2,6 +2,9 @@
 	START OF DETAIL CODE
 */
 
+/**
+ * @description - Root Element for right part of site.
+ */
 class Detail extends React.Component {
 	
 	render() {
@@ -21,6 +24,9 @@ class Detail extends React.Component {
 	}
 }
 
+/*
+ * Represent 1 Item in Detail part of site
+ */
 class DetailItem extends React.Component {
 	constructor(props){
 		super(props);
@@ -49,40 +55,6 @@ class DetailItem extends React.Component {
 		})
 	}
 	
-	setHeaderState(method) {
-		
-		this.setState({
-			getHeaderState: method
-		})
-	}
-	
-	setContentState(method) {
-		
-		//@TODO: I think this is not legal
-		this.state.getContentState.push(method)
-		
-	}
-	
-	mySaveMethod() {
-		let newValues = {}
-		//console.log("headerMethod: "+ typeof this.state.getHeaderState)
-		let newVals = this.state.getHeaderState()
-		for (let i in newVals){
-			
-			newValues["fullName"] = newVals[i];
-		}
-		let reportArray = this.state.getContentState
-		//console.log("RA.length:" + reportArray.length)
-		for (let j = 0; j < reportArray.length; j++){
-			let report = this.state.getContentState[j]()
-			newValues[report.label] = report.value;
-		}
-		//console.log("result: " + JSON.stringify(newValues))
-		
-		//this.state.getContentState()
-		controller.savePressed(this.state.data.myID, newValues)
-	}
-	
 	componentWillReceiveProps(newprops) {
 		
 		this.setState({
@@ -103,6 +75,50 @@ class DetailItem extends React.Component {
 	}
 	
 	/**
+	 * sets function for getting data from Header (fullName) 
+	 */
+	setHeaderState(method) {
+		
+		this.setState({
+			getHeaderState: method
+		})
+	}
+	
+	/**
+	 * sets function for getting data from Content part of Detail (bio, phone, email) 
+	 */
+	setContentState(method) {
+		
+		//@TODO: I think this is not legal
+		this.state.getContentState.push(method)
+		
+	}
+	
+	/**
+	 * method for saving editations of contact shown in Detail
+	 */
+	mySaveMethod() {
+		let newValues = {}
+		//console.log("headerMethod: "+ typeof this.state.getHeaderState)
+		let newVals = this.state.getHeaderState()
+		for (let i in newVals){
+			
+			newValues["fullName"] = newVals[i];
+		}
+		let reportArray = this.state.getContentState
+		//console.log("RA.length:" + reportArray.length)
+		for (let j = 0; j < reportArray.length; j++){
+			let report = this.state.getContentState[j]()
+			newValues[report.label] = report.value;
+		}
+		//console.log("result: " + JSON.stringify(newValues))
+		
+		//this.state.getContentState()
+		controller.savePressed(this.state.data.myID, newValues)
+	}
+	
+	
+	/**
 	 * Sets all Availible fields to editable.
 	 */
 	setDisabled () {
@@ -112,12 +128,18 @@ class DetailItem extends React.Component {
 		});
 	}
 	
+	/**
+	 * Interface for using mysaveMethod by Save Button
+	 */
 	saveMethod (val) {
 		if (val === true)
 			this.mySaveMethod()
 		this.setDisabled()
 	}
 	
+	/**
+	 * interface method for Delete Button
+	 */
 	deleteMethod () {
 		controller.deletePressed(this.state.data.myID, this.state.disabled)
 		this.setDisabled()
@@ -153,6 +175,9 @@ class DetailItem extends React.Component {
 	
 }
 
+/**
+ * Header of Detail - it contains Full Name of contact
+ */
 class DetailItemHeader extends React.Component {
 	render() {
 		return (
@@ -245,7 +270,10 @@ class DetailInputWrapWithLabel extends React.Component {
 			
 		});
 	}
-	
+
+	/**
+	 * Return actual values of this field and it's label
+	 */
 	reportState() {
 		this.report = {
 			value: this.state.value,
@@ -359,6 +387,9 @@ class DetailInputWrap extends React.Component {
 		});
 	}
 	
+	/**
+	 * Return actual value of this field and it's label
+	 */
 	reportState() {
 		return this.state
 	}
@@ -393,6 +424,9 @@ class DetailInputWrap extends React.Component {
 	}
 }
 
+/**
+ * Contain all buttons in Detail part of pageX
+ */
 class DetailItemFooter extends React.Component {
 	constructor (props) {
 		super(props)
@@ -425,11 +459,17 @@ class DetailItemFooter extends React.Component {
 			this.setNewState(true)
 	}
 	
+	/**
+	 * Edit button click event handler
+	 */
 	editClicked() {
 		this.state.editOnClick(this.state.buttonState)
 		this.setNewState()
 	}
 	
+	/**
+	 * Delete button click event handler
+	 */
 	deleteClicked() {
 		this.state.delOnClick()
 		if (this.state.buttonState)
@@ -437,7 +477,9 @@ class DetailItemFooter extends React.Component {
 	}
 	
 	
-	
+	/**
+	 * Sets new state of this object baset on actual state or given value.
+	 */
 	setNewState(val = false) {
 		let newState = {}
 		if (val || !this.state.buttonState) {
