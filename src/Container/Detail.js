@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import { reduxForm, getValues } from 'redux-form'
 
 import Item from '../Component/Detail/Item'
 import * as DetailActions from '../Action/Detail'
@@ -9,25 +9,25 @@ import Form from '../Form/Contact'
 
 class Detail extends React.Component {
   renderItem() {
-    // Contact
-    const { editContact, saveContact, deleteContact, isEditing, contact, ...rest } = this.props
-    const id = contact.id
+    const { editContact, saveContact, deleteContact, contact, form, ...rest } = this.props
 
-    return (
-      <Item {...rest}
-            isEditing={isEditing}
-            onEdit={(ev) => editContact(id)}
-            onSave={(ev) => saveContact(id)}
-            onDelete={(ev) => deleteContact(id)} />
-    )
+    if(contact) {
+      const id = contact.id
+
+      return (
+        <Item key={id}
+              {...rest}
+              onEdit={(ev) => editContact(id)}
+              onSave={(ev) => saveContact(id, getValues(form))}
+              onDelete={(ev) => deleteContact(id)} />
+      )
+    }
   }
 
   render() {
-    const { contact } = this.props
-
     return (
       <div className="detail">
-        {contact && this.renderItem()}
+        {this.renderItem()}
       </div>
     )
   }
@@ -37,6 +37,7 @@ function mapStateToProps(state) {
   const id = state.selectedId
 
   return {
+    form: state.form.contact,
     contact: id && state.contacts.find((contact) => contact.id === id),
     isEditing: state.isEditing
   }
