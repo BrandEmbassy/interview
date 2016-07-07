@@ -1,6 +1,22 @@
 import React from 'react'
 
 export default class DetailItem extends React.Component {
+
+  renderButtons() {
+    const { isEdited, onEdit, onSave, onDelete } = this.props
+    const buttons = []
+
+    if(isEdited) {
+      buttons.push(<div key="save" className="button button--positive" onClick={onSave}>Save</div>)
+    } else {
+      buttons.push(<div key="edit" className="button" onClick={onEdit}>Edit</div>)
+    }
+
+    buttons.push(<div key="delete" className="button button--negative" onClick={onDelete}>Delete</div>)
+
+    return buttons
+  }
+
   render() {
     const { fullName, bio, phone, email, isEdited } = this.props
 
@@ -29,10 +45,7 @@ export default class DetailItem extends React.Component {
           </div>
         </div>
         <div className="item__footer">
-          {
-            isEdited ? <div className="button button--positive">Save</div> : <div className="button">Edit</div>
-          }
-          <div className="button button--negative">Delete</div>
+          {this.renderButtons()}
         </div>
       </div>
     )

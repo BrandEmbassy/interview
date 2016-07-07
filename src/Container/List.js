@@ -17,10 +17,15 @@ class List extends React.Component {
         <Header />
         <div className="list__content">
           {this.props.contactList.map((contact) => {
-            return <Item key={contact.id} fullName={contact.fullName} active={false} />
+            return (
+              <Item key={contact.id}
+                    fullName={contact.fullName}
+                    active={false}
+                    onSelect={() => this.props.selectContact(contact.id)} />
+            )
           })}
         </div>
-        <Footer />
+        <Footer onAddContact={this.props.addContact}/>
       </div>
     )
   }

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import cn from 'classnames'
 
-const Item = ({ fullName, active }) => {
+const Item = ({ fullName, active, onSelect }) => {
   const className = cn('item', {'item--active' : active})
 
   return (
-    <div className={className}>
+    <div className={className} onClick={onSelect}>
       <div className="in">
         <div className="profile-pic"></div>
         {fullName}

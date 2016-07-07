@@ -6,10 +6,23 @@ import Item from '../Component/Detail/Item'
 import * as DetailActions from '../Action/Detail'
 
 class Detail extends React.Component {
+  renderItem(contact) {
+    const { editContact, saveContact, deleteContact } = this.props
+
+    return (
+      <Item {...contact}
+            onEdit={(ev) => editContact(contact.id)}
+            onSave={(ev) => saveContact(contact.id)}
+            onDelete={(ev) => deleteContact(contact.id)} />
+    )
+  }
+
   render() {
+    const { contact } = this.props
+
     return (
       <div className="detail">
-        {this.propscontact && <Item {...this.props} />}
+        {contact && this.renderItem(contact)}
       </div>
     )
   }
@@ -17,10 +30,9 @@ class Detail extends React.Component {
 
 function mapStateToProps(state) {
   const id = state.selectedContactId
-  const contact = id && state.contactList.find((contact) => contact.id === id)
 
   return {
-    contact: contact
+    contact: id && state.contactList.find((contact) => contact.id === id)
   }
 }
 
