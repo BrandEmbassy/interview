@@ -10,13 +10,13 @@ import * as ListActions from '../Action/List'
 
 class List extends React.Component {
   render() {
-    const {contactList} = this.props
+    const {contacts} = this.props
 
     return (
       <div className="list">
         <Header />
         <div className="list__content">
-          {this.props.contactList.map((contact) => {
+          {this.props.contacts.map((contact) => {
             return (
               <Item key={contact.id}
                     fullName={contact.fullName}
@@ -33,7 +33,7 @@ class List extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    contactList: state.contactList
+    contacts: state.contacts
   }
 }
 

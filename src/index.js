@@ -8,7 +8,7 @@ import { configureStore } from './Store'
 import App from './Container/App'
 
 const initialState = {
-  "contactList": [
+  "contacts": [
     {
       "id": v4(),
       "fullName": "John Smith",

@@ -29,10 +29,10 @@ class Detail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const id = state.selectedContactId
+  const id = state.selectedId
 
   return {
-    contact: id && state.contactList.find((contact) => contact.id === id)
+    contact: id && state.contacts.find((contact) => contact.id === id)
   }
 }
 
