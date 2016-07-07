@@ -1,14 +1,12 @@
 import React from 'react'
-import { reduxForm } from 'redux-form'
-import Form from '../../Form/Contact'
 
-class DetailItem extends React.Component {
+export default class DetailItem extends React.Component {
 
   renderButtons() {
-    const { isEdited, onSave, onEdit, onDelete } = this.props
+    const { isEditing, onSave, onEdit, onDelete } = this.props
     const buttons = []
 
-    if(isEdited) {
+    if(isEditing) {
       buttons.push(<div key="save" type="submit" className="button button--positive" onClick={onSave}>Save</div>)
     } else {
       buttons.push(<div key="edit" className="button" onClick={onEdit}>Edit</div>)
@@ -57,6 +55,3 @@ class DetailItem extends React.Component {
     )
   }
 }
-
-// TODO: form definition should be somewhere else
-export default reduxForm(...Form)(DetailItem)

@@ -1,17 +1,20 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { reduxForm } from 'redux-form'
 
 import Item from '../Component/Detail/Item'
 import * as DetailActions from '../Action/Detail'
+import Form from '../Form/Contact'
 
 class Detail extends React.Component {
-  renderItem(contact) {
-    const { editContact, saveContact, deleteContact, isEditing } = this.props
+  renderItem() {
+    // Contact
+    const { editContact, saveContact, deleteContact, isEditing, contact, ...rest } = this.props
     const id = contact.id
 
     return (
-      <Item {...contact}
+      <Item {...rest}
             isEditing={isEditing}
             onEdit={(ev) => editContact(id)}
             onSave={(ev) => saveContact(id)}
@@ -24,7 +27,7 @@ class Detail extends React.Component {
 
     return (
       <div className="detail">
-        {contact && this.renderItem(contact)}
+        {contact && this.renderItem()}
       </div>
     )
   }
@@ -43,7 +46,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(DetailActions, dispatch)
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Detail)
+export default (
+  reduxForm(...Form)(
+    connect(mapStateToProps,mapDispatchToProps)(
+      Detail
+    )
+  )
+)
