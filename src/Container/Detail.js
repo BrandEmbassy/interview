@@ -8,12 +8,13 @@ import * as DetailActions from '../Action/Detail'
 class Detail extends React.Component {
   renderItem(contact) {
     const { editContact, saveContact, deleteContact } = this.props
+    const id = contact.id
 
     return (
       <Item {...contact}
-            onEdit={(ev) => editContact(contact.id)}
-            onSave={(ev) => saveContact(contact.id)}
-            onDelete={(ev) => deleteContact(contact.id)} />
+            onEdit={(ev) => editContact(id)}
+            onSave={(ev) => saveContact(id)}
+            onDelete={(ev) => deleteContact(id)} />
     )
   }
 

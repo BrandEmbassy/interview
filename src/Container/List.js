@@ -32,6 +32,7 @@ class List extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state.form)
   return {
     contacts: state.contacts
   }
