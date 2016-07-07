@@ -1,11 +1,11 @@
-import { ADD_CONTACT } from '../Action/List'
+import { ADD_CONTACT, SELECT_CONTACT } from '../Action/List'
 import { EDIT_CONTACT, SAVE_CONTACT, DELETE_CONTACT } from '../Action/Detail'
 
 const findIndexById = (contacts, id) => {
   return contacts.findIndex((contact) => contact.id == id)
 }
 
-export default (contacts = [], { type, id }) => {
+export default (contacts = [], { type, id, values }) => {
   const index = id && findIndexById(contacts, id)
 
   switch(type) {
@@ -13,28 +13,14 @@ export default (contacts = [], { type, id }) => {
       return [
         ...contacts,
         {
-          id: id,
-          isNew: true,
-          isEdited: true
+          id: id
         }
-      ]
-
-    case EDIT_CONTACT:
-      return [
-        ...contacts.slice(0, index),
-        Object.assign({}, contacts[index], {
-          isEdited: true
-        }),
-        ...contacts.slice(index + 1)
       ]
 
     case SAVE_CONTACT:
       return [
         ...contacts.slice(0, index),
-        Object.assign({}, contacts[index], {
-          isEdited: false,
-          isNew:    false
-        }),
+        Object.assign({}, contacts[index], values),
         ...contacts.slice(index + 1)
       ]
 

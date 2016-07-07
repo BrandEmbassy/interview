@@ -9,10 +9,11 @@ export const editContact = (id) => {
   }
 }
 
-export const saveContact = (id) => {
+export const saveContact = (id, values) => {
   return {
     type: SAVE_CONTACT,
-    id
+    id,
+    values
   }
 }
 

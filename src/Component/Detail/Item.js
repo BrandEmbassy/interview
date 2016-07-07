@@ -20,7 +20,7 @@ class DetailItem extends React.Component {
   }
 
   render() {
-    const { isEdited } = this.props
+    const { isEditing } = this.props
 
     const {fields: {fullName, bio, tel, email}} = this.props;
 
@@ -30,23 +30,23 @@ class DetailItem extends React.Component {
           <div className="item__header">
             <div className="profile-pic"></div>
             {/*<div className="name">Patrik Vrbovsky</div>*/}
-            <input className="name" type="text" name="" placeholder="Full Name" disabled={!isEdited} {...fullName} />
+            <input className="name" type="text" name="" placeholder="Full Name" disabled={!isEditing} {...fullName} />
           </div>
           <div className="item__content">
             <div className="input-wrap">
               <label htmlFor="bio">Bio</label>
               {/*<div className="bio">Some bio</div>*/}
-              <textarea name="bio" className="bio" placeholder="Decsription" disabled={!isEdited} {...bio} />
+              <textarea name="bio" className="bio" placeholder="Decsription" disabled={!isEditing} {...bio} />
             </div>
             <div className="input-wrap">
               <label htmlFor="tel">Phone</label>
               {/*<div className="tel">+420 777 888 999</div>*/}
-              <input type="text" name="tel" className="tel" placeholder="+XXX XXX XXX XXX" disabled={!isEdited} {...tel} />
+              <input type="text" name="tel" className="tel" placeholder="+XXX XXX XXX XXX" disabled={!isEditing} {...tel} />
             </div>
             <div className="input-wrap">
               <label htmlFor="email">E-mail</label>
               {/*<div className="email">some@email.com</div>*/}
-              <input type="text" className="email" placeholder="E-mail" disabled={!isEdited} {...email}/>
+              <input type="text" className="email" placeholder="E-mail" disabled={!isEditing} {...email}/>
             </div>
           </div>
           <div className="item__footer">
