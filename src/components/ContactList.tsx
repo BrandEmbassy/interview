@@ -1,20 +1,29 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
-/// <reference path="../../typings/react/react.d.ts" />
 import TypedReact = require('typed-react')
+
+/// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
+
+/// <reference path="../typings/react-redux/react-redux.d.ts" />
+import { connect } from 'react-redux'
+
 
 import ContactListItem = require('./ContactListItem')
 
 import AppState = require('../model/AppState')
+import Contact = require('../model/Contact')
 
 interface ContactListProps {
-    appState: AppState
+    contacts: Contact[]
+
+    // Comes from router
+    params?: any,
 }
 
 class ContactList extends TypedReact.Component<ContactListProps, void> {
 
     private _contactRow(contact, index) {
-        return <ContactListItem name={contact.fullName} id={index} key={index} />
+        return <ContactListItem name={contact.fullName} id={contact.id} key={contact.id} />
     }
 
     public render() {
@@ -28,13 +37,15 @@ class ContactList extends TypedReact.Component<ContactListProps, void> {
         //     <div class="filter__item">Z-A</div>
         // </div>
 
+        console.log(this.props.params)
+
         return (
             <div className="list">
                 <div className="list__header">
                     <div className="heading">Contact List</div>
                 </div>
                 <div className="list__content">
-                    {this.props.appState.contacts.map(this._contactRow)}
+                    {this.props.contacts.map(this._contactRow)}
                 </div>
                 <div className="list__footer">
                     <div className="add-bttn"><span className="in">Add new contact</span></div>
@@ -45,4 +56,11 @@ class ContactList extends TypedReact.Component<ContactListProps, void> {
 
 }
 
-export = TypedReact.createClass(ContactList)
+function mapStateToProps(state: AppState) : ContactListProps {
+    return {
+        contacts: state.contacts
+    }
+}
+
+
+export = connect(mapStateToProps)(TypedReact.createClass(ContactList))

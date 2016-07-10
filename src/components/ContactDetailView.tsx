@@ -4,27 +4,27 @@
 import TypedReact = require('typed-react')
 import React = require('react')
 import { Link } from 'react-router'
-import util = require('../util')
+import util = require('../utils/util')
 
 import TextInput = require('./TextInput')
-import ContactDetail = require('../model/ContactDetail')
+import Contact = require('../model/Contact')
 
-interface ContactDetailsItemProps {
-    id: number,
-    contact: ContactDetail,
+interface ContactDetailViewProps {
+    contact: Contact,
     editing: boolean,
+    onSave: () => void
+    onDelete: () => void
 }
 
-class ContactDetailsItem extends TypedReact.Component<ContactDetailsItemProps, void> {
+class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, void> {
 
     private _footer() {
-
         if (this.props.editing) 
         {
             return (
                 <div className="item__footer">
-                    <div className="button button--positive">Save</div>
-                    <div className="button button--negative">Delete</div>
+                    <div className="button button--positive" onClick={this.props.onSave}>Save</div>
+                    <div className="button button--negative" onClick={this.props.onDelete}>Delete</div>
                 </div>
             )
         }
@@ -32,8 +32,8 @@ class ContactDetailsItem extends TypedReact.Component<ContactDetailsItemProps, v
         {
             return (
                 <div className="item__footer">
-                    <div className="button"><Link to={`/contact/${this.props.id}/edit`}>Edit</Link></div>
-                    <div className="button button--negative">Delete</div>
+                    <div className="button"><Link to={`/contact/${this.props.contact.id}/edit`}>Edit</Link></div>
+                    <div className="button button--negative" onClick={this.props.onDelete}>Delete</div>
                 </div>
             )
         }
@@ -70,4 +70,4 @@ class ContactDetailsItem extends TypedReact.Component<ContactDetailsItemProps, v
 
 }
 
-export = TypedReact.createClass(ContactDetailsItem)
+export = TypedReact.createClass(ContactDetailView)

@@ -1,9 +1,10 @@
 
-class ContactDetail {
+interface Contact {
+    id: number
     fullName: string
     bio: string
     phone: number
     email: string
 }
 
-export = ContactDetail
+export = Contact

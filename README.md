@@ -40,8 +40,12 @@ Things that should be done going further:
 * Running tests also as part of build 
 * Resolve duplication in webpack.config.js and webpack.config.dev.js
 * Using Immutable.js to enforce immutability of the state
-* When persisting data on a server, we'd need a better id generation technique. Now ids come simply
-  from indices in the main list.
+* When persisting data on a server, we'd need a better id generation technique. 
 * Phone number handling should be smarter. Now it doesn't handle international numbers and doesn't
   reflect locales.
 * Routes use magic constants heavily, those should be extracted into one place
+* Id passed to route doesn't affect the app state. This it not neccessarilly a practical problem
+  but it is a violation of the sinlge state object principle.
+* The build process could use linting to check on things like semicolons, console usage, etc.
+* Actions are not strongly typed. Currently redux complains when passing something that's not a basic
+  object which makes the typing more difficult.

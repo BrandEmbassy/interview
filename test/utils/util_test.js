@@ -1,6 +1,6 @@
 describe('util', function() {
 
-	var util = require('../src/util');
+	var util = require('../../src/utils/util');
 	var assert = require('chai').assert;
 
 	describe('isEmail', function() {

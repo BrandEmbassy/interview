@@ -1,11 +1,15 @@
-import ContactDetail = require('./ContactDetail')
+import Contact = require('./Contact')
 
-class AppState {
-    constructor(contacts: ContactDetail[]) {
-        this.contacts = contacts;
-    }
-
-    public contacts: ContactDetail[]
+interface AppState {
+    contacts: Contact[]
 }
+
+// class AppState {
+//     constructor(contacts: ContactDetail[]) {
+//         this.contacts = contacts;
+//     }
+
+//     public contacts: ContactDetail[]
+// }
 
 export = AppState
