@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es3",
+        "noImplicitAny": false,
+        "outDir": "./.compiled",
+        "sourceMap": false,
+        "jsx": "react",
+        "allowJs": true
+    },
+    "exclude": [
+        "node_modules",
+        ".compiled",
+        "dist",
+        "etc"
+    ]
+}
