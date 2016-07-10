@@ -18,6 +18,13 @@ module ContactActions {
         }
     }
 
+    export function Add(contact: Contact) {
+        return {
+            type: Types.ADD_CONTACT,
+            contact: contact
+        }
+    }
+
 }
 
 export = ContactActions

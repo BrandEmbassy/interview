@@ -1,4 +1,4 @@
-/// <reference path="../utils/Object.Assign.ts" />
+/// <reference path="../utils/Object.assign.ts" />
 
 /// <reference path="../../typings/redux/redux.d.ts" />
 import { combineReducers, Action } from 'redux'
@@ -20,6 +20,9 @@ function contactReducer(state: AppState, action: any) : AppState {
             return { contacts: state.contacts.map(
                 (c: Contact) => c.id == action.contact.id ? action.contact : c
             )};
+
+        case Types.ADD_CONTACT:
+            return { contacts: [...state.contacts, action.contact] }
 
         default:
             return state;       

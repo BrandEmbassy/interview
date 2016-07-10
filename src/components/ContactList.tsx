@@ -4,6 +4,8 @@ import TypedReact = require('typed-react')
 import React = require('react')
 /// <reference path="../typings/react-redux/react-redux.d.ts" />
 import { connect } from 'react-redux'
+/// <reference path="../../typings/react-router/react-router.d.ts" />
+import { Link } from 'react-router'
 
 
 import ContactListItem = require('./ContactListItem')
@@ -44,7 +46,7 @@ class ContactList extends TypedReact.Component<ContactListProps, void> {
                     {this.props.contacts.map(this._contactRow)}
                 </div>
                 <div className="list__footer">
-                    <div className="add-bttn"><span className="in">Add new contact</span></div>
+                    <Link to='/contact/new'><div className="add-bttn"><span className="in">Add new contact</span></div></Link>
                 </div>
             </div>
         )

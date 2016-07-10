@@ -27,9 +27,23 @@ class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
     }
 
     private onSave(contact : Contact) {
-        this.props.dispatch(
-            ContactActions.Change(contact)
-        )
+        
+        if (contact.id) 
+        {
+            this.props.dispatch(
+                ContactActions.Change(contact)
+            )
+        }
+        else
+        {
+            contact.id = 1 + this.props.contacts
+                .map( (c: Contact) => c.id )
+                .reduce( (p: number, n: number) => Math.max(p,n) )
+
+            this.props.dispatch(
+                ContactActions.Add(contact)
+            )
+        }
     }
 
     private onDelete() {
@@ -39,18 +53,39 @@ class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
     }
 
     public render() {
-        const contactId: number = this.props.params.contactId;
+        const contactId = this.props.params.contactId;
         const contacts = this.props.contacts;
-        const editing = this.props.params.action == "edit"
+        var editing = this.props.params.action == 'edit'
         const len = this.props.contacts.length
 
-        var contact = contacts.filter( (c : Contact) => c.id == contactId )
+        var contact: Contact;
 
-        if (contact.length == 1) {
+        if (contactId == 'new') {
+
+            contact = {
+                id: null,
+                fullName: '',
+                bio: '',
+                phone: 0,
+                email: ''
+            }
+
+            editing = true
+
+        }
+        else
+        {
+            const contactA = contacts.filter( (c : Contact) => c.id == contactId )
+            if (contactA.length == 1) {
+                contact = Object.assign({}, contactA[0])
+            }
+        }
+
+        if (contact) {
             return (
                 <div className="detail">
                     <ContactDetailView
-                        contact={Object.assign({}, contact[0])}
+                        contact={contact}
                         key={contactId}
                         editing={editing}
                         onSave={this.onSave} 
