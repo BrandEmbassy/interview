@@ -1,9 +1,7 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
 import TypedReact = require('typed-react')
-
 /// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
-
 /// <reference path="../typings/react-redux/react-redux.d.ts" />
 import { connect } from 'react-redux'
 
@@ -21,8 +19,6 @@ interface LayoutProps {
 class Layout extends TypedReact.Component<LayoutProps, void> {
 
     public render() {
-        console.log(this.props.appState)
-
         return (
             <section className="app">
                 <ContactList />

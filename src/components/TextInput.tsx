@@ -1,6 +1,6 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
-/// <reference path="../../typings/react/react.d.ts" />
 import TypedReact = require('typed-react')
+/// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
 
 interface TextInputProps {

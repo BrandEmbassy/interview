@@ -1,9 +1,7 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
 import TypedReact = require('typed-react')
-
 /// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
-
 /// <reference path="../typings/react-redux/react-redux.d.ts" />
 import { connect } from 'react-redux'
 
@@ -36,8 +34,6 @@ class ContactList extends TypedReact.Component<ContactListProps, void> {
         //     <div class="filter__item">A-Z</div>
         //     <div class="filter__item">Z-A</div>
         // </div>
-
-        console.log(this.props.params)
 
         return (
             <div className="list">

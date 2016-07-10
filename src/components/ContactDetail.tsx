@@ -1,11 +1,8 @@
 /// <reference path="../utils/Object.assign.ts" />
-
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
 import TypedReact = require('typed-react')
-
 /// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
-
 /// <reference path="../typings/react-redux/react-redux.d.ts" />
 import { connect } from 'react-redux'
 
@@ -46,8 +43,6 @@ class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
         const contacts = this.props.contacts;
         const editing = this.props.params.action == "edit"
         const len = this.props.contacts.length
-
-        console.log(editing)
 
         var contact = contacts.filter( (c : Contact) => c.id == contactId )
 
