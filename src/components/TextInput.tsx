@@ -20,6 +20,13 @@ interface TextInputState {
 
 class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
 
+    // Reset every time editing changes
+    public componentWillReceiveProps(newProps: TextInputProps) {
+        if (newProps.editing != this.props.editing) {
+            this.setState(this.getInitialState())
+        }
+    }
+
     private getInitialState() : TextInputState {
         return {
             text: this.props.value
