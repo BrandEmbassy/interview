@@ -6,7 +6,8 @@
         "outDir": "./.compiled",
         "sourceMap": false,
         "jsx": "react",
-        "allowJs": true
+        "allowJs": true,
+        "noEmitOnError": true
     },
     "exclude": [
         "node_modules",
