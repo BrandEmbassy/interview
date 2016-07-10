@@ -7,5 +7,6 @@ import ContactDetails = require('./components/ContactDetails')
 export = (
     <Route path="/" component={Layout}>
         <Route path="/contact/:contactId" component={ContactDetails} />
+        <Route path="/contact/:contactId/:action" component={ContactDetails} />
     </Route>
 )

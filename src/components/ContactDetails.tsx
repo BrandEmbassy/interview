@@ -25,11 +25,16 @@ class ContactDetails extends TypedReact.Component<ContactDetailsProps, void> {
     public render() {
         const contactId: number = this.props.params.contactId;
         const contacts = this.props.appState.contacts;
+        const editing = this.props.params.action == "edit"
 
         return (
             <div className="detail">
-                <ContactDetailsItem contact={contacts[contactId]} 
-                    key={contactId} />
+                <ContactDetailsItem
+                    id={contactId}
+                    contact={contacts[contactId]}
+                    key={contactId}
+                    editing={editing} 
+                />
             </div>
         )
    }

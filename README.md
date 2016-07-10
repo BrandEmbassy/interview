@@ -40,7 +40,8 @@ Things that should be done going further:
 * Running tests also as part of build 
 * Resolve duplication in webpack.config.js and webpack.config.dev.js
 * Using Immutable.js to enforce immutability of the state
-* Each contact should have an id so we can generate "key" attributes for react and 
-  sync with the server better.
+* When persisting data on a server, we'd need a better id generation technique. Now ids come simply
+  from indices in the main list.
 * Phone number handling should be smarter. Now it doesn't handle international numbers and doesn't
   reflect locales.
+* Routes use magic constants heavily, those should be extracted into one place
