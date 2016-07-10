@@ -20,7 +20,7 @@ module.exports = {
             mangle: true
         }),
         new HtmlWebpackPlugin({
-            template: '_template.html'
+            template: 'src/_template.html'
         })
     ],
 

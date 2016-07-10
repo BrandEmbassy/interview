@@ -23,7 +23,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
-            template: '_template.html'
+            template: 'src/_template.html'
         }),
     ],
 }
