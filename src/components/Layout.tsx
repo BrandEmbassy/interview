@@ -1,35 +1,27 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
 /// <reference path="../../typings/react/react.d.ts" />
-import TypedReact = require("typed-react")
-import React = require("react")
-
-import ContactList = require("./ContactList")
-import ContactDetails = require("./ContactDetails")
+import TypedReact = require('typed-react')
+import React = require('react')
 
 import AppState = require('../model/AppState')
+import ContactList = require('./ContactList')
+import ContactDetails = require('./ContactDetails')
 
-const appState : AppState = new AppState([
-    {
-        fullName: "Patrik Vrbovsky",
-        bio: "Human beings are a disease, a cancer of this planet. You're a plague and we are the cure.",
-        phone: 123456789,
-        email: "john.smith@matrix.com"
-    },
-    {
-        fullName: "Thomas Anderson",
-        bio: "I know you're out there. I can feel you now. I know that you're afraid... you're afraid of us. You're afraid of change.",
-        phone: 111222333,
-        email: "thomas.anderson@matrix.com"
-    }
-])
 
-class Layout extends TypedReact.Component<void, void> {
+interface LayoutProps {
+    appState: AppState,
 
-   public render() {
+    // this comes from the router
+    children: any[]
+}
+
+class Layout extends TypedReact.Component<LayoutProps, void> {
+
+    public render() {
         return (
             <section className="app">
-                <ContactList appState={appState} />
-                <ContactDetails appState={appState} />
+                <ContactList appState={this.props.appState} />
+                {this.props.children}
             </section>
         )
    }

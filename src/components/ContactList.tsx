@@ -13,7 +13,11 @@ interface ContactListProps {
 
 class ContactList extends TypedReact.Component<ContactListProps, void> {
 
-   public render() {
+    private _contactRow(contact, index) {
+        return <ContactListItem name={contact.fullName} id={index} key={index} />
+    }
+
+    public render() {
 
         // <div class="search">
         //     <input class="input" type="text" name="" value="" placeholder="Search ..." />
@@ -24,20 +28,13 @@ class ContactList extends TypedReact.Component<ContactListProps, void> {
         //     <div class="filter__item">Z-A</div>
         // </div>
 
-        let contacts = []
-        for (let contact of this.props.appState.contacts) {
-            contacts.push(
-                <ContactListItem name={contact.fullName} />
-            )
-        }
-
         return (
             <div className="list">
                 <div className="list__header">
                     <div className="heading">Contact List</div>
                 </div>
                 <div className="list__content">
-                    {contacts}
+                    {this.props.appState.contacts.map(this._contactRow)}
                 </div>
                 <div className="list__footer">
                     <div className="add-bttn"><span className="in">Add new contact</span></div>

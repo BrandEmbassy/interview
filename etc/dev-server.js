@@ -10,12 +10,21 @@ const port = 3000;
 const app = express();
 const compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
+var WebpackDevMiddleware = require('webpack-dev-middleware');
+var webpackDevMiddleware = WebpackDevMiddleware(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
-}));
+});
+
+app.use(webpackDevMiddleware);
 
 app.use(require('webpack-hot-middleware')(compiler));
+
+// This handler kicks in when router takes in a deeper url
+app.get('*', function response(req, res) {
+  res.write(webpackDevMiddleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')));
+  res.end();
+});
 
 app.listen(port, function(err) {
   if (err) {

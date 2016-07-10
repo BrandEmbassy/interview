@@ -5,29 +5,31 @@ import React = require('react')
 
 import ContactDetailsItem = require('./ContactDetailsItem')
 
+import ContactDetail = require('../model/ContactDetail')
 import AppState = require('../model/AppState')
 
 interface ContactDetailsProps {
-    appState: AppState
+    appState: AppState,
+
+    // this comes from the router
+    params: any
 }
 
 class ContactDetails extends TypedReact.Component<ContactDetailsProps, void> {
 
+    private _contactId: number;
     constructor() {
         super()
     }
 
     public render() {
-        let contacts = []
-        for (let contact of this.props.appState.contacts) {
-            contacts.push(
-                <ContactDetailsItem contact={contact} />
-            )
-        }
+        const contactId: number = this.props.params.contactId;
+        const contacts = this.props.appState.contacts;
 
         return (
             <div className="detail">
-                {contacts}
+                <ContactDetailsItem contact={contacts[contactId]} 
+                    key={contactId} />
             </div>
         )
    }

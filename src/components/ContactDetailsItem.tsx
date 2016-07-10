@@ -7,7 +7,7 @@ import util = require('../util')
 import ContactDetail = require('../model/ContactDetail')
 
 interface ContactDetailsItemProps {
-    contact: ContactDetail
+    contact: ContactDetail,
 }
 
 class ContactDetailsItem extends TypedReact.Component<ContactDetailsItemProps, void> {
