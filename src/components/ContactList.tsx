@@ -1,9 +1,17 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
 /// <reference path="../../typings/react/react.d.ts" />
-import TypedReact = require("typed-react")
-import React = require("react")
+import TypedReact = require('typed-react')
+import React = require('react')
 
-class ContactList extends TypedReact.Component<void, void> {
+import ContactListItem = require('./ContactListItem')
+
+import AppState = require('../model/AppState')
+
+interface ContactListProps {
+    appState: AppState
+}
+
+class ContactList extends TypedReact.Component<ContactListProps, void> {
 
    public render() {
 
@@ -16,37 +24,27 @@ class ContactList extends TypedReact.Component<void, void> {
         //     <div class="filter__item">Z-A</div>
         // </div>
 
-       return (
+        let contacts = []
+        for (let contact of this.props.appState.contacts) {
+            contacts.push(
+                <ContactListItem name={contact.fullName} />
+            )
+        }
+
+        return (
             <div className="list">
                 <div className="list__header">
                     <div className="heading">Contact List</div>
                 </div>
                 <div className="list__content">
-                    <div className="item">
-                        <div className="in">
-                            <div className="profile-pic"></div>
-                            Janko Mrkva
-                        </div>
-                    </div>
-                    <div className="item item--active">
-                        <div className="in">
-                            <div className="profile-pic"></div>
-                            Patrik Vrbovsky
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="in">
-                            <div className="profile-pic"></div>
-                            Tomáš Jedno
-                        </div>
-                    </div>
+                    {contacts}
                 </div>
                 <div className="list__footer">
                     <div className="add-bttn"><span className="in">Add new contact</span></div>
                 </div>
             </div>
-       )
-    }
+        )
+    }   
 
 }
 

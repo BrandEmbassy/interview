@@ -64,4 +64,25 @@ describe('util', function() {
 		});
 	});
 
+	describe('formatPhone', function() {
+		it('should format number correctly if number has 9 digits', function() {
+			assert.equal( util.formatPhone(123456789), "123 456 789" )
+		});
+
+		it('should format number correctly if number has less than 9 digits', function() {
+			assert.equal( util.formatPhone(3456789), "003 456 789" )
+		});
+
+		it('should return unformatted if number has more than 9 digits', function() {
+			assert.equal( util.formatPhone(1234567890), "1234567890" )
+		});
+
+		it('should return empty string if empty value passed', function() {
+			var undef;
+			assert.equal( util.formatPhone(null), "" )
+			assert.equal( util.formatPhone(undef), "" )
+			assert.equal( util.formatPhone(), "" )
+		});
+
+	});
 });

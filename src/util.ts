@@ -7,7 +7,21 @@ var util = {
 	isPhone: function (s) {
 		var regexp =/^\d{9}$/i;
 		return regexp.test(s);
-	}
+	},
+
+    // TODO: This should be done in a much better way using formating library
+    formatPhone: function(phone: number) : string {
+		if (!phone) 
+			return ""
+
+        var regexp = /^(\d\d\d)(\d\d\d)(\d\d\d)$/
+        var phoneStr = phone.toString()
+        while (phoneStr.length < 9) {
+            phoneStr = '0' + phoneStr
+        }
+        return phoneStr.replace(regexp, "$1 $2 $3")
+    }
+	
 }
 
 export = util;
