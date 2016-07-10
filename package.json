@@ -9,11 +9,9 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha .compiled/test",
     "test-watch": "npm run test -- --watch",
-
     "start-dev-server": "node ./etc/dev-server.js",
     "tsc": "./node_modules/.bin/tsc",
     "build-webpack": "./node_modules/.bin/webpack --config etc/webpack.config.js",
-
     "start": "npm-run-all tsc --parallel start-dev-server test-watch",
     "build": "npm-run-all tsc build-webpack"
   },
@@ -33,7 +31,10 @@
     "less-loader": "^2.2.3",
     "mocha": "^2.4.5",
     "npm-run-all": "^2.3.0",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
     "style-loader": "^0.13.1",
+    "typed-react": "^3.4.1",
     "typescript": "^1.8.10",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
