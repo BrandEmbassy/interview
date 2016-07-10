@@ -2,6 +2,8 @@
 import TypedReact = require('typed-react')
 /// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
+/// <reference path="../../typings/classnames/classnames.d.ts" />
+import classnames = require('classnames')
 
 interface TextInputProps {
     className?: string
@@ -13,10 +15,13 @@ interface TextInputProps {
     multiline?: boolean
     dataFormatter?: (data: any) => string
     onChange?: (newValue: string) => void
+    validator?: (value: string) => boolean
+    invalidWarning?: string
 }
 
 interface TextInputState {
-    text: string
+    text: string,
+    valid: boolean,
 }
 
 class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
@@ -24,24 +29,30 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
     // Reset every time editing changes
     public componentWillReceiveProps(newProps: TextInputProps) {
         if (newProps.editing != this.props.editing) {
-            this.setState({text: newProps.value})
+            this.setState(this._constructState(newProps.value))
+        }
+    }
+
+    private _constructState(value: string) : TextInputState {
+        return {
+            text: value,
+            valid: (this.props.validator) ? this.props.validator(value) : true,
         }
     }
 
     private getInitialState() : TextInputState {
-        return {
-            text: this.props.value
-        }
+        return this._constructState(this.props.value)
     }
 
     private _onChange(event) : void {
-        this.setState({
-            text: event.target.value
-        })
+
+        const value = event.target.value
+
+        this.setState(this._constructState(value))
     }
 
     private _onBlur(event) : void {
-        this.props.onChange(event.target.value)
+        this.props.onChange(event.target.value)        
     }
 
     public render() {
@@ -55,12 +66,17 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
             label = (<label htmlFor={this.props.name}>{this.props.label}</label>)
         }
 
+        var warning = null
+        if (!this.state.valid && this.props.invalidWarning) {
+            warning = <span className="error-msg">{this.props.invalidWarning}</span>
+        }
+
         var input = null
         if (this.props.multiline) 
         {
             input = (
                 <textarea 
-                    className={this.props.className}
+                    className={classnames(this.props.className, {'error': !this.state.valid})}
                     type="text" 
                     name={this.props.name}
                     value={value} 
@@ -75,7 +91,7 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
         {
             input = (
                 <input 
-                    className={this.props.className}
+                    className={classnames(this.props.className, {'error': !this.state.valid})}
                     type="text" 
                     name={this.props.name}
                     value={value} 
@@ -90,6 +106,7 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
         return (
             <div>
                 {label}
+                {warning}
                 {input}
             </div>
         )

@@ -24,6 +24,7 @@
   "homepage": "https://bitbucket.org/BEDevelopers/interview-master#readme",
   "devDependencies": {
     "chai": "^3.5.0",
+    "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
     "express": "^4.14.0",
     "html-webpack-plugin": "^2.22.0",

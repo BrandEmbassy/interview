@@ -36,8 +36,58 @@ class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, voi
     }
 
     private _onSave() {
-        this.props.onSave(this.props.contact)
-        this.props.history.push('/contact/' + this.props.contact.id)
+        if (
+            this._validateNonemptyString(this.props.contact.fullName) &&
+            this._validateNonemptyString(this.props.contact.bio) &&
+            util.isPhone(this.props.contact.phone) &&
+            util.isEmail(this.props.contact.email)
+        ) {
+            this.props.onSave(this.props.contact)
+            this.props.history.push('/contact/' + this.props.contact.id)
+        }
+    }
+
+    private _validateNonemptyString(val: string): boolean {
+        if (val) {
+            return val.length > 0
+        } else {
+            return false
+        }
+    }
+
+    public render() {
+        var contact = this.props.contact
+
+        return (
+            <div className="item">
+                <div className="item__header">
+                    <div className="profile-pic"></div>
+                    <TextInput className="name" value={contact.fullName} placeholder="Full Name"
+                        editing={this.props.editing} onChange={this._onNameChange}
+                        validator={this._validateNonemptyString} invalidWarning="Invalid name" />
+                </div>
+                <div className="item__content">
+                    <div className="input-wrap">
+                        <TextInput className="bio" name="bio" label="Bio" placeholder="Decsription"
+                            multiline={true} value={contact.bio} editing={this.props.editing}
+                            onChange={this._onBioChange} 
+                            validator={this._validateNonemptyString} invalidWarning="Invalid description" />
+                    </div>
+                    <div className="input-wrap">
+                        <TextInput className="tel" name="tel" label="Phone" placeholder="XXX XXX XXX"
+                            value={contact.phone} editing={this.props.editing} onChange={this._onPhoneChange}
+                            dataFormatter={util.formatPhone}
+                            validator={util.isPhone} invalidWarning="Invalid phone" />
+                    </div>
+                    <div className="input-wrap">
+                        <TextInput className="email" name="email" label="E-mail" placeholder="name@where.at"
+                            value={contact.email} editing={this.props.editing} onChange={this._onEmailChange}
+                            validator={util.isEmail} invalidWarning="Invalid e-mail"/>
+                    </div>
+                </div>
+                {this._footer()}
+            </div>
+        )
     }
 
     private _footer() {
@@ -60,37 +110,6 @@ class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, voi
             )
         }
     }
-
-    public render() {
-        var contact = this.props.contact
-
-        return (
-            <div className="item">
-                <div className="item__header">
-                    <div className="profile-pic"></div>
-                    <TextInput className="name" value={contact.fullName} placeholder="Full Name"
-                        editing={this.props.editing} onChange={this._onNameChange} />
-                </div>
-                <div className="item__content">
-                    <div className="input-wrap">
-                        <TextInput className="bio" name="bio" label="Bio" placeholder="Decsription"
-                            multiline={true} value={contact.bio} editing={this.props.editing}
-                            onChange={this._onBioChange} />
-                    </div>
-                    <div className="input-wrap">
-                        <TextInput className="tel" name="tel" label="Phone" placeholder="XXX XXX XXX"
-                            value={contact.phone} editing={this.props.editing} onChange={this._onPhoneChange}
-                            dataFormatter={util.formatPhone}/>
-                    </div>
-                    <div className="input-wrap">
-                        <TextInput className="email" name="email" label="E-mail" placeholder="name@where.at"
-                            value={contact.email} editing={this.props.editing} onChange={this._onEmailChange}/>
-                    </div>
-                </div>
-                {this._footer()}
-            </div>
-        )
-   }
 
 }
 

@@ -45,12 +45,15 @@ Things that should be done going further:
   reflect locales.
 * Routes use magic constants heavily, those should be extracted into one place
 * Id passed to route doesn't affect the app state. This leads to two mechanisms influencing the app
-  state. This should be solvable by using react-router-redux module
+  state. This should be solvable by using react-router-redux module.
 * The build process could use linting to check on things like semicolons, console usage, etc.
 * Actions are not strongly typed. Currently redux complains when passing something that's not a basic
   object which makes the typing more difficult.
 * Highlighting the selected contact is missing. In order for this to work we need to change the way
   the router is setup so the ContactList component also receives updates.
-* Input validation is missing.
+* Input validation could use some refactoring. Having to specify all validations for each field and then
+  again to validate the whole input is not optimal and the dupliaction could be removed.
+  My idea would be to annotate the model and leverage those annotations when assigning model attributes to
+  field components, similarly to ASP.net.
 * Typing of the component props interfaces could be improved. For example everything populated automatically
   by the router should be inherrited.
