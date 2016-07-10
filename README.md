@@ -55,5 +55,3 @@ Things that should be done going further:
   again to validate the whole input is not optimal and the dupliaction could be removed.
   My idea would be to annotate the model and leverage those annotations when assigning model attributes to
   field components, similarly to ASP.net.
-* Typing of the component props interfaces could be improved. For example everything populated automatically
-  by the router should be inherrited.

@@ -6,18 +6,16 @@ import React = require('react')
 import { Link } from 'react-router'
 import util = require('../utils/util')
 
+import { RouterProps } from '../utils/ReactUtils'
+
 import TextInput = require('./TextInput')
 import Contact = require('../model/Contact')
 
-interface ContactDetailViewProps {
+interface ContactDetailViewProps extends RouterProps {
     contact: Contact
     editing: boolean
     onSave: (contact: Contact) => void
     onDelete: () => void
-
-    // router
-    // TODO: Resolve compile error when using browserHistory type
-    history?: any
 }
 
 class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, void> {

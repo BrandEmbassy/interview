@@ -5,19 +5,15 @@ import TypedReact = require('typed-react')
 import React = require('react')
 /// <reference path="../typings/react-redux/react-redux.d.ts" />
 import { connect } from 'react-redux'
+import { RouterProps, ReduxProps } from '../utils/ReactUtils'
 
 import ContactDetailView = require('./ContactDetailView')
 import Contact = require('../model/Contact')
 import AppState = require('../model/AppState')
 import ContactActions = require('../actions/ContactActions')
 
-interface ContactDetailProps {
-    contacts: Contact[],
-
-    // this comes from the router
-    params?: any,
-    dispatch?: (any) => void,
-    history?: any
+interface ContactDetailProps extends ReduxProps, RouterProps {
+    contacts: Contact[]
 }
 
 class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
@@ -27,7 +23,7 @@ class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
     }
 
     private onSave(contact : Contact) {
-        
+
         if (contact.id) 
         {
             this.props.dispatch(

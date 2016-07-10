@@ -6,18 +6,15 @@ import React = require('react')
 import { connect } from 'react-redux'
 /// <reference path="../../typings/react-router/react-router.d.ts" />
 import { Link } from 'react-router'
-
+import { RouterProps } from '../utils/ReactUtils'
 
 import ContactListItem = require('./ContactListItem')
 
 import AppState = require('../model/AppState')
 import Contact = require('../model/Contact')
 
-interface ContactListProps {
+interface ContactListProps extends RouterProps {
     contacts: Contact[]
-
-    // Comes from router
-    params?: any,
 }
 
 class ContactList extends TypedReact.Component<ContactListProps, void> {
