@@ -49,3 +49,5 @@ Things that should be done going further:
 * The build process could use linting to check on things like semicolons, console usage, etc.
 * Actions are not strongly typed. Currently redux complains when passing something that's not a basic
   object which makes the typing more difficult.
+* Highlighting the selected contact is missing. In order for this to work we need to change the way
+  the router is setup so the ContactList component also receives updates.

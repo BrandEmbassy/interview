@@ -10,8 +10,8 @@ import TextInput = require('./TextInput')
 import Contact = require('../model/Contact')
 
 interface ContactDetailViewProps {
-    contact: Contact,
-    editing: boolean,
+    contact: Contact
+    editing: boolean
     onSave: () => void
     onDelete: () => void
 }
@@ -24,7 +24,7 @@ class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, voi
             return (
                 <div className="item__footer">
                     <div className="button button--positive" onClick={this.props.onSave}>Save</div>
-                    <div className="button button--negative" onClick={this.props.onDelete}>Delete</div>
+                    <Link to={`/contact/${this.props.contact.id}`}><div className="button button--negative">Cancel</div></Link>
                 </div>
             )
         }
@@ -32,7 +32,7 @@ class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, voi
         {
             return (
                 <div className="item__footer">
-                    <div className="button"><Link to={`/contact/${this.props.contact.id}/edit`}>Edit</Link></div>
+                    <Link to={`/contact/${this.props.contact.id}/edit`}><div className="button">Edit</div></Link>
                     <div className="button button--negative" onClick={this.props.onDelete}>Delete</div>
                 </div>
             )
