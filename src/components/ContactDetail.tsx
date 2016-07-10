@@ -1,3 +1,5 @@
+/// <reference path="../utils/Object.assign.ts" />
+
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
 import TypedReact = require('typed-react')
 
@@ -17,19 +19,20 @@ interface ContactDetailProps {
 
     // this comes from the router
     params?: any,
-    dispatch?: (any) => void
+    dispatch?: (any) => void,
+    history?: any
 }
 
 class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
 
-    private _contactId: number;
     constructor() {
         super()
     }
 
-    private onSave() {
-        console.log("Save hit")
-//        this.props.dispatch(ContactActions.ChangeContact
+    private onSave(contact : Contact) {
+        this.props.dispatch(
+            ContactActions.Change(contact)
+        )
     }
 
     private onDelete() {
@@ -44,17 +47,20 @@ class ContactDetail extends TypedReact.Component<ContactDetailProps, void> {
         const editing = this.props.params.action == "edit"
         const len = this.props.contacts.length
 
+        console.log(editing)
+
         var contact = contacts.filter( (c : Contact) => c.id == contactId )
 
         if (contact.length == 1) {
             return (
                 <div className="detail">
                     <ContactDetailView
-                        contact={contact[0]}
+                        contact={Object.assign({}, contact[0])}
                         key={contactId}
                         editing={editing}
                         onSave={this.onSave} 
-                        onDelete={this.onDelete} 
+                        onDelete={this.onDelete}
+                        history={this.props.history}
                     />
                 </div>
             )

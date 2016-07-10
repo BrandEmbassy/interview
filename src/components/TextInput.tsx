@@ -12,6 +12,7 @@ interface TextInputProps {
     editing?: boolean
     multiline?: boolean
     dataFormatter?: (data: any) => string
+    onChange?: (newValue: string) => void
 }
 
 interface TextInputState {
@@ -23,7 +24,7 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
     // Reset every time editing changes
     public componentWillReceiveProps(newProps: TextInputProps) {
         if (newProps.editing != this.props.editing) {
-            this.setState(this.getInitialState())
+            this.setState({text: newProps.value})
         }
     }
 
@@ -37,6 +38,10 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
         this.setState({
             text: event.target.value
         })
+    }
+
+    private _onBlur(event) : void {
+        this.props.onChange(event.target.value)
     }
 
     public render() {
@@ -62,6 +67,7 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
                     placeholder={this.props.placeholder} 
                     disabled={!this.props.editing}
                     onChange={this._onChange}
+                    onBlur={this._onBlur}
                 ></textarea>
             )
         }
@@ -76,6 +82,7 @@ class TextInput extends TypedReact.Component<TextInputProps, TextInputState> {
                     placeholder={this.props.placeholder} 
                     disabled={!this.props.editing}
                     onChange={this._onChange}
+                    onBlur={this._onBlur}
                 />
             )
         }

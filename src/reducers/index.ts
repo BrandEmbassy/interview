@@ -15,6 +15,12 @@ function contactReducer(state: AppState, action: any) : AppState {
             return { contacts: state.contacts.filter(
                 (c: Contact) => c.id != action.id
             )};
+
+        case Types.CHANGE_CONTACT:
+            return { contacts: state.contacts.map(
+                (c: Contact) => c.id == action.contact.id ? action.contact : c
+            )};
+
         default:
             return state;       
     }

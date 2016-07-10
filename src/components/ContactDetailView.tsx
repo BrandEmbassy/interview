@@ -1,8 +1,8 @@
 /// <reference path="../../node_modules/typed-react/typed-react.d.ts" />
-/// <reference path="../../typings/react/react.d.ts" />
-/// <reference path="../../typings/react-router/react-router.d.ts" />
 import TypedReact = require('typed-react')
+/// <reference path="../../typings/react/react.d.ts" />
 import React = require('react')
+/// <reference path="../../typings/react-router/react-router.d.ts" />
 import { Link } from 'react-router'
 import util = require('../utils/util')
 
@@ -12,18 +12,40 @@ import Contact = require('../model/Contact')
 interface ContactDetailViewProps {
     contact: Contact
     editing: boolean
-    onSave: () => void
+    onSave: (contact: Contact) => void
     onDelete: () => void
+
+    // router
+    // TODO: Resolve compile error when using browserHistory type
+    history?: any
 }
 
 class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, void> {
+    
+    private _onNameChange(newValue: string) {
+        this.props.contact.fullName = newValue;
+    }
+    private _onBioChange(newValue: string) {
+        this.props.contact.bio = newValue;
+    }
+    private _onEmailChange(newValue: string) {
+        this.props.contact.email = newValue;
+    }
+    private _onPhoneChange(newValue: string) {
+        this.props.contact.phone = parseInt(newValue);
+    }
+
+    private _onSave() {
+        this.props.onSave(this.props.contact)
+        this.props.history.push('/contact/' + this.props.contact.id)
+    }
 
     private _footer() {
         if (this.props.editing) 
         {
             return (
                 <div className="item__footer">
-                    <div className="button button--positive" onClick={this.props.onSave}>Save</div>
+                    <div className="button button--positive" onClick={this._onSave}>Save</div>
                     <Link to={`/contact/${this.props.contact.id}`}><div className="button button--negative">Cancel</div></Link>
                 </div>
             )
@@ -47,20 +69,22 @@ class ContactDetailView extends TypedReact.Component<ContactDetailViewProps, voi
                 <div className="item__header">
                     <div className="profile-pic"></div>
                     <TextInput className="name" value={contact.fullName} placeholder="Full Name"
-                        editing={this.props.editing} />
+                        editing={this.props.editing} onChange={this._onNameChange} />
                 </div>
                 <div className="item__content">
                     <div className="input-wrap">
                         <TextInput className="bio" name="bio" label="Bio" placeholder="Decsription"
-                            multiline={true} value={contact.bio} editing={this.props.editing}/>
+                            multiline={true} value={contact.bio} editing={this.props.editing}
+                            onChange={this._onBioChange} />
                     </div>
                     <div className="input-wrap">
                         <TextInput className="tel" name="tel" label="Phone" placeholder="XXX XXX XXX"
-                            value={contact.phone} editing={this.props.editing} dataFormatter={util.formatPhone}/>
+                            value={contact.phone} editing={this.props.editing} onChange={this._onPhoneChange}
+                            dataFormatter={util.formatPhone}/>
                     </div>
                     <div className="input-wrap">
                         <TextInput className="email" name="email" label="E-mail" placeholder="name@where.at"
-                            value={contact.email} editing={this.props.editing}/>
+                            value={contact.email} editing={this.props.editing} onChange={this._onEmailChange}/>
                     </div>
                 </div>
                 {this._footer()}

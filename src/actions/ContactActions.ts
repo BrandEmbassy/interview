@@ -11,6 +11,13 @@ module ContactActions {
         }
     }
 
+    export function Change(contact: Contact) {
+        return {
+            type: Types.CHANGE_CONTACT,
+            contact: contact
+        }
+    }
+
 }
 
 export = ContactActions
