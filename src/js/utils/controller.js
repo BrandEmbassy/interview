@@ -1,9 +1,14 @@
+
+
+
 var Controller = function () {
 	
 	this.testMessage = "Go for it.";
 	this.iteration = 0;
 	this.data = null;
 	this.app = null;
+	
+	this.cron("test");
 }
 
 Controller.prototype.fireAlert = function (time) {
@@ -26,7 +31,7 @@ Controller.prototype.getJson = function () {
 		$.ajax({
 			'async': false,
 			'global': false,
-			'url': "./js/dataExample.json",
+			'url': "./data/dataExample.json",
 			'dataType': "json",
 			'success': function (data) {
 				json = data;
@@ -93,3 +98,6 @@ Controller.prototype.setApp = function (app) {
 	this.app = app;
 	//console.log("APP SET")
 }
+
+window.controller = new Controller();
+//controller.getJson();

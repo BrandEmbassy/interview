@@ -2,16 +2,18 @@
 	START OF CONTACTLIST CODE
 */
 
+import Detail from "./src/detail.js"
+import ContactListSite from "./src/list.js"
 
 /**
  * @description - base React class of this webpage - Main rendering element that contains everything on page.
  */
-class Application extends React.Component {
+export default class Application extends React.Component {
 	constructor (props) {
 		super (props);
 		/**
 		 * @private
-		 * @description - defines all state related values, that needs to be watched 
+		 * @description - defines all state related values, that needs to be watched
 		 * and if changed Class and all its childs should rerender
 		 */
 		this.state = {
@@ -20,7 +22,7 @@ class Application extends React.Component {
 			 * @type Number
 			 * @protected
 			 */
-			active: 0, 
+			active: 0,
 			/**
 			 * @description - defines method that changes active contact number.
 			 * @protected
@@ -34,22 +36,22 @@ class Application extends React.Component {
 			 */
 			data: this.props.data
 		}
-		
+
 		// Application is now defined so we can finally give Controller it's reference.
 		// It needs it for proper work with data.
 		controller.setApp(this)
 	}
-	
+
 	componentWillReceiveProps(newprobs) {
-		
+
 		this.setState({
 			data: this.props.data
 		})
 		this.myChangeActive(this.state.active)
 	}
-	
+
 	/**
-	 * @description - checks if active contat is not out of contact array and 
+	 * @description - checks if active contat is not out of contact array and
 	 * change active contact when it is.
 	 * @param {Number} last - index of last contact in array
 	 */
@@ -58,26 +60,26 @@ class Application extends React.Component {
 			this.setState({active: last})
 		}
 	}
-	
+
 	render() {
-		
+
 		return (
 			<div className="app">
-				<ContactListSite 
-					data={this.state.data} 
-					activeContact={this.state.active} 
+				<ContactListSite
+					data={this.state.data}
+					activeContact={this.state.active}
 					changeActive={this.state.changeActive}/>
-					
-				<Detail 
-					data={this.props.data} 
+
+				<Detail
+					data={this.props.data}
 					activeContact={this.state.active}/>
-					
-					
+
+
 			</div>
-		
+
 		)
 	}
-	
+
 	/**
 	 * @decsription - Method change this.state.active to new value and triggers rerendering of all related React objects
 	 * @param {Number} val - new value for this.state.active
@@ -85,21 +87,21 @@ class Application extends React.Component {
 	 */
 	myChangeActive(val) {
 		let maxVal = this.props.data.contactList.length;
-		
+
 		if (val < 0 || val >= maxVal) {
 			return
-		} 
+		}
 		this.setState({
 			active: val
 		});
-		
-		
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }
 
 /*
@@ -107,11 +109,10 @@ class Application extends React.Component {
  */
 ReactDOM.render(
 			<Application data={controller.data}/>, 	//<div><ContactListSite /><Detail /></div>,
-			document.body					//document.getElementById("app")	
+			document.body					//document.getElementById("app")
 		);
 
-		
+
 /*
 	END OF CONTACTLIST CODE
 */
-
