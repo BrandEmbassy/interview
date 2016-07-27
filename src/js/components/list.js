@@ -1,7 +1,7 @@
 import React from "react";
 
 import ProfilePic from "./profilePic.js";
-import ContactStore from "../stores/contactStore.js"
+import ContactStore from "../stores/listStore.js"
 import * as CLActions from "../actions/clActions.js"
 /*
 	START OF LIST CODE
@@ -24,9 +24,14 @@ export default class ContactListSite extends React.Component{
 	}
 	
 	componentWillMount() {
-		ContactStore.on("change", () => {
+		ContactStore.on("addListContact", () => {
 			this.setState({
 				data : {contactList: ContactStore.getAll()},
+				active : ContactStore.getActiveID()
+			})
+		})
+		ContactStore.on("changeListActive", () => {
+			this.setState({
 				active : ContactStore.getActiveID()
 			})
 		})
@@ -99,8 +104,8 @@ class ListContent extends React.Component {
 
 class Item extends React.Component {
 	reportClick() {
+		console.log("myID" + this.props.myID)
 		CLActions.changeActive(this.props.myID)
-		
 	}
 
 	render() {
