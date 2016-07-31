@@ -61,7 +61,6 @@ export default class Application extends React.Component {
 					activeContact={this.state.active}/>
 
 				<Detail
-					data={this.props.data}
 					activeContact={this.state.active}/>
 
 

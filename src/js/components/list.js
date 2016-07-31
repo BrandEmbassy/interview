@@ -1,7 +1,7 @@
 import React from "react";
 
 import ProfilePic from "./profilePic.js";
-import ContactStore from "../stores/listStore.js"
+import ContactStore from "../stores/contactStore.js"
 import * as CLActions from "../actions/clActions.js"
 /*
 	START OF LIST CODE
@@ -17,8 +17,7 @@ export default class ContactListSite extends React.Component{
 		super()
 		ContactStore.test("ContactListSite")
 		this.state = {}
-		this.state.data = {}
-		this.state.data.contactList = ContactStore.getAll()
+		this.state.contacts = ContactStore.getAll()
 		this.state.active = 0
 		
 	}
@@ -26,13 +25,22 @@ export default class ContactListSite extends React.Component{
 	componentWillMount() {
 		ContactStore.on("addListContact", () => {
 			this.setState({
-				data : {contactList: ContactStore.getAll()},
+				contacts : ContactStore.getAll(),
 				active : ContactStore.getActiveID()
 			})
 		})
-		ContactStore.on("changeListActive", () => {
+
+		ContactStore.on("activeChanged", () => {
+			this.setState({
+				contacts : ContactStore.getAll(),
+				active : ContactStore.getActiveID()
+				
+			})
+		})
+		ContactStore.on("changeActive", () => {
 			this.setState({
 				active : ContactStore.getActiveID()
+				
 			})
 		})
 	}
@@ -44,7 +52,7 @@ export default class ContactListSite extends React.Component{
 
 			<ListHeader />
 			<ListContent
-				data={this.state.data}
+				contacts={this.state.contacts}
 				active={this.state.active}/>
 
 			<ListFooter changeActive={this.props.changeActive}/>
@@ -73,16 +81,12 @@ class ListHeader extends React.Component {
  */
 class ListContent extends React.Component {
 	render() {
-		let contats = this.props.data.contactList
+		let contats = this.props.contacts
 		let id = 0
 		let activeID = this.props.active
 		
-		console.log(this.props.data.contactList)
-		
-		/*
 		
 		
-		*/
 		return (
 			<div className="list__content">
 				{
@@ -104,7 +108,7 @@ class ListContent extends React.Component {
 
 class Item extends React.Component {
 	reportClick() {
-		console.log("myID" + this.props.myID)
+		
 		CLActions.changeActive(this.props.myID)
 	}
 

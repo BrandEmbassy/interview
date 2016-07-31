@@ -2,7 +2,7 @@ import React from "react";
 
 import ProfilePic from "./profilePic.js";
 import ContactStore from "../stores/contactStore.js"
-import CLActions from "../actions/clActions.js"
+import * as CLActions from "../actions/clActions.js"
 
 /*
 	START OF DETAIL CODE
@@ -18,32 +18,43 @@ export default class Detail extends React.Component {
 		ContactStore.test("Detail")
 		this.state = {
 			contact : ContactStore.getActive(),
-			id : ContactStore.getActiveID()
+			id : ContactStore.getActiveID(),
+			newContact : false
 		}
 	}
 	
 	componentWillMount() {
-		ContactStore.on("change", () => {
+		ContactStore.on("changeActive", () => {
+			
+			
+			this.setState({
+				contact : ContactStore.getActive(),
+				id : ContactStore.getActiveID(),
+				newContact : false
+			})
+		})
+		ContactStore.on("activeChanged", () => {
 			let contact = ContactStore.getActive()
 			let id = ContactStore.getActiveID()
-			console.log("Detail: change event. New values:" + contact + id)
+			
 			this.setState({
 				contact,
-				id 
+				id,
+				newContact : true
 			})
 		})
 	}
 	
 	render() {
-		console.log("Detail render called")
+		
 
 		return (
 			<div className="detail">
 				<DetailItem
-					data={this.state.contact}
-					newContact={this.props.data.newContact}
-					myID={this.state.id}/>
-
+					contact={this.state.contact}
+					myID={this.state.id}
+					newContact={this.state.newContact}/>
+					
 			</div>
 
 		)
@@ -56,97 +67,43 @@ export default class Detail extends React.Component {
 class DetailItem extends React.Component {
 	constructor(props){
 		super(props);
-		let arr = []
 		this.state = {
 			disabled: true,
-			do_setDisabled: this.saveMethod.bind(this),
-			do_delete: this.deleteMethod.bind(this),
-			data: {
-				fullName: this.props.data.fullName,
-				bio: this.props.data.bio,
-				phone: this.props.data.phone,
-				email: this.props.data.email,
+			contact: {
+				fullName: this.props.contact.fullName,
+				bio: this.props.contact.bio,
+				phone: this.props.contact.phone,
+				email: this.props.contact.email,
 				myID: this.props.myID,
-				getHeaderState: null,
-				getContentState: arr
 			},
-			saveMethod: this.mySaveMethod.bind(this)
 		};
 		//this.state.do_setDiabled = ;
 	}
 
 	componentWillMount () {
-		this.setState({
-			getContentState: []
-		})
 	}
 
 	componentWillReceiveProps(newprops) {
-		console.log("newProps: " + JSON.stringify(newprops))
+		
 		
 		let newState = {
 			disabled: !newprops.newContact,
-			do_setDisabled: this.saveMethod.bind(this),
-			do_delete: this.deleteMethod.bind(this),
 			
 		}
 		
-		if (newprops.data) {
-			newState.data = {
-				fullName: newprops.data.fullName,
-				bio: newprops.data.bio,
-				phone: newprops.data.phone,
-				email: newprops.data.email,
+		if (newprops.contact) {
+			newState.contact = {
+				fullName: newprops.contact.fullName,
+				bio: newprops.contact.bio,
+				phone: newprops.contact.phone,
+				email: newprops.contact.email,
 				myID: newprops.myID
 			}
 		}
 		this.setState(newState);
-
-		controller.addContactCallback()
 	}
 
-	/**
-	 * sets function for getting data from Header (fullName)
-	 */
-	setHeaderState(method) {
-
-		this.setState({
-			getHeaderState: method
-		})
-	}
-
-	/**
-	 * sets function for getting data from Content part of Detail (bio, phone, email)
-	 */
-	setContentState(method) {
-
-		//@TODO: I think this is not legal
-		this.state.getContentState.push(method)
-
-	}
-
-	/**
-	 * method for saving editations of contact shown in Detail
-	 */
-	mySaveMethod() {
-		let newValues = {}
-		//console.log("headerMethod: "+ typeof this.state.getHeaderState)
-		let newVals = this.state.getHeaderState()
-		for (let i in newVals){
-
-			newValues["fullName"] = newVals[i];
-		}
-		let reportArray = this.state.getContentState
-		//console.log("RA.length:" + reportArray.length)
-		for (let j = 0; j < reportArray.length; j++){
-			let report = this.state.getContentState[j]()
-			newValues[report.label] = report.value;
-		}
-		//console.log("result: " + JSON.stringify(newValues))
-
-		//this.state.getContentState()
-		controller.savePressed(this.state.data.myID, newValues)
-	}
+	
 
 
 	/**
@@ -159,43 +116,59 @@ class DetailItem extends React.Component {
 		});
 	}
 
-	/**
-	 * Interface for using mysaveMethod by Save Button
-	 */
-	saveMethod (val) {
-		if (val === true)
-			this.mySaveMethod()
-		this.setDisabled()
+	changeContactAttribute (name, value) {
+		
+		let newState = {}
+		newState.contact = this.state.contact
+		newState.contact[name] = value
+		this.setState(newState)
 	}
 
 	/**
 	 * interface method for Delete Button
 	 */
-	deleteMethod () {
-		controller.deletePressed(this.state.data.myID, this.state.disabled)
+	deleteClicked () {
+		if (!this.state.disabled) {
+			this.cancelClicked()
+		} else {
+			CLActions.deleteActive()
+		}
+		//this.setState({disabled : true})
+	}
+	
+	cancelClicked() {
+		CLActions.changeActive(this.state.contact.myID)
+	}
+	
+	/**
+	 * method for saving editations of contact shown in Detail
+	 */
+	saveContact() {
+		if (!this.state.disabled)
+			CLActions.saveActive(this.state.contact)
 		this.setDisabled()
 	}
-
+	
 	render() {
-		//console.log("DetailItem: delete method: " + typeof this.state.do_delete)
+		
 		return (
 		<div className="item">
 
 			<DetailItemHeader
-				data={this.state.data}
+				contact={this.state.contact}
 				disabledVal={this.state.disabled}
 				myID={this.state.myID}
-				setStateGetter={this.setHeaderState.bind(this)}/>
+				changeValue={this.changeContactAttribute.bind(this)}/>
 
 			<DetailItemContent
-				data={this.state.data}
+				contact={this.state.contact}
 				disabled={this.state.disabled}
 				myID={this.state.myID}
-				setStateGetter={this.setContentState.bind(this)}/>
+				changeValue={this.changeContactAttribute.bind(this)}/>
 
 			<DetailItemFooter
-				onclickedit={this.state.do_setDisabled}
-				onclickdelete={this.state.do_delete}
+				onclickedit={this.saveContact.bind(this)}
+				onclickdelete={this.deleteClicked.bind(this)}
 				disabled={this.state.disabled}
 				newContact={this.props.newContact ? true : false}
 				saveMethod={this.state.saveMethod}/>
@@ -217,14 +190,15 @@ class DetailItemHeader extends React.Component {
 				<ProfilePic />
 
 				<Input
-					value={this.props.data.fullName}
+					value={this.props.contact.fullName}
+					valueName={"fullName"}
 					infoName={""}
 					infoClass={"name"}
 					infoPH={"Full Name"}
 					infoType={"text"}
 					disabled={this.props.disabledVal}
 					myID={this.props.myID}
-					setStateGetter={this.props.setStateGetter}/>
+					changeValue={this.props.changeValue}/>
 
 			</div>
 		)
@@ -232,34 +206,10 @@ class DetailItemHeader extends React.Component {
 }
 
 class Input extends React.Component {
-	constructor (props) {
-		super(props)
-		this.state = {
-			value: this.props.value
-		}
-
-	}
-
-	componentWillMount () {
-		this.props.setStateGetter(this.reportState.bind(this))
-	}
-
-	reportState() {
-		return this.state
-	}
-
+	
 	handleChange(ev) {
 		//console.log("Saving is not implemented yet: " + ev.target.value);
-		this.setState({
-			value: ev.target.value
-		});
-	}
-
-	componentWillReceiveProps(newprobs) {
-
-		this.setState({
-			value: newprobs.value
-		});
+		this.props.changeValue(this.props.valueName, ev.target.value)
 	}
 
 	render() {
@@ -269,7 +219,7 @@ class Input extends React.Component {
 				className={this.props.infoClass}
 				type={this.props.infoType}
 				name={this.props.infoName}
-				value={this.state.value}
+				value={this.props.value}
 				placeholder={this.props.infoPH}
 				disabled={this.props.disabled}
 				onChange={this.handleChange.bind(this)}/>
@@ -278,75 +228,38 @@ class Input extends React.Component {
 }
 
 class DetailInputWrapWithLabel extends React.Component {
-	constructor (props) {
-		super(props)
-		this.state = {
-			value: this.props.infoValue,
-			label: this.props.infoLabel,
-			reportLabel: this.props.reportLabel
-		}
-	}
-
-	componentWillMount() {
-		this.props.setStateGetter(this.reportState.bind(this))
-
-	}
-
-
-	componentWillReceiveProps(newprops) {
-
-		this.setState({
-			value: newprops.infoValue,
-			label: newprops.infoLabel
-
-		});
-	}
-
-	/**
-	 * Return actual values of this field and it's label
-	 */
-	reportState() {
-		this.report = {
-			value: this.state.value,
-			label: this.state.reportLabel
-		}
-
-		return this.report
-	}
-
+	
 	handleChange(ev) {
-		//console.log("Saving is not implemented yet: " + ev.target.value);
-		this.setState({
-			value: ev.target.value
-		});
+		this.props.changeValue(this.props.reportLabel, ev.target.value)
 	}
-
+	
 	render() {
 		let error = ""
 		let inputClass = this.props.infoClass
-		if (this.props.infoClass === "email" && !util.isEmail(this.state.value) ) {
+		if (this.props.infoClass === "email" && !util.isEmail(this.props.infoValue) ) {
 			error = <span className="error-msg">Invalid E-mail</span>
 			inputClass += " error"
 		}
-		if (this.props.infoClass === "tel" && !util.isPhone(this.state.value) ) {
+		if (this.props.infoClass === "tel" && !util.isPhone(this.props.infoValue) ) {
 			error = <span className="error-msg">Invalid Phone</span>
 			inputClass += " error"
 		}
 		return (
 			<div className="input-wrap">
 				<label forName={this.props.infoClass}>
-					{this.state.label}
+					{this.props.infoLabel}
 				</label>
 				{error}
 				<input
 					className={inputClass}
 					type={this.props.infoType}
 					name={this.props.infoName}
-					value={this.state.value}
+					value={this.props.infoValue}
 					placeholder={this.props.infoPH}
 					disabled={this.props.infoEnabled}
 					onChange={this.handleChange.bind(this)}/>
 
+				
 			</div>
 		)
 	}
@@ -360,33 +273,34 @@ class DetailItemContent extends React.Component {
 				<DetailInputWrap
 					infoName={"bio"}
 					infoClass={"bio"}
+					reportLabel={"bio"}
 					infoPH={"Description"}
-					infoValue={this.props.data.bio}
+					infoValue={this.props.contact.bio}
 					infoLabel={"Bio"}
 					infoEnabled={this.props.disabled}
-					setStateGetter={this.props.setStateGetter}/>
+					changeValue={this.props.changeValue}/>
 
 				<DetailInputWrapWithLabel
 					infoType={"text"}
 					infoName={"tel"}
 					infoClass={"tel"}
 					infoPH={"+XXX XXX XXX XXX"}
-					infoValue={this.props.data.phone}
+					infoValue={this.props.contact.phone}
 					infoLabel={"Phone"}
 					reportLabel={"phone"}
 					infoEnabled={this.props.disabled}
-					setStateGetter={this.props.setStateGetter}/>
+					changeValue={this.props.changeValue}/>
 
 				<DetailInputWrapWithLabel
 					infoType={"text"}
 					infoName={""}
 					infoClass={"email"}
 					infoPH={"E-mail"}
-					infoValue={this.props.data.email}
+					infoValue={this.props.contact.email}
 					reportLabel={"email"}
 					infoLabel={"E-mail"}
 					infoEnabled={this.props.disabled}
-					setStateGetter={this.props.setStateGetter}/>
+					changeValue={this.props.changeValue}/>
 
 
 			</div>
@@ -396,40 +310,9 @@ class DetailItemContent extends React.Component {
 }
 
 class DetailInputWrap extends React.Component {
-	constructor (props) {
-		super(props)
-		this.state = {
-			value: this.props.infoValue,
-			label: this.props.infoClass
-		}
-
-	}
-
-	componentWillMount() {
-		this.props.setStateGetter(this.reportState.bind(this))
-
-	}
-
-	componentWillReceiveProps(newprops) {
-
-		this.setState({
-			value: newprops.infoValue,
-			label: newprops.infoClass
-		});
-	}
-
-	/**
-	 * Return actual value of this field and it's label
-	 */
-	reportState() {
-		return this.state
-	}
-
 	handleChange(ev) {
 		//console.log("Saving is not implemented yet: " + ev.target.value);
-		this.setState({
-			value: ev.target.value
-		});
+		this.props.changeValue(this.props.reportLabel, ev.target.value)
 	}
 
 	render() {
@@ -442,9 +325,9 @@ class DetailInputWrap extends React.Component {
 
                 <textarea
 					name={this.props.infoName}
-					className={this.state.label}
+					className={this.props.infoLabel}
 					placeholder={this.props.infoPH}
-					value={this.state.value}
+					value={this.props.infoValue}
 					disabled={this.props.infoEnabled}
 					onChange={this.handleChange.bind(this)}>
 

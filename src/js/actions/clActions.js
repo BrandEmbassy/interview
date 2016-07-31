@@ -32,3 +32,16 @@ export function changeActive (id) {
 		id
 	})
 }
+
+export function deleteActive() {
+	dispatcher.dispatch ({
+		type: "DELETE_ACTIVE"
+	})
+}
+
+export function saveActive(contact) {
+	dispatcher.dispatch ({
+		type: "SAVE_ACTIVE",
+		contact
+	})
+}
