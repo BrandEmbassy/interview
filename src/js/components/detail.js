@@ -3,7 +3,7 @@ import React from "react";
 import ProfilePic from "./profilePic.js";
 import ContactStore from "../stores/contactStore.js"
 import * as CLActions from "../actions/clActions.js"
-
+import util from "../utils/util.js"
 
 /**
  * @description - Root Element for right part of site.
@@ -267,7 +267,7 @@ class DetailItemContent extends React.Component {
 	render() {
 		return (
 			<div className="item__content">
-				<DetailInputWrap
+				<TextAreaWithLabel
 					infoName={"bio"}
 					infoClass={"bio"}
 					reportLabel={"bio"}
@@ -306,7 +306,7 @@ class DetailItemContent extends React.Component {
 	}
 }
 
-class DetailInputWrap extends React.Component {
+class TextAreaWithLabel extends React.Component {
 	handleChange(ev) {
 		//console.log("Saving is not implemented yet: " + ev.target.value);
 		this.props.changeValue(this.props.reportLabel, ev.target.value)

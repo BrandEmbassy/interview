@@ -9,3 +9,4 @@ var util = {
 		return regexp.test(s);
 	}
 }
+module.exports = util;
