@@ -21,9 +21,14 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "1.14.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+	"chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
   "scripts": {
-    "dev": "webpack-dev-server --content-base src --inline --hot"
+    "dev": "webpack-dev-server --content-base src --inline --hot",
+	"app": "webpack-dev-server --content-base src --inline --hot",
+	"mocha": "mocha test/store_test.js"
   },
   "author": "Roman Nikrmajer",
   "license": "ISC"

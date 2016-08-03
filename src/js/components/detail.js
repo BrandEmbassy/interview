@@ -4,9 +4,6 @@ import ProfilePic from "./profilePic.js";
 import ContactStore from "../stores/contactStore.js"
 import * as CLActions from "../actions/clActions.js"
 
-/*
-	START OF DETAIL CODE
-*/
 
 /**
  * @description - Root Element for right part of site.
@@ -458,8 +455,3 @@ class ButtonDelete extends React.Component {
 		)
 	}
 }
-
-
-/*
-	END OF DETAIL CODE
-*/
