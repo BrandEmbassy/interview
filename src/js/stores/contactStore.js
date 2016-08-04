@@ -1,10 +1,12 @@
 import { EventEmitter } from "events"
 
 import dispatcher from "../dispatcher.js"
+import $ from 'jquery'
 
 class ContactStore extends EventEmitter {
 	constructor() {
 		super()
+		/*
 		this.contacts = [
 		{ 
 		bio: "Just do it. I know I can be happy.",
@@ -18,8 +20,28 @@ class ContactStore extends EventEmitter {
 		fullName:"Jasmine Tester",
 		phone:	"+420 775 276 828" 
 		}
-		]
+		]*/
+		this.contacts = this.loadContactList()
+		console.log("Loaded JSON" + JSON.stringify(this.contacts))
 		this.active = 0
+	}
+
+	loadContactList() {
+		let data = (function () {
+			var json = null;
+			$.ajax({
+				'async': false,
+				'global': false,
+				'url': "./data/dataExample.json",
+				'dataType': "json",
+				'success': function (data) {
+					json = data;
+				}
+			});
+			return json;
+		})(); 
+		
+		return data.contactList
 	}
 	
 	getAll() {

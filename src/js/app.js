@@ -13,7 +13,7 @@ import Application from "./components/application";
  data={controller.data}
  */
 ReactDOM.render(
-			<Application data={controller.data}/>, 	//<div><ContactListSite /><Detail /></div>,
+			<Application />, 	//<div><ContactListSite /><Detail /></div>,
 			document.getElementById("app")					//document.getElementById("app")
 		);
 
