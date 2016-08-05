@@ -12,12 +12,13 @@ import util from "../utils/util.js"
 export default class Detail extends React.Component {
 	constructor() {
 		super()
-		ContactStore.test("Detail")
+		
 		this.state = {
 			contact : ContactStore.getActive(),
 			id : ContactStore.getActiveID(),
 			newContact : false
 		}
+
 	}
 	
 	componentWillMount() {
@@ -43,8 +44,6 @@ export default class Detail extends React.Component {
 	}
 	
 	render() {
-		
-
 		return (
 			<div className="detail">
 				<DetailItem
@@ -58,12 +57,15 @@ export default class Detail extends React.Component {
 	}
 }
 
+
+
 /*
  * Represent 1 Item in Detail part of site
  */
 class DetailItem extends React.Component {
 	constructor(props){
 		super(props);
+
 		this.state = {
 			disabled: true,
 			contact: {
@@ -74,14 +76,19 @@ class DetailItem extends React.Component {
 				myID: this.props.myID,
 			},
 		};
-		//this.state.do_setDiabled = ;
-	}
-
-	componentWillMount () {
-	}
-
-	componentWillReceiveProps(newprops) {
 		
+	}
+
+	/* This does not work - it has something to do with settings process.env.NODE_ENV to development mode 
+	 * but I can't find what I am missing here.
+	 * I would like to test properties of contact object as well but it seems that React does not support it.
+	 */
+	propTypes: {
+		contact: React.PropTypes.object.isRequired,
+		myID: React.PropTypes.number.isRequired
+	}
+	
+	componentWillReceiveProps(newprops) {
 		
 		let newState = {
 			disabled: !newprops.newContact,
@@ -175,7 +182,16 @@ class DetailItem extends React.Component {
 	}
 
 }
+/*
+DetailItem.PropTypes = {
+	contact: React.PropTypes.object,
+	
+	myID: React.PropTypes.number
+			
+}
 
+export default DetailItem
+*/
 /**
  * Header of Detail - it contains Full Name of contact
  */

@@ -6,7 +6,7 @@ import $ from 'jquery'
 class ContactStore extends EventEmitter {
 	constructor() {
 		super()
-		/*
+		
 		this.contacts = [
 		{ 
 		bio: "Just do it. I know I can be happy.",
@@ -20,9 +20,8 @@ class ContactStore extends EventEmitter {
 		fullName:"Jasmine Tester",
 		phone:	"+420 775 276 828" 
 		}
-		]*/
+		]
 		this.contacts = this.loadContactList()
-		console.log("Loaded JSON" + JSON.stringify(this.contacts))
 		this.active = 0
 	}
 
@@ -36,11 +35,20 @@ class ContactStore extends EventEmitter {
 				'dataType': "json",
 				'success': function (data) {
 					json = data;
+				},
+				'error': function(xhr, textStatus, errorThrown) {
+					console.error(xhr, textStatus, errorThrown)
+					alert("Loading contacts from json file failed. More info in error log.")
+					throw new Error("Loading contacts from json file failed. More info in error log.")
 				}
 			});
 			return json;
 		})(); 
-		
+		if (!data.contactList || typeof data.contactList !== "object") {
+			
+			alert("Bad JSON file content.")
+			throw new Error("Bad JSON file - JSON does not contain contactList")
+		}
 		return data.contactList
 	}
 	
@@ -65,6 +73,15 @@ class ContactStore extends EventEmitter {
 	}
 	
 	addContact(fullName,bio,phone,email) {
+		
+		if (typeof fullName !== "string" || 
+			typeof bio 		!== "string" || 
+			typeof phone    !== "string" || 
+			typeof email    !== "string"
+			){
+			console.error("Not valid contact.");
+			return undefined;
+		}
 		var contact = {
 		id : this.contacts.length,
 		bio,
@@ -76,6 +93,8 @@ class ContactStore extends EventEmitter {
 		this.active = this.contacts.length - 1
 		
 		this.emit("activeChanged")
+		
+		return this.active;
 	}
 	
 	saveContact (id, fullName, bio, phone, email) {
@@ -142,6 +161,6 @@ class ContactStore extends EventEmitter {
 
 const contactStore = new ContactStore
 dispatcher.register(contactStore.handleActions.bind(contactStore))
-//window.contactStore = contactStore
+window.contactStore = contactStore
 //window.dispatcher = dispatcher
 export default contactStore

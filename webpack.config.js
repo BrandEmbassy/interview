@@ -1,6 +1,9 @@
-var debug = process.env.NODE_ENV !== "production";
+
+
+
 var webpack = require('webpack');
 var path = require('path');
+var debug = process.env.NODE_ENV !== "production";
 
 module.exports = {
   context: path.join(__dirname, "src"),
@@ -24,8 +27,11 @@ module.exports = {
     filename: "app.min.js"
   },
   plugins: debug ? [] : [
+    //new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': '"development"' } }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+	
   ],
 };
+

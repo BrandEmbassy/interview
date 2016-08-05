@@ -8,10 +8,6 @@ import Application from "./components/application";
 /*
  * Connects this React App to HTML content
  */
- 
- /**
- data={controller.data}
- */
 ReactDOM.render(
 			<Application />, 	//<div><ContactListSite /><Detail /></div>,
 			document.getElementById("app")					//document.getElementById("app")

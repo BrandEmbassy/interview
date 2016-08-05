@@ -15,7 +15,6 @@ import * as CLActions from "../actions/clActions.js"
 export default class ContactListSite extends React.Component{
 	constructor() {
 		super()
-		ContactStore.test("ContactListSite")
 		this.state = {}
 		this.state.contacts = ContactStore.getAll()
 		this.state.active = 0

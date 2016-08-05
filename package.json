@@ -22,13 +22,15 @@
     "webpack-dev-server": "1.14.0"
   },
   "devDependencies": {
+    "babel-core": "^6.11.4",
+	"jquery": "^3.1.0",
     "chai": "^3.5.0",
     "mocha": "^2.4.5"
   },
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot",
     "app": "webpack-dev-server --content-base src --inline --hot",
-    "mocha": "mocha test/util_test.js"
+    "test": "mocha --compilers js:babel-core/register test/*.js"
   },
   "author": "Roman Nikrmajer",
   "license": "ISC"
