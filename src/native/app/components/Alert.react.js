@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import errorToMessage from '../../../common/app/errorToMessage';
 import theme from '../theme';
 import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import { FormattedMessage } from './';
@@ -111,7 +110,7 @@ class Alert extends Component {
     const { error } = this.props;
     if (!error) return null;
 
-    const errorMessage = errorToMessage(error);
+    const errorMessage = error;
     if (!errorMessage || !errorMessage.message) return null;
 
     const alertStyle = this.getAlertStyle();

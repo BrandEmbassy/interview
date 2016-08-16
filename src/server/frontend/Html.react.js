@@ -38,7 +38,7 @@ ga('create', '${googleAnalyticsId}', 'auto'); ga('send', 'pageview');` }}
           {linkStyles}
           {analytics}
         </head>
-        <body dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+        <body dangerouslySetInnerHTML={{ __html: bodyHtml }} className="app" />
       </html>
     );
   }

@@ -1,10 +1,11 @@
-import './App.scss';
-import Footer from './Footer.react';
-import Header from './Header.react';
+import './style.css';
+import './custom.css';
+import Sidebar from './Sidebar.react';
 import Helmet from 'react-helmet';
 import React, { Component, PropTypes } from 'react';
 import favicon from '../../common/app/favicon';
 import start from '../../common/app/start';
+import { getContacts } from '../../common/contacts/actions';
 import { connect } from 'react-redux';
 import { locationShape } from 'react-router';
 
@@ -29,6 +30,11 @@ class App extends Component {
     location: locationShape,
   };
 
+  componentDidMount() {
+    const { getContacts } = this.props;
+    getContacts();
+  }
+
   render() {
     const { children, currentLocale, location } = this.props;
 
@@ -39,10 +45,6 @@ class App extends Component {
           titleTemplate="%s - Este.js"
           meta={[
             ...bootstrap4Metas,
-            {
-              name: 'description',
-              content: 'Dev stack and starter kit for functional and universal React apps',
-            },
             ...favicon.meta,
           ]}
           link={[
@@ -50,9 +52,8 @@ class App extends Component {
           ]}
         />
         {/* Pass location to ensure header active links are updated. */}
-        <Header location={location} />
+        <Sidebar />
         {children}
-        <Footer />
       </div>
     );
   }
@@ -63,4 +64,4 @@ App = start(App);
 
 export default connect(state => ({
   currentLocale: state.intl.currentLocale,
-}))(App);
+}), { getContacts })(App);

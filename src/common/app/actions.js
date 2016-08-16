@@ -1,5 +1,3 @@
-import { firebaseStart } from '../lib/redux-firebase/actions';
-
 export const APP_OFFLINE = 'APP_OFFLINE';
 export const APP_ONLINE = 'APP_ONLINE';
 export const APP_SHOW_MENU = 'APP_SHOW_MENU';
@@ -19,9 +17,7 @@ export function start() {
     dispatch({ type: APP_STORAGE_LOAD, payload: state });
   };
   return ({ dispatch, storageEngine }) => {
-    loadStorage(dispatch, storageEngine).finally(() => {
-      dispatch(firebaseStart());
-    });
+    loadStorage(dispatch, storageEngine);
     return {
       type: APP_START,
     };

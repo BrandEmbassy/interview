@@ -9,7 +9,6 @@ import createRoutes from '../../browser/createRoutes';
 import serialize from 'serialize-javascript';
 import { Provider } from 'react-redux';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
-import { queryFirebaseServer } from '../../common/lib/redux-firebase/queryFirebase';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
 import { toJSON } from '../../common/transit';
 
@@ -98,9 +97,6 @@ export default function render(req, res, next) {
       return;
     }
     try {
-      if (!process.env.IS_SERVERLESS) {
-        await queryFirebaseServer(() => renderApp(store, renderProps));
-      }
       const html = renderPage(store, renderProps, req);
       const status = renderProps.routes
         .some(route => route.path === '*') ? 404 : 200;

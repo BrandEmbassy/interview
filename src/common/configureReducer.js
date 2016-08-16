@@ -1,15 +1,10 @@
 import app from './app/reducer';
-import auth from './auth/reducer';
 import config from './config/reducer';
 import device from './device/reducer';
 import intl from './intl/reducer';
+import contacts from './contacts/reducer';
 import nativeRouting from '../native/routing/reducer';
-import todos from './todos/reducer';
-import users from './users/reducer';
-import { FIREBASE_ON_AUTH } from '../common/lib/redux-firebase/actions';
 import { combineReducers } from 'redux';
-import { fieldsReducer as fields } from './lib/redux-fields';
-import { firebaseReducer as firebase } from './lib/redux-firebase';
 import { routerReducer as browserRouting } from 'react-router-redux';
 import { updateStateOnStorageLoad } from './configureStorage';
 
@@ -39,19 +34,14 @@ export default function configureReducer(initialState) {
     : browserRouting;
   let reducer = combineReducers({
     app,
-    auth,
     config,
     device,
-    fields,
-    firebase,
     intl,
+    contacts,
     routing,
-    todos,
-    users,
   });
 
   // The power of higher-order reducers, http://slides.com/omnidan/hor
-  reducer = resetStateOnSignOut(reducer, initialState);
   reducer = updateStateOnStorageLoad(reducer);
 
   return reducer;

@@ -1,6 +1,5 @@
 import configureStorage from './configureStorage';
 import createLoggerMiddleware from 'redux-logger';
-import errorToMessage from '../common/app/errorToMessage';
 
 // Deps.
 import firebase from 'firebase';
@@ -43,11 +42,11 @@ export default function configureMiddleware(initialState, platformDeps, platform
     firebase.initializeApp(initialState.config.firebase);
     firebaseDeps = {
       firebase: firebase.database().ref(),
-      firebaseAuth: firebase.auth,
       firebaseDatabase: firebase.database,
     };
   }
-  // Check whether Firebase works.
+
+  // // Check whether Firebase works.
   // firebaseDeps.firebase.child('hello-world').set({
   //   createdAt: firebaseDeps.firebaseDatabase.ServerValue.TIMESTAMP,
   //   text: 'Yes!'
@@ -69,7 +68,7 @@ export default function configureMiddleware(initialState, platformDeps, platform
       validate,
     }),
     promiseMiddleware({
-      shouldThrow: error => !errorToMessage(error),
+      shouldThrow: error => error,
     }),
     ...platformMiddleware,
   ];

@@ -16,22 +16,21 @@ nconf.defaults({
   appVersion: process.env.appVersion || process.env.HEROKU_SLUG_COMMIT,
   defaultLocale: 'en',
   firebase: {
-    // To get the config, just click Add web app from the overview page.
-    apiKey: 'AIzaSyDZRAOrDErAaC-TCKbr4cMzaohsPR4sWgU',
-    authDomain: 'este.firebaseapp.com',
-    databaseURL: 'https://este.firebaseio.com',
-    storageBucket: 'project-808488257248094054.appspot.com',
+    apiKey: "AIzaSyA-Kzh4kZV6oqWHPbO5UxUe5IQtM0xaO0Y",
+    authDomain: "brandembassy-b5a15.firebaseapp.com",
+    databaseURL: "https://brandembassy-b5a15.firebaseio.com",
+    storageBucket: "brandembassy-b5a15.appspot.com"
   },
   googleAnalyticsId: 'UA-XXXXXXX-X',
   isProduction: process.env.NODE_ENV === 'production',
-  locales: ['cs', 'de', 'en', 'es', 'fr', 'pt', 'ro'],
-  port: process.env.PORT || 3000,
+  locales: ['cs', 'en'],
+  port: process.env.PORT || 9000,
   // Enable hot reload on remote device. Note it prevents offline testing,
   // because it depends on ip.address(), which doesn't work with disabled wifi.
   // How do we access a website running on localhost from mobile browser?
   // stackoverflow.com/questions/3132105
   remoteHotReload: false,
-  sentryUrl: 'https://f297cec9c9654088b8ccf1ea9136c458@app.getsentry.com/77415',
+  sentryUrl: '',
 });
 
 export default nconf.get();

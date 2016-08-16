@@ -10,10 +10,7 @@ const isReactNative =
   navigator.product === 'ReactNative'; // eslint-disable-line no-undef
 
 const stateToSave = [
-  ['fields'],
-  ['todos'],
   ['intl', 'currentLocale'],
-  ['users', 'viewer'],
 ];
 
 if (isReactNative) {
