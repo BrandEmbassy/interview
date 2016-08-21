@@ -45,7 +45,7 @@ Field.propTypes = {
   EditElement: PropTypes.node,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.array,
 };
 
 export default class Contact extends Component {
@@ -99,7 +99,7 @@ export default class Contact extends Component {
         <div className="item__content">
           <div className="input-wrap">
             <label htmlFor="bio">Bio</label>
-            <Field className="bio" editing={editing} value={bio} onChange={value => this.onChange(value)} />
+            <Field className="bio" editing={editing} value={bio} onChange={value => this.onChange(value)} EditElement="textarea" />
           </div>
           <div className="input-wrap">
             <label htmlFor="tel">Phone</label>

@@ -45,5 +45,4 @@ npm install
 ## Production Tasks
 
 - `gulp build -p` build app for production
-- `npm test` run all checks and tests
 - `node src/server` start app, remember to set NODE_ENV and SERVER_URL

@@ -1,12 +1,11 @@
 import Helmet from 'react-helmet';
 import React, { Component, PropTypes } from 'react';
 import linksMessages from '../../common/app/linksMessages';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import * as actions from '../../common/contacts/actions';
 import Contact from './Contact.react';
 
-class HomePage extends Component {
+export class HomePage extends Component {
   static propTypes = {
     contacts: PropTypes.object.isRequired,
     saveContact: PropTypes.func.isRequired,
@@ -21,11 +20,7 @@ class HomePage extends Component {
 
     return (
       <div className="detail">
-        <FormattedMessage {...linksMessages.home}>
-          {message =>
-            <Helmet title={message} />
-          }
-        </FormattedMessage>
+        <Helmet title="Phonebook" />
         { contacts && contacts
           .sortBy(contact => contact.id).reverse()
           .map(contact => <Contact {...contact.toJS()} {...actions} />)

@@ -16,7 +16,7 @@ Contact.propTypes = {
   name: PropTypes.string,
 };
 
-class Sidebar extends Component {
+export class Sidebar extends Component {
   static propTypes = {
     contacts: PropTypes.object.isRequired,
     newContact: PropTypes.func.isRequired,
@@ -32,7 +32,6 @@ class Sidebar extends Component {
   render() {
     const { newContact, contacts } = this.props;
     const { filterBy } = this.state;
-
 
     return (
       <div className="list">
