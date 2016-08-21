@@ -15,7 +15,7 @@ import firebase from 'firebase';
 
 const initialState = createInitialState();
 
-const createRequestInitialState = ({req, contacts}) => {
+const createRequestInitialState = ({ req, contacts }) => {
   const currentLocale = process.env.IS_SERVERLESS
     ? config.defaultLocale
     : req.acceptsLanguages(config.locales) || config.defaultLocale;
@@ -23,7 +23,7 @@ const createRequestInitialState = ({req, contacts}) => {
     `${req.headers['x-forwarded-proto'] || req.protocol}://${req.headers.host}`;
   return {
     ...initialState,
-    contacts: contacts,
+    contacts,
     intl: initialState.intl
       .set('currentLocale', currentLocale)
       .set('initialNow', Date.now()),
@@ -79,12 +79,12 @@ const renderPage = (store, renderProps, req) => {
   return `<!DOCTYPE html>${docHtml}`;
 };
 
-const getContacts = async function() {
+const getContacts = async function getContacts() {
   const fb = firebase.initializeApp(config.firebase, 'ServerApp');
   const db = fb.database().ref();
   const snapshot = await db.once('value');
   return snapshot.val().contacts;
-}
+};
 
 export default async function render(req, res, next) {
   const memoryHistory = createMemoryHistory(req.originalUrl);

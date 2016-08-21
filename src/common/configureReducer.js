@@ -8,24 +8,6 @@ import { combineReducers } from 'redux';
 import { routerReducer as browserRouting } from 'react-router-redux';
 import { updateStateOnStorageLoad } from './configureStorage';
 
-const resetStateOnSignOut = (reducer, initialState) => (state, action) => {
-  // Reset app state on sign out, stackoverflow.com/q/35622588/233902.
-  const userWasSignedOut =
-    action.type === FIREBASE_ON_AUTH &&
-    state.users.viewer && !action.payload.user;
-  if (userWasSignedOut) {
-    // Preserve state without sensitive data.
-    state = {
-      app: state.app,
-      config: initialState.config,
-      device: initialState.device,
-      intl: initialState.intl,
-      routing: state.routing, // Routing state has to be reused.
-    };
-  }
-  return reducer(state, action);
-};
-
 export default function configureReducer(initialState) {
   // One day we will have universal routing, but we are not there yet.
   // jmurzy/react-router-native

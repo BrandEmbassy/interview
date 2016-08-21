@@ -14,19 +14,19 @@ const Contact = Record({
 });
 
 export default function contactsReducer(state = new State, action) {
-  if (!(state instanceof State))return new Map(state.map(contact => [contact.id, new Contact(contact)]));
+  if (!(state instanceof State)) return new Map(state.map(contact => [contact.id, new Contact(contact)]));
 
   switch (action.type) {
     case actions.GET_CONTACTS_SUCCESS: {
-      return new Map(action.payload.contacts.map(contact => [contact.id, new Contact(contact)]))
+      return new Map(action.payload.contacts.map(contact => [contact.id, new Contact(contact)]));
     }
 
     case actions.NEW_CONTACT: {
-      const id = (state.maxBy(contact => contact.id) || {id: 0}).id + 1;
-      return state.set( id, new Contact({
-        id: id,
+      const id = (state.maxBy(contact => contact.id) || { id: 0 }).id + 1;
+      return state.set(id, new Contact({
+        id,
         editing: true,
-      }) )
+      }));
     }
 
     case actions.UPDATE_CONTACT: {
@@ -34,15 +34,15 @@ export default function contactsReducer(state = new State, action) {
       const { id, field, value } = action.payload;
       payload[field] = value;
 
-      return state.set(id, state.get(id).merge(payload))
+      return state.set(id, state.get(id).merge(payload));
     }
 
     case actions.EDIT_CONTACT: {
       const { id } = action.payload;
 
       return state.set(id, state.get(id).merge({
-        editing: true
-      }))
+        editing: true,
+      }));
     }
 
     case 'SAVE_CONTACT_START': {
@@ -50,7 +50,7 @@ export default function contactsReducer(state = new State, action) {
       return state.set(id, state.get(id).merge({
         editing: false,
         saving: true,
-       }))
+      }));
     }
 
     case actions.SAVE_CONTACT_SUCCESS: {

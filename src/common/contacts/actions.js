@@ -10,36 +10,25 @@ export const EDIT_CONTACT = 'EDIT_CONTACT';
 
 export function getContacts() {
   return ({ firebase, dispatch }) => {
-    firebase.on("value", snapshot => {
+    firebase.on('value', snapshot => {
       if (snapshot.val() && snapshot.val().contacts) {
         dispatch({
           type: GET_CONTACTS_SUCCESS,
           payload: snapshot.val(),
         });
-      };
+      }
     });
 
     return {
-      type: GET_CONTACTS
-    }
+      type: GET_CONTACTS,
+    };
   };
-
-  return ({ firebase }) => ({
-    type: GET_CONTACTS,
-    payload: new Promise(resolve => {
-      firebase.on("value", snapshot => {
-        if (snapshot.val() && snapshot.val().contacts) {
-          resolve(snapshot.val());
-        };
-      });
-    })
-  })
 }
 
 export function newContact() {
   return {
     type: NEW_CONTACT,
-  }
+  };
 }
 
 export function saveContact(id) {
@@ -50,22 +39,22 @@ export function saveContact(id) {
       const contact = { name, bio, tel, email, id };
       firebase.child('contacts').child(id).set(contact).then(resolve({ id }));
     }),
-    id
-  })
+    id,
+  });
 }
 
 export function updateContact({ id, field, value }) {
   return {
     type: UPDATE_CONTACT,
-    payload: { id, field, value }
-  }
+    payload: { id, field, value },
+  };
 }
 
 export function editContact(id) {
   return {
     type: EDIT_CONTACT,
-    payload: { id }
-  }
+    payload: { id },
+  };
 }
 
 export function deleteContact(id) {
@@ -74,5 +63,5 @@ export function deleteContact(id) {
     payload: new Promise(resolve => {
       firebase.child('contacts').child(id).remove().then(resolve({ id }));
     }),
-  })
+  });
 }

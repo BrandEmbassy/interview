@@ -16,10 +16,10 @@ nconf.defaults({
   appVersion: process.env.appVersion || process.env.HEROKU_SLUG_COMMIT,
   defaultLocale: 'en',
   firebase: {
-    apiKey: "AIzaSyA-Kzh4kZV6oqWHPbO5UxUe5IQtM0xaO0Y",
-    authDomain: "brandembassy-b5a15.firebaseapp.com",
-    databaseURL: "https://brandembassy-b5a15.firebaseio.com",
-    storageBucket: "brandembassy-b5a15.appspot.com"
+    apiKey: 'AIzaSyA-Kzh4kZV6oqWHPbO5UxUe5IQtM0xaO0Y',
+    authDomain: 'brandembassy-b5a15.firebaseapp.com',
+    databaseURL: 'https://brandembassy-b5a15.firebaseio.com',
+    storageBucket: 'brandembassy-b5a15.appspot.com',
   },
   googleAnalyticsId: 'UA-XXXXXXX-X',
   isProduction: process.env.NODE_ENV === 'production',

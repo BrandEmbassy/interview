@@ -1,5 +1,5 @@
 import Helmet from 'react-helmet';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import linksMessages from '../../common/app/linksMessages';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -7,6 +7,13 @@ import * as actions from '../../common/contacts/actions';
 import Contact from './Contact.react';
 
 class HomePage extends Component {
+  static propTypes = {
+    contacts: PropTypes.object.isRequired,
+    saveContact: PropTypes.func.isRequired,
+    editContact: PropTypes.func.isRequired,
+    deleteContact: PropTypes.func.isRequired,
+    updateContact: PropTypes.func.isRequired,
+  }
 
   render() {
     const { contacts, saveContact, editContact, deleteContact, updateContact } = this.props;
@@ -30,5 +37,5 @@ class HomePage extends Component {
 }
 
 export default connect(state => ({
-  contacts: state.contacts
+  contacts: state.contacts,
 }), actions)(HomePage);

@@ -7,7 +7,6 @@ import favicon from '../../common/app/favicon';
 import start from '../../common/app/start';
 import { getContacts } from '../../common/contacts/actions';
 import { connect } from 'react-redux';
-import { locationShape } from 'react-router';
 
 // v4-alpha.getbootstrap.com/getting-started/introduction/#starter-template
 const bootstrap4Metas = [
@@ -27,7 +26,7 @@ class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     currentLocale: PropTypes.string.isRequired,
-    location: locationShape,
+    getContacts: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -36,7 +35,7 @@ class App extends Component {
   }
 
   render() {
-    const { children, currentLocale, location } = this.props;
+    const { children, currentLocale } = this.props;
 
     return (
       <div className="container">

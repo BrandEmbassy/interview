@@ -3,7 +3,7 @@ import Home from './home/HomePage.react';
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 
-export default function createRoutes(getState) {
+export default function createRoutes() {
   return (
     <Route component={App} path="/">
       <IndexRoute component={Home} />

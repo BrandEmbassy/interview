@@ -10,6 +10,7 @@
   ],
   "rules": {
     // Soft some rules.
+    "max-len": 0,
     "default-case": 0, // Required default case is nonsense.
     "global-require": 0, // Used by webpack-isomorphic-tools and React Native.
     "new-cap": [2, {"capIsNew": false, "newIsCap": true}], // For Record() etc.

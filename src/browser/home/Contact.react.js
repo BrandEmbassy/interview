@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Component from 'react-pure-render/component';
 import validate from 'validate.js';
 import lpn from 'google-libphonenumber';
-import { confirm } from '../app/sweetalert';
+import confirm from '../app/sweetalert';
 
-const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+const phoneUtil = lpn.PhoneNumberUtil.getInstance();
+
 const phoneErrorText = 'is invalid';
 
 validate.validators.phone = value => {
   if (!value) {
-    return;
+    return undefined;
   }
 
   try {
@@ -17,18 +18,16 @@ validate.validators.phone = value => {
     const isPossible = phoneUtil.isPossibleNumber(number);
 
     if (isPossible && phoneUtil.isValidNumber(number)) {
-      return;
+      return undefined;
     }
 
     return phoneErrorText;
-  } catch(e) {
+  } catch (e) {
     return phoneErrorText;
   }
-}
+};
 
-const Field = props => {
-  const { className, editing, EditElement = 'input', value = '', onChange, error } = props;
-
+const Field = ({ className, editing, EditElement = 'input', value = '', onChange, error }) => {
   if (editing) {
     return (
       <div>
@@ -36,20 +35,43 @@ const Field = props => {
         <EditElement className={`${className} ${error && 'error'}`} value={value} onChange={event => onChange({ value: event.target.value, field: className })} />
       </div>
     );
-  } else {
-    return <p className={className}>{value}</p>;
   }
+  return <p className={className}>{value}</p>;
+};
+
+Field.propTypes = {
+  className: PropTypes.string,
+  editing: PropTypes.bool,
+  EditElement: PropTypes.node,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.object,
 };
 
 export default class Contact extends Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    bio: PropTypes.string,
+    tel: PropTypes.string,
+    email: PropTypes.string,
+    active: PropTypes.bool,
+    editing: PropTypes.bool,
+    saving: PropTypes.bool,
+    updateContact: PropTypes.func.isRequired,
+    saveContact: PropTypes.func.isRequired,
+    deleteContact: PropTypes.func.isRequired,
+    editContact: PropTypes.func.isRequired,
+  };
+
   onChange(value) {
     const { updateContact, id } = this.props;
 
-    if (value.value != this.props[value.field].value) {
+    if (value.value !== this.props[value.field].value) {
       updateContact({
         id,
-        ...value
-      })
+        ...value,
+      });
     }
   }
 
@@ -65,13 +87,13 @@ export default class Contact extends Component {
       },
       tel: {
         phone: true,
-      }
+      },
     });
 
     return (
       <div className={`item ${saving && 'saving'}`}>
         <div className="item__header">
-          <div className="profile-pic"><img src={`https://api.adorable.io/avatars/100/${name}.png`} alt="Avatar"/></div>
+          <div className="profile-pic"><img src={`https://api.adorable.io/avatars/100/${name}.png`} alt="Avatar" /></div>
           <Field className="name" editing={editing} value={name} onChange={value => this.onChange(value)} error={errors && errors.name} />
         </div>
         <div className="item__content">

@@ -18,21 +18,7 @@ const register = unhandledRejection => unhandledRejection(event => {
   }
 });
 
-const setRavenUserContext = user => {
-  if (!user) {
-    Raven.setUserContext();
-    return;
-  }
-  Raven.setUserContext({
-    email: user.email,
-    id: user.id,
-  });
-};
-
-const reportingMiddleware = () => next => action => {
-  // TODO: Use Raven.setExtraContext for last 10 actions and limited app state.
-  return next(action);
-};
+const reportingMiddleware = () => next => action => next(action);
 
 export default function configureReporting(options) {
   const { appVersion, sentryUrl, unhandledRejection } = options;
