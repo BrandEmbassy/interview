@@ -5,7 +5,7 @@ test('updateContact will update contact', t => {
   const contact = {
     id: 1,
     field: 'name',
-    value: 'John Doe'
+    value: 'John Doe',
   };
 
   const action = actions.updateContact(contact);
@@ -15,7 +15,7 @@ test('updateContact will update contact', t => {
     payload: {
       id: contact.id,
       field: contact.field,
-      value: contact.value
+      value: contact.value,
     },
   });
 });

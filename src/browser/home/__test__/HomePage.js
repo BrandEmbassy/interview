@@ -12,12 +12,12 @@ global.window = doc.defaultView;
 const Contact = Record({
   name: '',
   id: null,
-})
+});
 
 test('renders correct amount of children', t => {
   const contacts = new Map(Range(0, 5).map(index => [index, new Contact({
     name: 'John Doe',
-    id: index
+    id: index,
   })]));
   const el = mount(<HomePage contacts={contacts} />);
 

@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 
 const swal = process.env.IS_BROWSER ? require('sweetalert') : {};
+
 if (process.env.IS_BROWSER) {
   require('sweetalert/dist/sweetalert.css');
 }

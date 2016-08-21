@@ -1,6 +1,5 @@
 import Helmet from 'react-helmet';
 import React, { Component, PropTypes } from 'react';
-import linksMessages from '../../common/app/linksMessages';
 import { connect } from 'react-redux';
 import * as actions from '../../common/contacts/actions';
 import Contact from './Contact.react';

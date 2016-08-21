@@ -12,12 +12,12 @@ global.window = doc.defaultView;
 const Contact = Record({
   name: '',
   id: null,
-})
+});
 
 test('renders correct amount of children', t => {
   const contacts = new Map(Range(0, 5).map(index => [index, new Contact({
     name: 'John Doe',
-    id: index
+    id: index,
   })]));
   const el = mount(<Sidebar contacts={contacts} />);
 
@@ -27,14 +27,14 @@ test('renders correct amount of children', t => {
 test('filtering works', t => {
   const contacts = new Map(Range(0, 5).map(index => [index, new Contact({
     name: 'John Doe',
-    id: index
+    id: index,
   })])).set(5, new Contact({
     name: 'Will Smith',
-    id: 6
+    id: 6,
   }));
   const el = mount(<Sidebar contacts={contacts} />);
   el.setState({
-    filterBy: 'will'
+    filterBy: 'will',
   });
 
   t.true(el.find('.item').length === 1);
