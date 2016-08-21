@@ -19,7 +19,10 @@ class HomePage extends Component {
             <Helmet title={message} />
           }
         </FormattedMessage>
-        { contacts.map && contacts.map(contact => <Contact {...contact.toJS()} {...actions} />) }
+        { contacts && contacts
+          .sortBy(contact => contact.id).reverse()
+          .map(contact => <Contact {...contact.toJS()} {...actions} />)
+        }
       </div>
     );
   }

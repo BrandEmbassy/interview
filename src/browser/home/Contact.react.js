@@ -2,6 +2,7 @@ import React from 'react';
 import Component from 'react-pure-render/component';
 import validate from 'validate.js';
 import lpn from 'google-libphonenumber';
+import { confirm } from '../app/sweetalert';
 
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 const phoneErrorText = 'is invalid';
@@ -53,7 +54,7 @@ export default class Contact extends Component {
   }
 
   render() {
-    const { id, name, bio, tel, email, editing, saving, saveContact, editContact, deleteContact } = this.props;
+    const { id, name, bio, tel, email, editing, saving, saveContact, deleteContact, editContact } = this.props;
 
     const errors = validate({ name, tel, email }, {
       name: {
@@ -93,7 +94,7 @@ export default class Contact extends Component {
           :
             <div className="button" onClick={() => editContact(id)}>Edit</div>
           }
-          <div className="button button--negative" onClick={() => deleteContact(id)}>Delete</div>
+          <div className="button button--negative" onClick={() => confirm({}).then(() => deleteContact(id))}>Delete</div>
         </div>
       </div>
     );

@@ -11,10 +11,11 @@ import { Provider } from 'react-redux';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
 import { toJSON } from '../../common/transit';
+import firebase from 'firebase';
 
 const initialState = createInitialState();
 
-const createRequestInitialState = req => {
+const createRequestInitialState = ({req, contacts}) => {
   const currentLocale = process.env.IS_SERVERLESS
     ? config.defaultLocale
     : req.acceptsLanguages(config.locales) || config.defaultLocale;
@@ -22,6 +23,7 @@ const createRequestInitialState = req => {
     `${req.headers['x-forwarded-proto'] || req.protocol}://${req.headers.host}`;
   return {
     ...initialState,
+    contacts: contacts,
     intl: initialState.intl
       .set('currentLocale', currentLocale)
       .set('initialNow', Date.now()),
@@ -77,12 +79,21 @@ const renderPage = (store, renderProps, req) => {
   return `<!DOCTYPE html>${docHtml}`;
 };
 
-export default function render(req, res, next) {
+const getContacts = async function() {
+  const fb = firebase.initializeApp(config.firebase, 'ServerApp');
+  const db = fb.database().ref();
+  const snapshot = await db.once('value');
+  return snapshot.val().contacts;
+}
+
+export default async function render(req, res, next) {
   const memoryHistory = createMemoryHistory(req.originalUrl);
+  const contacts = await getContacts();
   const store = configureStore({
-    initialState: createRequestInitialState(req),
+    initialState: createRequestInitialState({ req, contacts }),
     platformMiddleware: [routerMiddleware(memoryHistory)],
   });
+  await firebase.app('ServerApp').delete();
   const history = syncHistoryWithStore(memoryHistory, store);
   const routes = createRoutes(store.getState);
   const location = req.url;

@@ -57,6 +57,7 @@ export default function makeConfig(options) {
       ],
     },
     module: {
+      noParse: /node_modules\/google-libphonenumber\/dist\/browser\/libphonenumber.js/,
       loaders: [
         {
           loader: 'url-loader?limit=10000',

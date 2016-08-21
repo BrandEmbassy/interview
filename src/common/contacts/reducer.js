@@ -14,11 +14,11 @@ const Contact = Record({
 });
 
 export default function contactsReducer(state = new State, action) {
-  if (!(state instanceof State)) return new Map();
+  if (!(state instanceof State))return new Map(state.map(contact => [contact.id, new Contact(contact)]));
 
   switch (action.type) {
     case actions.GET_CONTACTS_SUCCESS: {
-      return state.merge(action.payload.contacts.map(contact => [contact.id, new Contact(contact)]))
+      return new Map(action.payload.contacts.map(contact => [contact.id, new Contact(contact)]))
     }
 
     case actions.NEW_CONTACT: {

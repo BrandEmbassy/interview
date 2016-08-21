@@ -22,16 +22,22 @@ class Sidebar extends Component {
     const { newContact, contacts } = this.props;
     const { filterBy } = this.state;
 
+
+
     return (
       <div className="list">
         <div className="list__header">
            <div className="search">
-              <input className="input" type="text" name="" value={filterBy} onChange={e => this.setState({ filterBy: e.target.value })} placeholder="Search ..." />
+              <input className="input" type="text" name="" value={filterBy} onChange={e => this.setState({ filterBy: e.target.valuetoLowerCase() })} placeholder="Search ..." />
             </div>
             <div className="heading">Contact List</div>
         </div>
         <div className="list__content">
-          { contacts.map && contacts.filter(contact => contact.name.toLowerCase().includes(filterBy.toLowerCase())).map(contact => <Contact name={contact.name} />) }
+          { contacts && contacts
+            .filter(contact => contact.get('name').toLowerCase().includes(filterBy))
+            .sortBy(contact => contact.id).reverse()
+            .map(contact => <Contact name={contact.get('name')} />)
+          }
         </div>
       <div className="list__footer">
         <div className="add-bttn" onClick={newContact}><span className="in">Add new contact</span></div>
