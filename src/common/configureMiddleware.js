@@ -33,7 +33,7 @@ const promiseMiddleware = options => ({ dispatch }) => next => action => {
         throw error;
       }
     });
-  return next(createAction('START'));
+  return next(createAction('START', action));
 };
 
 export default function configureMiddleware(initialState, platformDeps, platformMiddleware) {

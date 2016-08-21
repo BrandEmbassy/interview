@@ -1,5 +1,5 @@
 import invariant from 'invariant';
-import mapFirebaseUserToAppUser from './mapFirebaseUserToAppUser';
+// import mapFirebaseUserToAppUser from './mapFirebaseUserToAppUser';
 import messages from './messages';
 import { APP_OFFLINE, APP_ONLINE } from '../../app/actions';
 import { ValidationError } from '../validation';
@@ -256,11 +256,11 @@ export function firebaseStart() {
       dispatch({ type: FIREBASE_SIGN_IN_ERROR, payload: error });
     });
 
-    firebaseAuth().onAuthStateChanged(firebaseUser => {
-      const user = mapFirebaseUserToAppUser(firebaseUser);
-      monitorPresence(firebase, firebaseDatabase, user);
-      dispatch(onAuth(user));
-    });
+    // firebaseAuth().onAuthStateChanged(firebaseUser => {
+    //   const user = mapFirebaseUserToAppUser(firebaseUser);
+    //   monitorPresence(firebase, firebaseDatabase, user);
+    //   dispatch(onAuth(user));
+    // });
 
     firebase.child('.info/connected').on('value', snap => {
       const online = snap.val();

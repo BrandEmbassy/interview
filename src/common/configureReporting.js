@@ -14,6 +14,7 @@ const register = unhandledRejection => unhandledRejection(event => {
     /* eslint-disable no-console */
     console.warn('Unhandled promise rejection. Fix it or it will be reported.');
     console.warn(error);
+    console.warn(event);
     /* eslint-enable no-console */
   }
 });
