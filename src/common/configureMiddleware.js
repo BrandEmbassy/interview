@@ -3,7 +3,6 @@ import createLoggerMiddleware from 'redux-logger';
 
 // Deps.
 import firebase from 'firebase';
-import validate from './validate';
 
 let firebaseDeps = null;
 
@@ -65,7 +64,6 @@ export default function configureMiddleware(initialState, platformDeps, platform
       getUid: () => platformDeps.uuid.v4(),
       now: () => Date.now(),
       storageEngine,
-      validate,
     }),
     promiseMiddleware({
       shouldThrow: error => error,

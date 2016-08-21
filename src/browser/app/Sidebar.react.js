@@ -28,7 +28,7 @@ class Sidebar extends Component {
       <div className="list">
         <div className="list__header">
            <div className="search">
-              <input className="input" type="text" name="" value={filterBy} onChange={e => this.setState({ filterBy: e.target.valuetoLowerCase() })} placeholder="Search ..." />
+              <input className="input" type="text" name="" value={filterBy} onChange={e => this.setState({ filterBy: e.target.value.toLowerCase() })} placeholder="Search ..." />
             </div>
             <div className="heading">Contact List</div>
         </div>

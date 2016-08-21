@@ -41,19 +41,9 @@ npm install
 - `gulp ava` run ava unit tests
 - `gulp ava-watch` continuous test running for TDD
 - `gulp eslint` eslint
-- `gulp eslint --fix` fix fixable eslint issues
 
 ## Production Tasks
 
 - `gulp build -p` build app for production
 - `npm test` run all checks and tests
 - `node src/server` start app, remember to set NODE_ENV and SERVER_URL
-- `gulp to-html` render app to HTML for static hosting like [Firebase](https://www.firebase.com/features.html#features-hosting)
-- `gulp deploy-heroku` deploy [Heroku](https://www.heroku.com/) app
-- `gulp deploy-firebase` deploy [Firebase](https://firebase.google.com/) app
-- `gulp deploy-firebase-database` deploy Firebase database only
-
-## Flow
-
-- install [nuclide.io](https://nuclide.io/)
-- go to Nuclide settings, enable "Use the Flow binary included in each project"

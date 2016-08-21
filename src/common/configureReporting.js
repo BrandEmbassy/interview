@@ -1,5 +1,4 @@
 import Raven from 'raven-js';
-import { firebaseActions } from './lib/redux-firebase';
 
 // bluebirdjs.com/docs/api/error-management-configuration.html#global-rejection-events
 const register = unhandledRejection => unhandledRejection(event => {
@@ -31,9 +30,6 @@ const setRavenUserContext = user => {
 };
 
 const reportingMiddleware = () => next => action => {
-  if (action.type === firebaseActions.FIREBASE_ON_AUTH) {
-    setRavenUserContext(action.payload.user);
-  }
   // TODO: Use Raven.setExtraContext for last 10 actions and limited app state.
   return next(action);
 };
@@ -57,11 +53,6 @@ export default function configureReporting(options) {
       'bmi_SafeAddOnload',
       'EBCallBackMessageReceived',
       'conduitPage',
-      // Firebase
-      'Access is denied.',
-      'An internal error has occurred.',
-      'PERMISSION_DENIED: Permission denied',
-      'A network error (such as timeout, interrupted connection or unreachable host) has occurred',
     ],
     ignoreUrls: [
       // Facebook flakiness

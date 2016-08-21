@@ -30,5 +30,8 @@
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 2,
+
+    // Freaks out
+    "generator-star-spacing": 0,
   }
 }
