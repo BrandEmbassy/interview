@@ -1,23 +1,16 @@
 {
-  "name": "contact-list",
-  "version": "0.0.0",
-  "description": "super cool app",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
+  "name": "javascript-homework",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "1.0.10"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://BEDevelopers@bitbucket.org/BEDevelopers/interview-master.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/BEDevelopers/interview-master#readme",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
