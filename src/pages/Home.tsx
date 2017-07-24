@@ -15,9 +15,9 @@ type HomeState = Partial<{
 
 class Home extends React.Component<HomeProps, HomeState> {
     state: HomeState = {
-        sortAz: true,
-        searchString: ''
-    }
+        searchString: '',
+        sortAz: true
+    };
 
     clearSearch = () => {
         this.setState({
@@ -93,7 +93,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                 {
                     sortedContacts.map(contact => (
                         <Link className="ListItem" key={`item${contact.id}`} to={`/contact/${contact.id}`}>
-                            <div className="ListItem__image"></div>
+                            <div className="ListItem__image" />
                             {contact.fullName}
                         </Link>
                     ))

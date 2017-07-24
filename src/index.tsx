@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
@@ -15,5 +15,5 @@ ReactDOM.render(
         {routes}
       </Router>
     </Provider>,
-    document.getElementById("root")
+    document.getElementById('root')
 );

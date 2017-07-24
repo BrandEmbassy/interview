@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import '../styles/reset.css';
 import '../styles/App.scss';
 

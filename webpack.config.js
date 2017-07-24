@@ -7,8 +7,13 @@ const VENDOR_LIBS = [
 	'react',
 	'react-dom',
 	'redux',
-	'react-redux'
+	'react-redux',
+	'react-router-dom',
+	'lodash',
+	'classnames'
 ];
+
+console.log('haaa', process.env.NODE_ENV);
 
 const extractSass = new ExtractTextPlugin({
     filename: "[name].[contenthash].css",
