@@ -1,0 +1,250 @@
+.contacts__wrapper{
+  list-style: none;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: 520px;
+  overflow-y: auto;
+}
+
+.contact {
+  text-align: left;
+  border: 2px solid rgba(195, 192, 192, 0.4);
+  background-color: rgba(251, 251, 251, 0.8);
+  margin: 1px 2px;
+  padding: 8px 3px;
+  cursor: pointer;
+  transition: 250ms ease-in-out;
+  -webkit-transition: 250ms ease-in-out;
+}
+
+.numbers {
+  font-size: 18px;
+}
+
+.contact__name {
+  text-align: right;
+  font-weight: bold;
+  width: 80px;
+  font-size: 18px;
+  display: inline-block;
+  margin: 0 20px 0 10px;
+  vertical-align: middle;
+  word-wrap: break-word;
+  transition: 250ms ease-in-out;
+  -webkit-transition: 250ms ease-in-out;
+}
+
+.contact__info-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 120px);
+}
+
+.contact__add {
+  position: absolute;
+  bottom: 0px;
+  height: 30px;    
+  color: white;
+  background: rgba(16, 28, 101, 0.9);
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+}
+
+.contact__add p {
+  margin: 0;
+  text-align: center;
+  line-height: 30px;
+}
+
+.contact__add-plus {
+  margin-left: 11px;
+  vertical-align: middle;
+  display: inline-block;
+  background-image: url("../img/plus.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+}
+
+.open {
+  height: 100%;
+  position: absolute;
+  cursor: auto;
+}
+
+.contact__add.open input {
+  width: calc(100% - 87px);
+}
+
+.contact__input__wrapper:first-child {
+  margin-top: 80px;
+}
+
+.contact__input__wrapper {
+  margin: 20px;
+}
+
+.contact__input__wrapper input{
+  width: calc(100% - 87px);
+  height: 16px;
+  font-size: 16px;
+  padding: 3px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+}
+
+.contact__input__wrapper span{
+  margin-right: 10px;
+  width: 70px;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.contact__add-date span{
+  margin-right: 10px;
+}
+
+.contact__add-button {
+  width: 60%;
+  margin: auto;
+  min-width: 60px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid white;
+  background-color: rgba(6, 6, 6, 0.41);
+  border-radius: 5px;
+  margin-top: 80px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.contact__add-button--delete {
+  background-color: rgba(240, 6, 6, 0.41);
+  margin-top: 10px;
+}
+
+textarea.contact__add-likes {
+  width: 69%;
+  height: 50px;
+  vertical-align: middle;
+}
+
+select.contact__add-day {
+  margin-right: 12px;
+  height: 20px;
+}
+
+.notification{
+  position: absolute;
+  width: 80%;
+  top: 5px;
+  left: 8%;
+  padding: 20px 10px 15px 5px;
+  background-color: rgba(0, 99, 51, 0.88);
+  color: white;
+  cursor: pointer;
+  z-index: 3;
+  border-radius: 5px;
+}
+
+.unCalled {
+  position: absolute;
+  width: 80%;
+  top: 5px;
+  left: 8%;
+  padding: 20px 10px 15px 5px;
+  background-color: rgba(200, 99, 51, 0.88);
+  color: white;
+  cursor: pointer;
+  z-index: 3;
+  border-radius: 5px;
+}
+
+.unCalled:after{
+  position: absolute;
+  display: block;
+  content: "";
+  width: 16px;
+  height: 16px;
+  right: 4px;
+  top: 4px;
+  background-image: url("../img/close.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.notification:after{
+  position: absolute;
+  display: block;
+  content: "";
+  width: 16px;
+  height: 16px;
+  right: 4px;
+  top: 4px;
+  background-image: url("../img/close.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.notification--closed{
+  display: none;
+}
+
+.error-message {
+  margin: 10px;
+  width: 100%;
+  text-align: center;
+  color: red;
+  font-size: 12px;
+}
+
+.none-message {
+  display: none;
+}
+
+.contact__info {
+  float: right;
+  margin-right: 20px;
+  background-image: url("../img/info.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+}
+
+.contact__more {
+  float: right;
+  width: 20px;
+  height: 20px;
+  background-image: url("../img/arrow.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.contact__info-window__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  color: white;
+  background-color: rgba(16, 28, 101, 0.9);
+  transition: 250ms ease-in-out;
+  -webkit-transition: 250ms ease-in-out;
+}
+
+.contact__info-window {
+  width: 85%;
+  padding: 10px;
+  margin: 20px auto;
+  background-color: white;
+}
+
+.called{
+  background-color: #11e87d;
+}
