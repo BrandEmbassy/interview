@@ -2,6 +2,8 @@
 
 echo "Deploy app - $1"
 
+git config --global user.email vavdav@post.cz
+
 rm .gitignore
 git add dist
 git commit -m "add dist"
