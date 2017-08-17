@@ -1,10 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+## Development
 
+    yarn install // or just `yarn`
 
-You will find some information on how to perform common tasks [on Github](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+To run in dev mode.
 
+    npm run server
 
-# Contact List Documentation
-
-// TODO
-
+Then go to http://localhost:8080
