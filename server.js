@@ -4,6 +4,8 @@ const path = require('path');
 const app = express();
 
 console.log('ENV', process.env.NODE_ENV);
+console.log('__dirname', __dirname);
+
 if (process.env.NODE_ENV !== 'production') {
   const webpackMiddleware = require('webpack-dev-middleware');
   const webpack = require('webpack');
@@ -12,7 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   app.use(express.static('dist'));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
 }
 
