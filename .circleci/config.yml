@@ -45,7 +45,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "ec:6e:a2:3f:4e:83:4f:97:65:92:f5:fd:9f:d1:71:05"
+            - "0b:03:90:e7:06:6c:a6:45:d7:76:bc:9d:d3:94:af:cb"
       - deploy:
           name: Deploy Master to Heroku
           command: bash .circleci/deploy-heroku.sh vavdav-testci
