@@ -109,7 +109,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                     <div className="ListHeader">
                         {this.renderSearch()}
                         {this.renderFilter()}
-                        <div className="ListHeader__label">Contact List</div>
+                        <div className="ListHeader__label">Contact List 1</div>
                     </div>
                     <div className="ListContent">
                         {this.renderContacts()}
