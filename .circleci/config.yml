@@ -39,6 +39,9 @@ jobs:
       # run tests!
       - run: yarn lint
 
+      # run build!
+      - run: yarn build
+
       - run:
           name: Setup Heroku
           command: bash .circleci/setup-heroku.sh
