@@ -2,10 +2,6 @@
 
 echo "Deploy app - $1"
 
-git config --global user.email vavdav@post.cz
+git add dist -f
 
-rm .gitignore
-git add dist
-git commit -m "add dist"
-
-git subtree push --prefix=dist git@heroku.com:$1.git $CIRCLE_SHA1:refs/heads/master
+git push git@heroku.com:$1.git `git subtree split --prefix dist master`:$CIRCLE_SHA1:refs/heads/master --force
