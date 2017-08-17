@@ -2,8 +2,6 @@
 
 echo "Deploy app - $1"
 
-[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow
-
 rm .gitignore
 git add dist
 git commit -m "add dist"
