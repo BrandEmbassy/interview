@@ -1,4 +1,4 @@
-const util = require('../src/util');
+import util from '../src/util';
 
 describe('util', function() {
 
