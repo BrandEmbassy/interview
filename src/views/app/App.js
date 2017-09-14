@@ -49,17 +49,17 @@ class App extends Component {
         </div>
         <div className="item__content">
             <div className="input-wrap">
-                <label for="bio">Bio</label>
+                <label htmlFor="bio">Bio</label>
                 <textarea name="bio" className="bio" placeholder="Decsription" disabled>dkfkjgi hiduhiodsuhfiuh iuwhrfiusdshfi uhdsfiuh siufhsailu fhiuhf disufhidsuhf isdufhidu hfihf isdufhidu hfihf isdufhidu hfiu</textarea>
             </div>
             <div className="input-wrap">
                 <div className="tel">+420 777 888 999</div>
-                <label for="tel">Phone</label>
+                <label htmlFor="tel">Phone</label>
                 <input type="text" name="tel" className="tel" value="+420 777 888 999" placeholder="+XXX XXX XXX XXX" disabled />
             </div>
             <div className="input-wrap">
                 <div className="tel">+420 777 888 999</div>
-                <label for="email">E-mail</label>
+                <label htmlFor="email">E-mail</label>
                 <input type="text" className="email" value="brand@embassy.com" placeholder="E-mail" disabled />
             </div>
         </div>
@@ -77,17 +77,17 @@ class App extends Component {
         </div>
         <div className="item__content">
             <div className="input-wrap">
-                <label for="bio">Bio</label>
+                <label htmlFor="bio">Bio</label>
                 <textarea name="bio" className="bio" placeholder="Decsription" >dkfkjgi hiduhiodsuhfiuh iuwhrfiusdshfi uhdsfiuh siufhsailu fhiuhf disufhidsuhf isdufhidu hfihf isdufhidu hfihf isdufhidu hfiu</textarea>
             </div>
             <div className="input-wrap">
                 <div className="tel">+420 777 888 999</div>
-                <label for="tel">Phone</label>
+                <label htmlFor="tel">Phone</label>
                 <input type="text" name="tel" className="tel" value="+420 777 888 999" placeholder="+XXX XXX XXX XXX" />
             </div>
             <div className="input-wrap">
                 <div className="email">brand&embassy.com</div>
-                <label for="email">E-mail</label>
+                <label htmlFor="email">E-mail</label>
                 <span className="error-msg">Invalid E-mail</span>
                 <input type="text" className="email error" value="brand&embassy.com" placeholder="E-mail" />
             </div>
