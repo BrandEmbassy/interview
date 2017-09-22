@@ -1,3 +1,6 @@
+
+/* eslint-disable */
+
 import util from '../utils/util';
 
 describe('util', function() {

@@ -2,18 +2,13 @@
   "name": "javascript-homework",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "identity-obj-proxy": "^3.0.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.10"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "testAll": "jest CI=true --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src --cache --ignore-pattern .gitignore"
   },
   "jest": {
     "moduleNameMapper": {
@@ -21,10 +16,55 @@
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "identity-obj-proxy": "3.0.0",
+    "prop-types": "15.5.10",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
+    "react-redux": "5.0.6",
+    "react-router": "4.2.0",
+    "react-scripts": "1.0.10",
+    "redux": "3.7.2",
+    "redux-thunk": "^2.2.0",
+    "shortid": "2.2.8"
+  },
   "devDependencies": {
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1"
+    "babel-eslint": "8.0.0",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-plugin-react-html-attrs": "2.0.0",
+    "babel-plugin-transform-class-properties": "6.22.0",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-1": "6.24.1",
+    "eslint": "4.6.1",
+    "eslint-config-airbnb": "15.1.0",
+    "eslint-plugin-flowtype": "2.35.1",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.3.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-1",
+      "react"
+    ],
+    "plugins": [
+      "transform-decorators-legacy",
+      "add-module-exports",
+      "react-html-attrs",
+      "transform-class-properties"
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          "es2015",
+          "stage-1",
+          "react"
+        ]
+      }
+    }
   }
 }

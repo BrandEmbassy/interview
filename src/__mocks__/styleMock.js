@@ -1,2 +1,4 @@
 
+/* eslint-disable */
+
 module.exports = {};
