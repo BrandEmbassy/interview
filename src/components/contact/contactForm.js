@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import FormInput from './FormInput';
 import { labels, placeHolders, validateInput } from '../../utils/formUtils';
 import * as contactActions from '../../actions/contactActions';
 import utils from '../../utils/util';
@@ -19,6 +21,11 @@ class ContactForm extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.validationFunctions = {
+      email: utils.isEmail,
+      phone: utils.isPhone,
+      bio: utils.isTextValid,
+    };
   }
 
   handleEdit() {
@@ -36,6 +43,7 @@ class ContactForm extends React.Component {
     } else {
       this.props.saveContact(this.props.contact);
     }
+    this.setState({ edit: false });
   }
 
   handleDelete() {
@@ -46,15 +54,15 @@ class ContactForm extends React.Component {
     const name = event.target.name;
     const value = event.target.value;
     let errors = this.state.errors;
-    if (name === 'email') {
-      errors = validateInput(value, name, utils.isEmail, this.state.errors);
+    if (['email', 'phone', 'bio'].indexOf(name) > -1) {
+      errors = validateInput(name, value, this.validationFunctions[name], this.state.errors);
     }
     this.setState({ contact: { ...this.state.contact, [name]: value }, errors });
   }
 
   render() {
     debugger;
-    const { edit, contact } = this.state;
+    const { edit, contact, errors } = this.state;
 
     return (
       <div className="detail">
@@ -73,9 +81,10 @@ class ContactForm extends React.Component {
             />}
           </div>
           <div className="item__content">
-            <div className="input-wrap">
+            {/*<div className="input-wrap">
               {!edit && <div className="bio">{contact.bio}</div>}
               <label htmlFor="bio">{labels.bio}</label>
+              {errors && errors.bio && <span className="error-msg">Invalid Text</span>}
               {edit && <textarea
                 name="bio"
                 className="bio"
@@ -84,10 +93,24 @@ class ContactForm extends React.Component {
                 value={contact.bio}
                 disabled={!edit}
               />}
-            </div>
-            <div className="input-wrap">
+            </div>*/}
+            <FormInput
+              edit={edit}
+              value={contact.bio}
+              name="bio"
+              label={labels.bio}
+              placeHolder={placeHolders.bio}
+              classWrapperName="bio"
+              className="bio"
+              onChange={this.handleInput}
+              errors={errors}
+              errorMsg="Invalid Text"
+              type="textarea"
+            />
+            {/*<div className="input-wrap">
               {!edit && <div className="tel">{contact.phone}</div>}
               <label htmlFor="phone">{labels.phone}</label>
+              {errors && errors.phone && <span className="error-msg">Invalid Phone</span>}
               {edit && <input
                 type="text"
                 name="phone"
@@ -97,20 +120,45 @@ class ContactForm extends React.Component {
                 placeholder={placeHolders.phone}
                 disabled={!edit}
               />}
-            </div>
-            <div className="input-wrap">
+            </div>*/}
+            <FormInput
+              edit={edit}
+              value={contact.phone}
+              name="phone"
+              label={labels.phone}
+              placeHolder={placeHolders.phone}
+              classWrapperName="tel"
+              className="tel"
+              onChange={this.handleInput}
+              errors={errors}
+              errorMsg="Invalid Phone"
+            />
+            {/*<div className="input-wrap">
               {!edit && <div className="tel">{contact.email}</div>}
               <label htmlFor="email">{labels.email}</label>
+              {errors && errors.email && <span className="error-msg">Invalid E-mail</span>}
               {edit && <input
                 type="text"
-                className="email"
+                className={classNames('email', { error: errors && errors.email })}
                 name="email"
                 onChange={this.handleInput}
                 value={contact.email}
                 placeholder={placeHolders.email}
                 disabled={!edit}
               />}
-            </div>
+            </div>*/}
+            <FormInput
+              edit={edit}
+              value={contact.email}
+              name="email"
+              label={labels.email}
+              placeHolder={placeHolders.email}
+              classWrapperName="tel"
+              className="email"
+              onChange={this.handleInput}
+              errors={errors}
+              errorMsg="Invalid E-mail"
+            />
           </div>
           <div className="item__footer">
             {edit && <div role="button" className="button button--positive" onClick={this.handleSave}>Save</div>}

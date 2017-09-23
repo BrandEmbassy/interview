@@ -7,7 +7,12 @@ const utils = {
   },
 
   isPhone(s) {
-    const regexp = /^\d{9}$/i;
+    /* eslint no-useless-escape:0 */
+    const regexp = /^[0-9\-\+\ ]{16}$/i;
+    return regexp.test(s);
+  },
+  isTextValid(s) {
+    const regexp = /^\d/i;
     return regexp.test(s);
   },
 };
