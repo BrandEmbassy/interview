@@ -7,7 +7,7 @@ import contactsReducer from '../reducers/contactsReducer';
 
 /* global window */
 
-const rootReducer = combineReducers({ contacts: contactsReducer });
+const rootReducer = combineReducers({ contactsModel: contactsReducer });
 
 const composeEnhancers =
   typeof window === 'object' &&

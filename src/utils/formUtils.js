@@ -14,11 +14,8 @@ export const placeHolders = {
 };
 
 export function validateInput(name, value, validationFunc, errors) {
-  console.log('validate Input');
   const valid = validationFunc(value);
-  console.log('validate Input', valid);
   let newErrors = errors;
-  console.log('validate Input, errors', errors);
   if (!valid) {
     newErrors = newErrors || {};
     newErrors[name] = true;
@@ -26,6 +23,5 @@ export function validateInput(name, value, validationFunc, errors) {
     newErrors[name] = null;
     delete newErrors[name];
   }
-  console.log('validate Input, newErrors', newErrors);
   return newErrors;
 }

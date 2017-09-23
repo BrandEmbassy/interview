@@ -1,30 +1,37 @@
-import React from 'react';
+
+// @flow
+
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import FormInput from './FormInput';
+import { hashHistory as history } from 'react-router';
+import FormInput from '../../components/contact/FormInput';
 import { labels, placeHolders, validateInput } from '../../utils/formUtils';
 import * as contactActions from '../../actions/contactActions';
 import utils from '../../utils/util';
 
-
-const { saveContact, editContact, deleteContact } = contactActions;
-
-
-class ContactForm extends React.Component {
+class ContactForm extends Component {
   constructor(props) {
     super(props);
-    this.state = ({ edit: this.props.edit, contact: this.props.contact, errors: {} });
+    this.state = ({
+      edit: true,
+      contact: this.props.contact,
+      originalContact: { ...this.props.contact },
+      errors: {},
+    });
     // stupid create react app limitations
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancelEdit = this.handleCancelEdit.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.validate = this.validate.bind(this);
+
     this.validationFunctions = {
       email: utils.isEmail,
       phone: utils.isPhone,
       bio: utils.isTextValid,
+      name: utils.isTextValid,
     };
   }
 
@@ -33,67 +40,77 @@ class ContactForm extends React.Component {
   }
 
   handleCancelEdit() {
-    this.setState({ edit: false });
+    this.setState({ edit: false, contact: { ...this.state.originalContact } });
   }
 
   handleSave() {
-    debugger;
-    if (this.props.contact.id) {
-      this.props.editContact(this.props.contact);
+    if (this.haveAnyErrors(this.validate())) {
+      return;
+    }
+    if (this.state.contact.id) {
+      this.props.editContact(this.state.contact);
     } else {
-      this.props.saveContact(this.props.contact);
+      this.props.saveContact(this.state.contact);
     }
     this.setState({ edit: false });
+    this.goBack();
   }
 
   handleDelete() {
-    this.props.deleteContact(this.props.contact.id);
+    this.props.deleteContact(this.state.contact.id);
+    this.goBack();
+  }
+
+  haveAnyErrors(errors):Boolean {
+    return errors && Object.keys(errors).length > 0;
   }
 
   handleInput(event) {
     const name = event.target.name;
     const value = event.target.value;
     let errors = this.state.errors;
-    if (['email', 'phone', 'bio'].indexOf(name) > -1) {
+    if (this.validationFunctions[name]) {
       errors = validateInput(name, value, this.validationFunctions[name], this.state.errors);
     }
     this.setState({ contact: { ...this.state.contact, [name]: value }, errors });
   }
 
-  render() {
-    debugger;
-    const { edit, contact, errors } = this.state;
+  validate():Boolean {
+    let errors = this.state.errors;
+    Object.keys(this.validationFunctions).forEach((name) => {
+      errors = validateInput(
+        name, this.state.contact[name], this.validationFunctions[name], errors);
+    });
+    this.setState({ errors });
+    return errors;
+  }
 
+  goBack() {
+    history.push('/');
+  }
+
+  render() {
+    const { edit, contact, errors } = this.state;
+    const haveErrors = this.haveAnyErrors(errors);
     return (
       <div className="detail">
         <div className="item">
           <div className="item__header">
-            {!edit && <div className="profile-pic" />}
-            <div className="name">{contact.name}</div>
-            {edit && <input
-              className="name"
-              type="text"
-              name="name"
-              onChange={this.handleInput}
+            <div className="profile-pic" />
+            <FormInput
+              edit={edit}
               value={contact.name}
-              placeholder={placeHolders.fullName}
-              disabled={!edit}
-            />}
+              name="name"
+              label={labels.name}
+              placeHolder={placeHolders.fullName}
+              classWrapperName="name"
+              className="name"
+              onChange={this.handleInput}
+              errors={edit && errors}
+              errorMsg="Invalid Name"
+            />
           </div>
           <div className="item__content">
-            {/*<div className="input-wrap">
-              {!edit && <div className="bio">{contact.bio}</div>}
-              <label htmlFor="bio">{labels.bio}</label>
-              {errors && errors.bio && <span className="error-msg">Invalid Text</span>}
-              {edit && <textarea
-                name="bio"
-                className="bio"
-                onChange={this.handleInput}
-                placeholder={placeHolders.description}
-                value={contact.bio}
-                disabled={!edit}
-              />}
-            </div>*/}
             <FormInput
               edit={edit}
               value={contact.bio}
@@ -103,24 +120,10 @@ class ContactForm extends React.Component {
               classWrapperName="bio"
               className="bio"
               onChange={this.handleInput}
-              errors={errors}
+              errors={edit && errors}
               errorMsg="Invalid Text"
               type="textarea"
             />
-            {/*<div className="input-wrap">
-              {!edit && <div className="tel">{contact.phone}</div>}
-              <label htmlFor="phone">{labels.phone}</label>
-              {errors && errors.phone && <span className="error-msg">Invalid Phone</span>}
-              {edit && <input
-                type="text"
-                name="phone"
-                className="tel"
-                onChange={this.handleInput}
-                value={contact.phone}
-                placeholder={placeHolders.phone}
-                disabled={!edit}
-              />}
-            </div>*/}
             <FormInput
               edit={edit}
               value={contact.phone}
@@ -130,23 +133,9 @@ class ContactForm extends React.Component {
               classWrapperName="tel"
               className="tel"
               onChange={this.handleInput}
-              errors={errors}
+              errors={edit && errors}
               errorMsg="Invalid Phone"
             />
-            {/*<div className="input-wrap">
-              {!edit && <div className="tel">{contact.email}</div>}
-              <label htmlFor="email">{labels.email}</label>
-              {errors && errors.email && <span className="error-msg">Invalid E-mail</span>}
-              {edit && <input
-                type="text"
-                className={classNames('email', { error: errors && errors.email })}
-                name="email"
-                onChange={this.handleInput}
-                value={contact.email}
-                placeholder={placeHolders.email}
-                disabled={!edit}
-              />}
-            </div>*/}
             <FormInput
               edit={edit}
               value={contact.email}
@@ -156,24 +145,31 @@ class ContactForm extends React.Component {
               classWrapperName="tel"
               className="email"
               onChange={this.handleInput}
-              errors={errors}
+              errors={edit && errors}
               errorMsg="Invalid E-mail"
             />
           </div>
           <div className="item__footer">
-            {edit && <div role="button" className="button button--positive" onClick={this.handleSave}>Save</div>}
+            {edit && <div role="button" className="button button--positive" onClick={!haveErrors && this.handleSave} disabled={haveErrors}>Save</div>}
             {!edit && <div role="button" className="button" onClick={this.handleEdit}>Edit</div>}
             {edit && <div role="button" className="button" onClick={this.handleCancelEdit}>Cancel</div>}
             {!edit && <div role="button" className="button button--negative" onClick={this.handleDelete}>Delete</div>}
+            <div style={{ float: 'right' }} role="button" className="button button--negative" onClick={this.goBack}>Back</div>
           </div>
         </div>
       </div>
     );
   }
 }
-export default connect(null, { saveContact, editContact, deleteContact })(ContactForm);
+
+const { saveContact, editContact, deleteContact } = contactActions;
+
+export default connect(
+  store => ({ contact: store.contactsModel.editingContact }),
+  { saveContact, editContact, deleteContact },
+)(ContactForm);
+
 ContactForm.propTypes = {
-  edit: PropTypes.bool,
   contact: PropTypes.object,
   saveContact: PropTypes.func,
   deleteContact: PropTypes.func,

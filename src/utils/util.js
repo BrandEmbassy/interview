@@ -12,8 +12,7 @@ const utils = {
     return regexp.test(s);
   },
   isTextValid(s) {
-    const regexp = /^\d/i;
-    return regexp.test(s);
+    return !!s && s.replace(/\s/g, '').length > 0;
   },
 };
 

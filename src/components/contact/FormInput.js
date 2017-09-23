@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-export default function FormInput({
-  value, errors, edit, label, name, classWrapperName, className, placeHolder, onChange, errorMsg, type = 'text',
-}) {
+export default function FormInput(props) {
+  const { value, errors, edit, label, name, classWrapperName,
+    className, placeHolder, onChange, errorMsg, type = 'text' } = props;
   const renderInputElement = () => {
     if (type === 'textarea') {
       return (

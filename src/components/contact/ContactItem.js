@@ -4,8 +4,9 @@ import classNames from 'classnames';
 
 export default function ContactItem(props) {
   const { name } = props.contact;
+  const { onClick, active } = props;
   return (
-    <div className={classNames('item', { 'item--active': props.active })}>
+    <div onClick={onClick} className={classNames('item', { 'item--active': active })}>
       <div className="in">
         <div className="profile-pic" />
         {name}
@@ -17,4 +18,5 @@ export default function ContactItem(props) {
 ContactItem.propTypes = {
   contact: PropTypes.object,
   active: PropTypes.bool,
+  onClick: PropTypes.func,
 };
