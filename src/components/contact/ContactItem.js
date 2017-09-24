@@ -6,7 +6,7 @@ export default function ContactItem(props) {
   const { name } = props.contact;
   const { onClick, active } = props;
   return (
-    <div onClick={onClick} className={classNames('item', { 'item--active': active })}>
+    <div role="menuitem" onClick={onClick} className={classNames('item', { 'item--active': active })}>
       <div className="in">
         <div className="profile-pic" />
         {name}

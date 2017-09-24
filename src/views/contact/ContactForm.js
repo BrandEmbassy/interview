@@ -14,7 +14,7 @@ class ContactForm extends Component {
   constructor(props) {
     super(props);
     this.state = ({
-      edit: true,
+      edit: !this.props.contact || !this.props.contact.id,
       contact: this.props.contact,
       originalContact: { ...this.props.contact },
       errors: {},
@@ -36,11 +36,16 @@ class ContactForm extends Component {
   }
 
   handleEdit() {
+    this.validate();
     this.setState({ edit: true });
   }
 
   handleCancelEdit() {
-    this.setState({ edit: false, contact: { ...this.state.originalContact } });
+    debugger;
+    this.setState({
+      edit: !this.props.contact || !this.props.contact.id,
+      contact: { ...this.state.originalContact },
+    });
   }
 
   handleSave() {

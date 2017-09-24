@@ -21,5 +21,6 @@ module.exports = {
     "react/forbid-prop-types": [0, { "forbid": ['array', 'object'] }],
     "jsx-a11y/no-static-element-interactions": [0, { handlers: [],},],
     "jsx-a11y/interactive-supports-focus": [0, { handlers: [],},],
+    "class-methods-use-this": 0
   }
 };
