@@ -31,3 +31,29 @@ export function deleteContact(contactId) {
     payload: contactId,
   };
 }
+
+export function searchContact(query, contacts) {
+  return (dispatch) => {
+    dispatch({
+      type: CONTACT.SEARCH_CONTACT,
+      payload: query,
+    });
+    // simulate async call
+    setTimeout(() => {
+      const searchedContacts = contacts.filter(
+        contact => contact.name.toLocaleLowerCase().indexOf(
+          query.toLocaleLowerCase()) > -1);
+      dispatch({
+        type: CONTACT.SEARCH_CONTACT_RESULTS,
+        payload: searchedContacts,
+      });
+    }, 1000);
+  };
+}
+
+export function searchContactResults(results) {
+  return {
+    type: CONTACT.SEARCH_CONTACT_RESULTS,
+    payload: results,
+  };
+}

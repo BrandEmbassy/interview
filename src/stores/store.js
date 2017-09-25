@@ -2,6 +2,7 @@
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
 import contactsReducer from '../reducers/contactsReducer';
 
@@ -18,17 +19,10 @@ const composeEnhancers =
     }) : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk),
+  applyMiddleware(createLogger(), thunk),
   // other store enhancers if any
 );
 
 const store = createStore(rootReducer, {}, enhancer);
-
-
-store.subscribe(() => {
-  console.log('Store, subscribe');
-  console.log(arguments);
-  console.log('store changed', store.getState());
-});
 
 export default store;
