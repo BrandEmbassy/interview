@@ -8,7 +8,7 @@ const utils = {
 
   isPhone(s) {
     /* eslint no-useless-escape:0 */
-    const regexp = /^[0-9\-\+\ ]{16}$/i;
+    const regexp = /^\+[1-9]{1}[( \-){1}0-9]{14}$/;
     return regexp.test(s);
   },
   isTextValid(s) {
