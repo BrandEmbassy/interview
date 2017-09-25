@@ -41,7 +41,6 @@ class ContactForm extends Component {
   }
 
   handleCancelEdit() {
-    debugger;
     this.setState({
       edit: !this.props.contact || !this.props.contact.id,
       contact: { ...this.state.originalContact },
@@ -80,7 +79,7 @@ class ContactForm extends Component {
     this.setState({ contact: { ...this.state.contact, [name]: value }, errors });
   }
 
-  validate():Boolean {
+  validate():any {
     let errors = this.state.errors;
     Object.keys(this.validationFunctions).forEach((name) => {
       errors = validateInput(
