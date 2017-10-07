@@ -81,14 +81,13 @@ class Main extends Component {
       </div>
     );
   }
-
 }
-
 
 const { startEditingContact, setSortingMode, searchContact } = contactActions;
 
 export default connect((store) => {
-  const { contacts, sortingMode, editingContact, searchedContacts, searchQuery } = store.contactsModel;
+  const { contacts, sortingMode,
+    editingContact, searchedContacts, searchQuery } = store.contactsModel;
   return { contacts, sortingMode, editingContact, searchedContacts, searchQuery };
 }, { startEditingContact, setSortingMode, searchContact })(Main);
 
