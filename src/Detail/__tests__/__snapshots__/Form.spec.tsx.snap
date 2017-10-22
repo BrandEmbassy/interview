@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Detail - {
+  "editMode": false,
+  "values": {
+    "name": "",
+    "bio": "",
+    "tel": "",
+    "email": ""
+  }
+} 1`] = `
+<div
+  className="detail"
+>
+  <div
+    className="item"
+  >
+    <div
+      className="item__header"
+    >
+      <div
+        className="profile-pic"
+      />
+      <input
+        className="name"
+        disabled={true}
+        name="name"
+        onChange={[Function]}
+        placeholder="Full Name"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="item__content"
+    >
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="bio"
+        >
+          Bio
+        </label>
+        <textarea
+          className="bio"
+          disabled={true}
+          name="bio"
+          onChange={[Function]}
+          placeholder="Decsription"
+          value=""
+        />
+      </div>
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="tel"
+        >
+          Phone
+        </label>
+        <input
+          className="tel"
+          disabled={true}
+          name="tel"
+          onChange={[Function]}
+          placeholder="+XXX XXX XXX XXX"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="email"
+        >
+          E-mail
+        </label>
+        <input
+          className="email"
+          disabled={true}
+          onChange={[Function]}
+          placeholder="E-mail"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="item__footer"
+    >
+      <div
+        className="button"
+        onClick={[Function]}
+      >
+        Edit
+      </div>
+      <div
+        className="button button--negative"
+        onClick={[Function]}
+      >
+        Delete
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render Detail - {
+  "editMode": true,
+  "values": {
+    "name": "",
+    "bio": "",
+    "tel": "",
+    "email": ""
+  }
+} 1`] = `
+<div
+  className="detail"
+>
+  <div
+    className="item"
+  >
+    <div
+      className="item__header"
+    >
+      <div
+        className="profile-pic"
+      />
+      <input
+        className="name"
+        disabled={false}
+        name="name"
+        onChange={[Function]}
+        placeholder="Full Name"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="item__content"
+    >
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="bio"
+        >
+          Bio
+        </label>
+        <textarea
+          className="bio"
+          disabled={false}
+          name="bio"
+          onChange={[Function]}
+          placeholder="Decsription"
+          value=""
+        />
+      </div>
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="tel"
+        >
+          Phone
+        </label>
+        <input
+          className="tel"
+          disabled={false}
+          name="tel"
+          onChange={[Function]}
+          placeholder="+XXX XXX XXX XXX"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="email"
+        >
+          E-mail
+        </label>
+        <input
+          className="email"
+          disabled={false}
+          onChange={[Function]}
+          placeholder="E-mail"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="item__footer"
+    >
+      <div
+        className="button button--positive"
+        onClick={[Function]}
+      >
+        Save
+      </div>
+      <div
+        className="button button--negative"
+        onClick={[Function]}
+      >
+        Delete
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render Detail - {
+  "editMode": true,
+  "values": {
+    "name": "fdsf",
+    "bio": "fds",
+    "tel": "432",
+    "email": "fds@fdsf.sdf"
+  }
+} 1`] = `
+<div
+  className="detail"
+>
+  <div
+    className="item"
+  >
+    <div
+      className="item__header"
+    >
+      <div
+        className="profile-pic"
+      />
+      <input
+        className="name"
+        disabled={false}
+        name="name"
+        onChange={[Function]}
+        placeholder="Full Name"
+        type="text"
+        value="fdsf"
+      />
+    </div>
+    <div
+      className="item__content"
+    >
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="bio"
+        >
+          Bio
+        </label>
+        <textarea
+          className="bio"
+          disabled={false}
+          name="bio"
+          onChange={[Function]}
+          placeholder="Decsription"
+          value="fds"
+        />
+      </div>
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="tel"
+        >
+          Phone
+        </label>
+        <input
+          className="tel"
+          disabled={false}
+          name="tel"
+          onChange={[Function]}
+          placeholder="+XXX XXX XXX XXX"
+          type="text"
+          value="432"
+        />
+      </div>
+      <div
+        className="input-wrap"
+      >
+        <label
+          htmlFor="email"
+        >
+          E-mail
+        </label>
+        <input
+          className="email"
+          disabled={false}
+          onChange={[Function]}
+          placeholder="E-mail"
+          type="text"
+          value="fds@fdsf.sdf"
+        />
+      </div>
+    </div>
+    <div
+      className="item__footer"
+    >
+      <div
+        className="button button--positive"
+        onClick={[Function]}
+      >
+        Save
+      </div>
+      <div
+        className="button button--negative"
+        onClick={[Function]}
+      >
+        Delete
+      </div>
+    </div>
+  </div>
+</div>
+`;

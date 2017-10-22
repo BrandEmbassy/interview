@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Search - {
+  "searchVal": ""
+} 1`] = `
+<div
+  className="search"
+>
+  <input
+    className="input"
+    name="search"
+    onChange={[Function]}
+    placeholder="Search ..."
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`should render Search - {
+  "searchVal": "aaaa"
+} 1`] = `
+<div
+  className="search"
+>
+  <input
+    className="input"
+    name="search"
+    onChange={[Function]}
+    placeholder="Search ..."
+    type="text"
+    value="aaaa"
+  />
+</div>
+`;

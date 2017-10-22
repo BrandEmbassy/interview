@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render contact - {
+  "id": 1,
+  "name": "Janko Mrkva",
+  "bio": "Possimus velit est voluptatem error.",
+  "tel": "765789556",
+  "email": "fdsf@sdf.sdf"
+} 1`] = `
+<a
+  href="/contact/1"
+  onClick={[Function]}
+>
+  <div
+    className="item"
+  >
+    <div
+      className="in"
+    >
+      <div
+        className="profile-pic"
+      />
+      Janko Mrkva
+    </div>
+  </div>
+</a>
+`;
+
+exports[`should render contact - {
+  "id": 2,
+  "name": "Patrik Vrbovsky",
+  "bio": "Ipsum qui maxime ad officiis. Qui suscipit accusamus ex porro ullam. Natus velit quis est quos quod dignissimos sunt. Placeat placeat vero. Deleniti rerum distinctio. Sunt quidem eos et et sed suscipit aut voluptate.",
+  "tel": "678456445",
+  "email": "ooo@bar.aaa"
+} 1`] = `
+<a
+  href="/contact/2"
+  onClick={[Function]}
+>
+  <div
+    className="item"
+  >
+    <div
+      className="in"
+    >
+      <div
+        className="profile-pic"
+      />
+      Patrik Vrbovsky
+    </div>
+  </div>
+</a>
+`;
+
+exports[`should render contact - {
+  "id": 3,
+  "name": "Tomáš Jedno",
+  "bio": "Qui nihil fugit qui inventore ipsum non veritatis. Velit fugiat et. Cupiditate modi itaque nemo et quibusdam odio. Inventore veritatis voluptas repudiandae neque ipsam officia maiores. Itaque fugit corrupti ut perferendis libero praesentium est magnam.",
+  "tel": "712945023",
+  "email": "bla@foo.cz"
+} 1`] = `
+<a
+  href="/contact/3"
+  onClick={[Function]}
+>
+  <div
+    className="item"
+  >
+    <div
+      className="in"
+    >
+      <div
+        className="profile-pic"
+      />
+      Tomáš Jedno
+    </div>
+  </div>
+</a>
+`;

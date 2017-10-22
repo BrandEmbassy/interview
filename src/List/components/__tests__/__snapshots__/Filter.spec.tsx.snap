@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Filter - {
+  "activeFilter": "All"
+} 1`] = `
+<div
+  className="filter"
+>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    All
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    A-Z
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    Z-A
+  </div>
+</div>
+`;
+
+exports[`should render Filter - {
+  "activeFilter": "Ascending"
+} 1`] = `
+<div
+  className="filter"
+>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    All
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    A-Z
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    Z-A
+  </div>
+</div>
+`;
+
+exports[`should render Filter - {
+  "activeFilter": "Descending"
+} 1`] = `
+<div
+  className="filter"
+>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    All
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    A-Z
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    Z-A
+  </div>
+</div>
+`;
+
+exports[`should render Filter - {
+  "activeFilter": 0
+} 1`] = `
+<div
+  className="filter"
+>
+  <div
+    className="filter__item filter__item--active"
+    onClick={[Function]}
+  >
+    All
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    A-Z
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    Z-A
+  </div>
+</div>
+`;
+
+exports[`should render Filter - {
+  "activeFilter": 1
+} 1`] = `
+<div
+  className="filter"
+>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    All
+  </div>
+  <div
+    className="filter__item filter__item--active"
+    onClick={[Function]}
+  >
+    A-Z
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    Z-A
+  </div>
+</div>
+`;
+
+exports[`should render Filter - {
+  "activeFilter": 2
+} 1`] = `
+<div
+  className="filter"
+>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    All
+  </div>
+  <div
+    className="filter__item"
+    onClick={[Function]}
+  >
+    A-Z
+  </div>
+  <div
+    className="filter__item filter__item--active"
+    onClick={[Function]}
+  >
+    Z-A
+  </div>
+</div>
+`;
