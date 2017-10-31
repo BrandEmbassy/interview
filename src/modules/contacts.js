@@ -34,7 +34,7 @@ const Contact = (props) => (
 
 const AddContact = (props) => (
   <div className="contact__add" onClick={props.click}>
-    <p>Add contact<span className="contact__add-plus"></span></p>
+    <span className="contact__add-plus"></span>
   </div>
 )
 
@@ -72,13 +72,13 @@ const createNumberArray = (lowEnd, highEnd) => {
 }
 
 // Check if persons birthdate matches current date
-const checkBirthDays = (person) => person.birthDay[0] == newDate.getDate() && person.birthDay[1] == (newDate.getMonth()+1);
+const checkBirthDays = (person) => person.birthDay[0] === newDate.getDate() && person.birthDay[1] === (newDate.getMonth()+1);
 
 // Check if it was atleast a month since last called
-const checkLastCalled = (person) => (person.date.day - newDate.getDate()) == 0 && (newDate.getMonth() - person.date.month) == 1;
+const checkLastCalled = (person) => (person.date.day - newDate.getDate()) === 0 && (newDate.getMonth() - person.date.month) === 1;
 
 // Check if year filled out
-const checkOptions = (arr) => (arr[0] == 1 &&  arr[1] == 1 && arr[2] == 1900) ? false : true;
+const checkOptions = (arr) => (arr[0] === 1 &&  arr[1] === 1 && arr[2] === 1900) ? false : true;
 
 const getLikes = (arr, name) => arr.filter(obj => obj.name === name).map(obj => obj.likes);
 
@@ -121,21 +121,23 @@ export default class Contacts extends Component{
     // Fetch data from Firebase
     this.database.once("value")
       .then( _ => { 
-        this.setState({numbers : Object.values(_.val())}) 
+        this.setState({numbers : Object.keys(_.val()).map(e => _.val()[e])}) 
 
         // Check if it is someones birthday today
-        Object.values(_.val()).map(obj => obj)
+        Object.keys(_.val())
+          .map(e => _.val()[e])
           .filter(checkBirthDays)
           .forEach(person => {this.birthDays.push(person.name)})
         
-        if(this.birthDays.length != 0) this.setState({notification: this.state.notification ? false : true})
+        if(this.birthDays.length !== 0) this.setState({notification: this.state.notification ? false : true})
 
         // Check how long it has been since you called someone
-        Object.values(_.val()).map(obj => obj)
+        Object.keys(_.val())
+          .map(e => _.val()[e])
           .filter(checkLastCalled)
           .forEach(person => this.unCalled.push(person.name))
 
-        if(this.unCalled.length != 0) this.setState({unCalled: this.state.unCalled ? false : true})
+        if(this.unCalled.length !== 0) this.setState({unCalled: this.state.unCalled ? false : true})
       })
   } 
 
@@ -176,7 +178,7 @@ export default class Contacts extends Component{
 
     // Get the already existing birthday and index 
     this.state.numbers.forEach((person, index, array) => {
-      if(person.number == this.state.infoOpened[0]){
+      if(person.number === this.state.infoOpened[0]){
         birthDay = this.state.numbers[index]["birthDay"]
         indexNumber = index;
       }
@@ -202,7 +204,7 @@ export default class Contacts extends Component{
 
     // Delete the selected person object from numbers object
     this.state.numbers.forEach((person, index, array) => {
-      if(person.number == this.state.infoOpened[0]){
+      if(person.number === this.state.infoOpened[0]){
         delete this.state.numbers[index]
       }
     })
@@ -242,7 +244,11 @@ export default class Contacts extends Component{
         let oldDate = {}
 
         // Assign last called date to oldDate variable
-        this.state.numbers.forEach((person, index, array) => {if(person.number == this.state.infoOpened[0]) oldDate = this.state.numbers[index].date})
+        this.state.numbers.forEach(
+          (person, index, array) => {
+            if(person.number === this.state.infoOpened[0]) 
+              oldDate = this.state.numbers[index].date
+          })
 
         // Define new object to be pushed to Firebase
         newObj = {
@@ -255,7 +261,7 @@ export default class Contacts extends Component{
 
         // Push new object to numbers object
         this.state.numbers.forEach((person, index, array) => {
-          if(person.number == this.state.infoOpened[0]){
+          if(person.number === this.state.infoOpened[0]){
             this.state.numbers[index] = newObj
           }
         })
@@ -270,7 +276,7 @@ export default class Contacts extends Component{
   // Simulates calling someone and pushes new date of call to Firebase
   initiateCall (e) {
     this.state.numbers.forEach((person, index, array) => {
-      if(person.number == e.target.parentElement.getElementsByClassName("contact__info-wrapper")[0].id){
+      if(person.number === e.target.parentElement.getElementsByClassName("contact__info-wrapper")[0].id){
 
         // Set new date of last call
         array[index].date.day = this.date.getDate();
@@ -303,7 +309,7 @@ export default class Contacts extends Component{
     let value = "";
 
     this.state.numbers.forEach((person, index, array) => {
-      if(person.number == id){
+      if(person.number === id){
         value = this.state.numbers[index][attribute]
       }
     })
@@ -314,11 +320,15 @@ export default class Contacts extends Component{
   render() {
     // Defining modules
     let notificationBirthDay = this.state.notification ? 
-      <div className="notification" onClick={() => this.setState({notification: this.state.notification ? false : true})}>{`${this.birthDays[0]} has birthday today! He/she likes ${getLikes(this.state.numbers,this.birthDays[0])}`}</div> : 
+      <div className="notification" onClick={() => this.setState({notification: this.state.notification ? false : true})}>
+        {`${this.birthDays[0]} has birthday today! He/she likes ${getLikes(this.state.numbers,this.birthDays[0])}`}
+      </div> : 
       <div className="notification--closed"></div>;
 
     let notificationCall = this.state.unCalled ? 
-      <div className="unCalled" onClick={() => this.setState({unCalled: this.state.unCalled ? false : true})}>{`You havent called ${this.unCalled[0]} in a month! Do something about it :)`}</div> : 
+      <div className="unCalled" onClick={() => this.setState({unCalled: this.state.unCalled ? false : true})}>
+        {`You havent called ${this.unCalled[0]} in a month! Do something about it :)`}
+      </div> : 
       <div className="notification--closed"></div>;
 
     let message = this.state.filled ? 
@@ -361,7 +371,9 @@ export default class Contacts extends Component{
       </div>
     )
 
-    let Button = this.state.adding ? <AddContactForm click={this.beingAdded}/> : <AddContact click={this.beingAdded} />;
+    let Button = this.state.adding ? 
+      <AddContactForm click={this.beingAdded}/> : 
+      <AddContact click={this.beingAdded} />;
 
     let infoWindow = this.state.infoOpened[1] ? 
       <InfoWindow  
@@ -375,14 +387,16 @@ export default class Contacts extends Component{
       </InfoWindow> : 
       <span></span> ;
 
-    const listItems = Object.values(this.state.numbers).map(person => 
-      <Contact 
-        name={person.name} 
-        number={person.number} 
-        click={this.initiateCall} 
-        clickOne={this.openInfo}>
-      </Contact> 
-    );
+    const listItems = Object.keys(this.state.numbers)
+      .map(e => this.state.numbers[e])
+      .map(person => 
+        <Contact 
+          name={person.name} 
+          number={person.number} 
+          click={this.initiateCall} 
+          clickOne={this.openInfo}>
+        </Contact> 
+      );
     
     return (
       <div>
