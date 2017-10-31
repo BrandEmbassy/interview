@@ -44,11 +44,11 @@
 .contact__add {
   position: absolute;
   bottom: 0px;
-  height: 30px;    
+  height: 80px;
   color: white;
-  background: rgba(16, 28, 101, 0.9);
-  width: 100%;
-  border-radius: 0 0 3px 3px;
+  background: rgba(49, 110, 56, 0.53);
+  width: 90px;
+  border-radius: 0 5px 3px 3px;
   cursor: pointer;
 }
 
@@ -59,24 +59,26 @@
 }
 
 .contact__add-plus {
-  margin-left: 11px;
-  vertical-align: middle;
-  display: inline-block;
-  background-image: url("../img/plus.svg");
-  background-repeat: no-repeat;
+  margin: auto;
+  display: block;
+  background-image: url(/static/media/plus.01214b08.svg);
   background-size: 100%;
-  width: 20px;
-  height: 20px;
+  width: 70px;
+  height: 70px;
+  margin-top: 5px;
 }
 
 .open {
   height: 100%;
+  width: 100%;
   position: absolute;
+  background: rgba(49, 110, 56, 0.84);
   cursor: auto;
+  border-radius: initial;
 }
 
 .contact__add.open input {
-  width: calc(100% - 87px);
+  width: calc(100% - 96px);
 }
 
 .contact__input__wrapper:first-child {
@@ -88,7 +90,7 @@
 }
 
 .contact__input__wrapper input{
-  width: calc(100% - 87px);
+  width: calc(100% - 96px);
   height: 16px;
   font-size: 16px;
   padding: 3px;
@@ -99,7 +101,7 @@
 
 .contact__input__wrapper span{
   margin-right: 10px;
-  width: 70px;
+  width: 80px;
   display: inline-block;
   font-size: 18px;
 }
@@ -115,7 +117,7 @@
   padding: 10px;
   text-align: center;
   border: 1px solid white;
-  background-color: rgba(6, 6, 6, 0.41);
+  background-color: rgb(6, 103, 15);
   border-radius: 5px;
   margin-top: 80px;
   cursor: pointer;
@@ -123,8 +125,8 @@
 }
 
 .contact__add-button--delete {
-  background-color: rgba(240, 6, 6, 0.41);
-  margin-top: 10px;
+  background-color: rgb(136, 5, 5);
+  margin-top: 20px;
 }
 
 textarea.contact__add-likes {
@@ -233,7 +235,7 @@ select.contact__add-day {
   height: 100%;
   z-index: 2;
   color: white;
-  background-color: rgba(16, 28, 101, 0.9);
+  background: rgba(49, 110, 56, 0.84);
   transition: 250ms ease-in-out;
   -webkit-transition: 250ms ease-in-out;
 }
