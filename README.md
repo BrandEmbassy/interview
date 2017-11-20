@@ -1,5 +1,7 @@
 # BrandEmbassy Contacts
 
+# IMPORTANT!!! TESTED ONLY IN GOOGLE CHROME  62.X
+
 ## Implementation Notes
 
 The `Client` app is a plain `React` app with only one external dependency for the server-side communication via [Socket.IO](https://socket.io/). But no UI lib or state-management lib dependencies.
