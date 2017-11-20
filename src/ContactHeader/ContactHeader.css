@@ -1,0 +1,96 @@
+.ContactHeader {
+  position: fixed;
+  width: 100%;
+  background-color: #9ccc65;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 8px #888888;
+  display: flex;
+  z-index: 100;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.ContactHeader__start {
+  display: flex;
+  width:180px;
+  padding-left: 16px;
+  margin: auto 0;
+}
+
+.ContactHeader__start > img {
+  margin-right: 16px;
+}
+
+.ContactHeader__start > h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.ContactHeader__center {
+  display: flex;
+  position: relative;
+  width: 768px;
+  margin: auto;
+}
+
+.ContactHeader__searchBox {
+  width: 100%;
+  padding: 0;
+  font-size: 1.5rem;
+  padding: 4px 48px 4px 48px;
+  background-color: #c5e1a5;
+  border: 0;
+}
+
+.ContactHeader__searchIcon {
+  position: absolute;
+  left: 4px;  
+  height: 100%;
+}
+
+.ContactHeader__searchBox:focus {
+  background-color: #cfff95;
+  outline: none;  
+}
+
+.ContactHeader__searchBox::-webkit-input-placeholder {
+  color: #94af76;  
+}
+
+
+.ContactHeader__searchCleanButton {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;  
+}
+
+.ContactHeader__searchCleanButton > img {
+  height: 100%;
+}
+
+.ContactHeader__searchCleanButton:focus {
+  outline: none;  
+}
+
+.ContactHeader__end {
+  justify-content: flex-end;
+  padding-right: 16px;
+  display: flex;
+  width: 180px;
+}
+
+.ContactHeader__end > img{
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  margin-top: 2px;
+}
+
+.ContactHeader__end > span{
+  align-self: center;
+  font-size: 1.2rem;
+}

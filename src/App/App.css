@@ -1,0 +1,44 @@
+.App {
+  padding-top: 72px;
+  padding-bottom: 128px;
+}
+
+.App__content {
+  width: 768px;
+  margin: auto;
+}
+
+a {
+  color: #6b9b36;
+  text-decoration: none;
+}
+
+::-webkit-input-placeholder {
+  color: #cccccc;  
+}
+
+
+.Contact__button {
+  position: relative;
+  background-color: #9ccc64;
+  border: 0;
+  padding: 4px 16px;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  color: black;
+}
+
+.Contact__button:disabled {
+  background-color: #eeeeee;  
+  color: #aaaaaa;
+  cursor: not-allowed;  
+}
+
+.Contact__button_icon > img {
+  vertical-align: middle;
+}
+
+.Contact__button_danger {
+ background-color: #ef5350;
+}

@@ -1,0 +1,117 @@
+.ContactListItem {
+  margin: auto;
+}
+
+.ContactListItem__header {
+  padding: 16px;
+  margin: 16px 0 0 0;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+.ContactListItem__body {
+  box-sizing: border-box;  
+  position: relative;
+  background-color: white;
+  padding: 16px;
+  border-bottom: 1px solid silver;  
+  box-shadow: 2px 2px 4px #888888;
+}
+
+.ContactListItem__body_expanded {  
+  width: 864px;
+  font-size: 1.2rem;
+  margin-left: -48px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  box-shadow: 4px 4px 8px #888888;
+  z-index: 2;
+  animation-name: ContactListItem_anim__expand;
+  animation-duration: 0.4s;  
+}
+
+@keyframes ContactListItem_anim__expand {
+  from {
+    margin-left: 0px;
+    width: 768px;
+    font-size: 1rem;    
+    box-shadow: 2px 2px 4px #888888;
+    opacity: 0.6;
+  }
+  to {
+    margin-left: -48px;
+    font-size: 1.2rem;
+    box-shadow: 4px 4px 8px #888888;
+    width: 864px;
+    opacity: 1;
+  }
+}
+
+.ContactListItem__body_expanded .ContactListItem__name {
+  font-size: 2rem;
+  margin-bottom: 32px;
+}
+
+.ContactListItem__name .EditableTextBox {
+  width: calc(50% - 84px);
+}
+
+.ContactListItem__name > img {
+  width: 32px;
+  margin-right: 16px;
+  vertical-align: middle;
+}
+
+.ContactListItem__body_expanded .ContactListItem__name > img {
+  width: 120px;
+  height: 120px;
+}
+
+.ContactListItem__details {
+  display: none;
+}
+
+.ContactListItem__details > fieldset {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 0;
+}
+
+.ContactListItem__details > fieldset > legend {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.ContactListItem__details .EditableTextArea {
+  width: 100%;
+  font-family: inherit;
+}
+
+.ContactListItem__body_expanded .ContactListItem__details {
+  display: initial;
+}  
+
+.ContactListItem__actions {
+  opacity: 0;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+}
+
+.ContactListItem__actions button {
+  margin-right: 8px;
+}
+
+.ContactListItem__actions button:last-child {
+  margin-right: 0;
+}
+
+.ContactListItem__body:hover .ContactListItem__actions {
+  opacity: 1;
+}
+
+.ContactListItem__body_editable .ContactListItem__actions {
+  opacity: 1;
+}
+

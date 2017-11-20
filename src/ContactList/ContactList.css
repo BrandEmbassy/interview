@@ -1,0 +1,6 @@
+.ContactList__empty {
+  text-align: center;
+  padding-top: 45%;
+  color: #cccccc;
+  transition-duration: 0.4s;
+}

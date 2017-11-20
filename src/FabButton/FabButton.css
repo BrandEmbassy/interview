@@ -1,0 +1,45 @@
+.FabButton {
+  position: fixed;
+  z-index: 99;
+  bottom: 32px;
+  right: 32px;
+  width: 64px;
+  height: 64px;
+  border-radius: 2rem;
+  font-size: 2rem;
+  border: 0;
+  box-shadow: 4px 4px 8px #888888;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: #df78ef;
+}
+
+.FabButton[disabled] {
+  background-color: #eeeeee;
+  border: 1px solid #888888;
+  cursor: not-allowed;
+}
+
+.FabButton:not([disabled]):active {
+  background-color: #ab47bc;
+  box-shadow: 0 0 0;
+  transform: translateX(2px) translateY(4px);
+}
+
+.FabButton:not([disabled]):hover:active {
+  box-shadow: 0 0 0;
+}
+
+.FabButton:not([disabled]):hover {
+  box-shadow: 8px 8px 16px #888888;
+}
+
+.FabButton:focus {
+  outline: none;
+}
+
+.FabButton > img {
+  vertical-align: middle;
+  width: 60%;
+  height: 60%;  
+}

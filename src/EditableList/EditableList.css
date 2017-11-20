@@ -1,0 +1,53 @@
+
+.EditableList {
+  width: 100%;
+}
+
+.EditableList th,
+.EditableList__editorRow td:first-child {
+  width: 33%;
+}
+
+.EditableList td,
+.EditableList__editorRow td {
+  width: 100%;
+}
+
+.EditableList th,
+.EditableList td {
+  padding-right: 8px;
+  padding-bottom: 16px;
+}
+
+.EditableList th:last-child,
+.EditableList td:last-child {
+  padding-right: 0;
+}
+
+.EditableList tr:last-child th,
+.EditableList tr:last-child td {
+  padding-bottom: 0;
+}
+
+.EditableList__editorRow input {
+  width: 100%;
+  border-bottom: 2px solid silver;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.EditableList__editorRow input:focus {
+  border-bottom: 2px solid #0039cb;
+  outline: none;
+}
+
+.EditableList__itemRow > th {
+  text-align: left;
+  color: silver;
+  font-size: 1rem;
+}
+
+.EditableList_actionsCol {
+  text-align: center;
+}

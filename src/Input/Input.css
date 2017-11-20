@@ -1,0 +1,13 @@
+.Input {
+  border: 0;
+  border-bottom: 2px solid #eeeeee;
+}  
+
+.Input:focus {
+  border-bottom: 2px solid #9ccc65;
+  outline: none;
+}
+
+.Input.Input_required {
+  border-bottom: 2px solid #d50000;
+}

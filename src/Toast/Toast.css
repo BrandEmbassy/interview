@@ -1,0 +1,27 @@
+.Toast {
+  color: white;
+  background-color: black;
+  position: fixed;
+  right: 16px;
+  z-index: 100;
+  padding: 16px;
+  opacity: 0;
+}
+
+.Toast_show {
+  opacity: 1;
+  top: 88px;
+  animation-name: Toast_anim__show;
+  animation-duration: 0.8s;
+}
+
+@keyframes Toast_anim__show {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 88px;
+    opacity: 1;
+  }
+}

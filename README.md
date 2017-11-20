@@ -1,10 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+# BrandEmbassy Contacts
 
+## Implementation Notes
 
-You will find some information on how to perform common tasks [on Github](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+The `Client` app is a plain `React` app with only one external dependency for the server-side communication via [Socket.IO](https://socket.io/). But no UI lib or state-management lib dependencies.
 
+The `Server` is a simple `NodeJS` app who depends on `Socket.IO` to communicate with the clients and [AlaSQL](http://alasql.org/) database for persisting the contacts into a JSON file.
 
-# Contact List Documentation
+## Test Drive
 
-// TODO
+#### Instal the Client and Server dependencies
+```
+yarn install
+```
 
+#### Run the Client
+```
+yarn start
+```
+
+#### Run the Server
+```
+yarn run serve
+```
+
+Then have fun!
+
+Best, Maurizio
