@@ -1,11 +1,21 @@
-export const fullName = (contact) =>
-  `${contact.lastName}, ${contact.firstName}`;
+export const fullName = (contact) => {
+  if (
+    !contact ||
+    (
+      Object.keys(contact).length === 0 &&
+      contact.constructor === Object
+    )
+  ) return '';
+
+  const { firstName = '', lastName = '' } = contact;
+  return `${lastName}, ${firstName}`;
+};
 
 export const upperCaseFullName = (contact) =>
   fullName(contact).toUpperCase();
 
 export const buildAlphabetIndex = (contacts) =>
-  contacts.reduce((acc, c) => {
+  contacts ? contacts.reduce((acc, c) => {
     if (c.lastName) {
       const initial = c.lastName[0];
       if (acc[acc.length - 1] !== initial) {
@@ -13,4 +23,4 @@ export const buildAlphabetIndex = (contacts) =>
       }
     }
     return acc;
-  }, '').toUpperCase();
+  }, '').toUpperCase() : '';
