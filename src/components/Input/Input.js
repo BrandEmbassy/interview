@@ -7,14 +7,14 @@ class Input extends Component {
     return (
       <input
         ref={(elem) => this.inputElem = elem}
-        type={this.type || 'text'}
+        type={this.props.type || 'text'}
         className={"Input " + this.props.className}
-        onBlur={this.onBlur}
         placeholder={this.props.placeholder}
         autoFocus={this.props.autoFocus}
         value={this.props.value}
         defaultValue={this.props.defaultValue}
         onChange={this.handleOnChange}
+        onBlur={this.onBlur}
       />
     );
   }
