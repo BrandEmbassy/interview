@@ -13,7 +13,7 @@ import {
   upperCaseFullName,
   buildAlphabetIndex,
   fullName
-} from '../support';
+} from '../../support';
 
 import addIcon from './add.svg';
 import './App.css';
