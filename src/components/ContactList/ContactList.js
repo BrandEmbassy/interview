@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
@@ -7,27 +8,9 @@ import './ContactList.css';
 class ContactList extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      showEmptyMessage: false
-    };
-  }
-
-  get hasContacts() {
-    return this.props.contacts && this.props.contacts.length === 0 && !this.props.readOnly;
   }
 
   render() {
-    if (this.hasContacts) {
-      if (this.showEmptyMessageTimeout) {
-        clearTimeout(this.showEmptyMessageTimeout);
-      }
-      this.showEmptyMessageTimeout = setTimeout(() =>
-        this.setState({
-          showEmptyMessage: this.hasContacts
-        }), 500);
-    }
-
     return (
       <div className="ContactList">
         {this.props.contacts.map((contact, index, list) =>
@@ -35,13 +18,13 @@ class ContactList extends Component {
             key={contact.id}
             contact={contact}
             readOnly={this.props.readOnly}
-            prevContact={index && list[index - 1]}
+            prevContact={index > 0 ? list[index - 1] : null}
             handleUpdate={this.props.handleUpdate}
             handleDelete={this.props.handleDelete}
           />
         )}
 
-        {this.state.showEmptyMessage &&
+        {!this.props.contacts.length &&
           <div className="ContactList__empty">
             <h1>You still don't have any contact!</h1>
             <h2>You can fix it via the "Plus" button at the bottom-right :)</h2>
@@ -51,5 +34,22 @@ class ContactList extends Component {
     );
   }
 }
+
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    bio: PropTypes.string,
+    phones: PropTypes.arrayOf(PropTypes.shape({
+      type: PropTypes.string,
+      number: PropTypes.string,
+    })),
+    emails: PropTypes.arrayOf(PropTypes.shape({
+      type: PropTypes.string,
+      address: PropTypes.string,
+    })),
+  })).isRequired
+};
 
 export default ContactList;

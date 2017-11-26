@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render one contact 1`] = `
+<div
+  className="ContactList"
+>
+  <ContactListItem
+    contact={
+      Object {
+        "bio": "no comment!",
+        "emails": Array [
+          Object {
+            "number": "maurizio.pucci@abc.com",
+            "type": "work",
+          },
+          Object {
+            "number": "mao@xyz.io",
+            "type": "personal",
+          },
+        ],
+        "firstName": "Maurizio",
+        "id": "100",
+        "lastName": "Pucci",
+        "phones": Array [
+          Object {
+            "number": "123456",
+            "type": "casa",
+          },
+        ],
+      }
+    }
+    key="100"
+    prevContact={null}
+  />
+</div>
+`;
+
+exports[`should render the "no contacts" message 1`] = `
+<div
+  className="ContactList"
+>
+  <div
+    className="ContactList__empty"
+  >
+    <h1>
+      You still don't have any contact!
+    </h1>
+    <h2>
+      You can fix it via the "Plus" button at the bottom-right :)
+    </h2>
+  </div>
+</div>
+`;
+
+exports[`should render two contacts 1`] = `
+<div
+  className="ContactList"
+>
+  <ContactListItem
+    contact={
+      Object {
+        "bio": "no comment!",
+        "emails": Array [
+          Object {
+            "number": "maurizio.pucci@abc.com",
+            "type": "work",
+          },
+          Object {
+            "number": "mao@xyz.io",
+            "type": "personal",
+          },
+        ],
+        "firstName": "Maurizio",
+        "id": "100",
+        "lastName": "Pucci",
+        "phones": Array [
+          Object {
+            "number": "123456",
+            "type": "casa",
+          },
+        ],
+      }
+    }
+    key="100"
+    prevContact={null}
+  />
+  <ContactListItem
+    contact={
+      Object {
+        "firstName": "Aaa",
+        "id": "200",
+        "lastName": "Bbb",
+      }
+    }
+    key="200"
+    prevContact={
+      Object {
+        "bio": "no comment!",
+        "emails": Array [
+          Object {
+            "number": "maurizio.pucci@abc.com",
+            "type": "work",
+          },
+          Object {
+            "number": "mao@xyz.io",
+            "type": "personal",
+          },
+        ],
+        "firstName": "Maurizio",
+        "id": "100",
+        "lastName": "Pucci",
+        "phones": Array [
+          Object {
+            "number": "123456",
+            "type": "casa",
+          },
+        ],
+      }
+    }
+  />
+</div>
+`;

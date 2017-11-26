@@ -2,30 +2,41 @@
   "name": "be-contacts",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "test:coverage": "yarn run test --coverage --collectCoverageFrom='[\"src/**/*.{js,jsx}\", \"!src/**/*.stories.js\", \"!src/setupTests.js\"]'",
+    "eject": "react-scripts eject",
+    "serve": "node server/",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "alasql": "^0.4.3",
     "express": "^4.16.2",
     "normalize.css": "^7.0.0",
+    "prop-types": "^15.6.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
     "react-scripts": "1.0.17",
     "socket.io": "^2.0.4",
     "uuid": "^3.1.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "coverage": "yarn run test --coverage --collectCoverageFrom='[\"src/**/*.{js,jsx}\", \"!src/**/*.stories.js\"]'",
-    "eject": "react-scripts eject",
-    "serve": "node server/",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "proxy": "http://localhost:4000",
   "devDependencies": {
-    "@storybook/react": "^3.2.16",
     "@storybook/addon-actions": "^3.2.16",
-    "@storybook/addon-links": "^3.2.16"
+    "@storybook/addon-links": "^3.2.16",
+    "@storybook/react": "^3.2.16",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "enzyme-to-json": "^3.2.2",
+    "identity-obj-proxy": "^3.0.0",
+    "react-test-renderer": "^16.1.1"
   }
 }
