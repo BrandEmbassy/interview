@@ -15,12 +15,12 @@ The `Server` is a simple `NodeJS` app who depends on `Socket.IO` to communicate 
 yarn install
 ```
 
-#### Run the Client
+#### Run the Client and the Server
 ```
 yarn start
 ```
 
-#### Run the Server
+#### Run only the Server
 ```
 yarn run serve
 ```
