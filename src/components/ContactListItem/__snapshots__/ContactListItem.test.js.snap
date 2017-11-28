@@ -1,0 +1,696 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contact 1`] = `
+<div
+  className="ContactListItem"
+>
+  <h2
+    className="ContactListItem__header"
+    id="ContactListItem__header-P"
+  >
+    P
+  </h2>
+  <div
+    className="ContactListItem__body"
+    onClick={[Function]}
+  >
+    <div
+      className="ContactListItem__name"
+    >
+      <img
+        alt="Pucci, Maurizio"
+        src="face.svg"
+      />
+      <EditableTextBox
+        autoFocus={true}
+        defaultValue="Pucci"
+        editable={false}
+        onChange={[Function]}
+        placeholder="Last name"
+        required={true}
+      />
+      , 
+      <EditableTextBox
+        defaultValue="Maurizio"
+        editable={false}
+        onChange={[Function]}
+        placeholder="First name"
+        required={true}
+      />
+    </div>
+    <div
+      className="ContactListItem__details"
+    >
+      <fieldset>
+        <legend>
+          Bio
+        </legend>
+        <EditableTextArea
+          defaultValue="No comment!"
+          editable={false}
+          onChange={[Function]}
+          placeholder="Don't be shy, write something about you"
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Phones
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "number",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "number": "100 000 000",
+                "type": "casa",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Number",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Emails
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "address",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "address": "maurizio.pucci@abc.com",
+                "type": "lavoro",
+              },
+              Object {
+                "address": "mao@xyz.io",
+                "type": "privato",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Email",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+    </div>
+    <div
+      className="ContactListItem__actions"
+    >
+      <span>
+        <button
+          className="Contact__button Contact__button_icon"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <img
+            alt="Edit contact"
+            src="edit.svg"
+          />
+        </button>
+        <button
+          className="Contact__button Contact__button_icon Contact__button_danger"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <img
+            alt="Delete contact"
+            src="delete.svg"
+          />
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`isNew 1`] = `
+<div
+  className="ContactListItem"
+>
+  <h2
+    className="ContactListItem__header"
+  >
+    New Contact
+  </h2>
+  <div
+    className="ContactListItem__body ContactListItem__body_expanded ContactListItem__body_editable"
+    onClick={[Function]}
+  >
+    <div
+      className="ContactListItem__name"
+    >
+      <img
+        alt=", "
+        src="face.svg"
+      />
+      <EditableTextBox
+        autoFocus={true}
+        defaultValue=""
+        editable={true}
+        onChange={[Function]}
+        placeholder="Last name"
+        required={true}
+      />
+      , 
+      <EditableTextBox
+        defaultValue=""
+        editable={true}
+        onChange={[Function]}
+        placeholder="First name"
+        required={true}
+      />
+    </div>
+    <div
+      className="ContactListItem__details"
+    >
+      <fieldset>
+        <legend>
+          Bio
+        </legend>
+        <EditableTextArea
+          editable={true}
+          onChange={[Function]}
+          placeholder="Don't be shy, write something about you"
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Phones
+        </legend>
+        <EditableList
+          editable={true}
+          itemFields={
+            Object {
+              "data": "number",
+              "header": "type",
+            }
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Number",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Emails
+        </legend>
+        <EditableList
+          editable={true}
+          itemFields={
+            Object {
+              "data": "address",
+              "header": "type",
+            }
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Email",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+    </div>
+    <div
+      className="ContactListItem__actions"
+    >
+      <span>
+        <button
+          className="Contact__button Contact__button_icon Contact__save-button"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <img
+            alt="Save contact"
+            src="save.svg"
+          />
+        </button>
+         
+        <a
+          className="Contact__cancel-button"
+          href=""
+          onClick={[Function]}
+        >
+          Cancel
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`isReadOnly 1`] = `
+<div
+  className="ContactListItem"
+>
+  <h2
+    className="ContactListItem__header"
+    id="ContactListItem__header-P"
+  >
+    P
+  </h2>
+  <div
+    className="ContactListItem__body"
+    onClick={[Function]}
+  >
+    <div
+      className="ContactListItem__name"
+    >
+      <img
+        alt="Pucci, Maurizio"
+        src="face.svg"
+      />
+      <EditableTextBox
+        autoFocus={true}
+        defaultValue="Pucci"
+        editable={false}
+        onChange={[Function]}
+        placeholder="Last name"
+        required={true}
+      />
+      , 
+      <EditableTextBox
+        defaultValue="Maurizio"
+        editable={false}
+        onChange={[Function]}
+        placeholder="First name"
+        required={true}
+      />
+    </div>
+    <div
+      className="ContactListItem__details"
+    >
+      <fieldset>
+        <legend>
+          Bio
+        </legend>
+        <EditableTextArea
+          defaultValue="No comment!"
+          editable={false}
+          onChange={[Function]}
+          placeholder="Don't be shy, write something about you"
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Phones
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "number",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "number": "100 000 000",
+                "type": "casa",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Number",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Emails
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "address",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "address": "maurizio.pucci@abc.com",
+                "type": "lavoro",
+              },
+              Object {
+                "address": "mao@xyz.io",
+                "type": "privato",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Email",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+    </div>
+    <div
+      className="ContactListItem__actions"
+    >
+      <span>
+        <button
+          className="Contact__button Contact__button_icon"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <img
+            alt="Edit contact"
+            src="edit.svg"
+          />
+        </button>
+        <button
+          className="Contact__button Contact__button_icon Contact__button_danger"
+          disabled={true}
+          onClick={[Function]}
+        >
+          <img
+            alt="Delete contact"
+            src="delete.svg"
+          />
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`prevContact: Different lastName 1`] = `
+<div
+  className="ContactListItem"
+>
+  <h2
+    className="ContactListItem__header"
+    id="ContactListItem__header-P"
+  >
+    P
+  </h2>
+  <div
+    className="ContactListItem__body"
+    onClick={[Function]}
+  >
+    <div
+      className="ContactListItem__name"
+    >
+      <img
+        alt="Pucci, Maurizio"
+        src="face.svg"
+      />
+      <EditableTextBox
+        autoFocus={true}
+        defaultValue="Pucci"
+        editable={false}
+        onChange={[Function]}
+        placeholder="Last name"
+        required={true}
+      />
+      , 
+      <EditableTextBox
+        defaultValue="Maurizio"
+        editable={false}
+        onChange={[Function]}
+        placeholder="First name"
+        required={true}
+      />
+    </div>
+    <div
+      className="ContactListItem__details"
+    >
+      <fieldset>
+        <legend>
+          Bio
+        </legend>
+        <EditableTextArea
+          defaultValue="No comment!"
+          editable={false}
+          onChange={[Function]}
+          placeholder="Don't be shy, write something about you"
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Phones
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "number",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "number": "100 000 000",
+                "type": "casa",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Number",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Emails
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "address",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "address": "maurizio.pucci@abc.com",
+                "type": "lavoro",
+              },
+              Object {
+                "address": "mao@xyz.io",
+                "type": "privato",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Email",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+    </div>
+    <div
+      className="ContactListItem__actions"
+    >
+      <span>
+        <button
+          className="Contact__button Contact__button_icon"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <img
+            alt="Edit contact"
+            src="edit.svg"
+          />
+        </button>
+        <button
+          className="Contact__button Contact__button_icon Contact__button_danger"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <img
+            alt="Delete contact"
+            src="delete.svg"
+          />
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`prevContact: Same lastName 1`] = `
+<div
+  className="ContactListItem"
+>
+  <div
+    className="ContactListItem__body"
+    onClick={[Function]}
+  >
+    <div
+      className="ContactListItem__name"
+    >
+      <img
+        alt="Pucci, Maurizio"
+        src="face.svg"
+      />
+      <EditableTextBox
+        autoFocus={true}
+        defaultValue="Pucci"
+        editable={false}
+        onChange={[Function]}
+        placeholder="Last name"
+        required={true}
+      />
+      , 
+      <EditableTextBox
+        defaultValue="Maurizio"
+        editable={false}
+        onChange={[Function]}
+        placeholder="First name"
+        required={true}
+      />
+    </div>
+    <div
+      className="ContactListItem__details"
+    >
+      <fieldset>
+        <legend>
+          Bio
+        </legend>
+        <EditableTextArea
+          defaultValue="No comment!"
+          editable={false}
+          onChange={[Function]}
+          placeholder="Don't be shy, write something about you"
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Phones
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "number",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "number": "100 000 000",
+                "type": "casa",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Number",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+      <fieldset>
+        <legend>
+          Emails
+        </legend>
+        <EditableList
+          editable={false}
+          itemFields={
+            Object {
+              "data": "address",
+              "header": "type",
+            }
+          }
+          items={
+            Array [
+              Object {
+                "address": "maurizio.pucci@abc.com",
+                "type": "lavoro",
+              },
+              Object {
+                "address": "mao@xyz.io",
+                "type": "privato",
+              },
+            ]
+          }
+          onChange={[Function]}
+          placeholders={
+            Object {
+              "data": "Email",
+              "header": "Type",
+            }
+          }
+        />
+      </fieldset>
+    </div>
+    <div
+      className="ContactListItem__actions"
+    >
+      <span>
+        <button
+          className="Contact__button Contact__button_icon"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <img
+            alt="Edit contact"
+            src="edit.svg"
+          />
+        </button>
+        <button
+          className="Contact__button Contact__button_icon Contact__button_danger"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <img
+            alt="Delete contact"
+            src="delete.svg"
+          />
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+`;

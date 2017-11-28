@@ -7,15 +7,15 @@ exports[`should render one contact 1`] = `
   <ContactListItem
     contact={
       Object {
-        "bio": "no comment!",
+        "bio": "No comment!",
         "emails": Array [
           Object {
-            "number": "maurizio.pucci@abc.com",
-            "type": "work",
+            "address": "maurizio.pucci@abc.com",
+            "type": "lavoro",
           },
           Object {
-            "number": "mao@xyz.io",
-            "type": "personal",
+            "address": "mao@xyz.io",
+            "type": "privato",
           },
         ],
         "firstName": "Maurizio",
@@ -23,12 +23,14 @@ exports[`should render one contact 1`] = `
         "lastName": "Pucci",
         "phones": Array [
           Object {
-            "number": "123456",
+            "number": "100 000 000",
             "type": "casa",
           },
         ],
       }
     }
+    isNew={false}
+    isReadOnly={false}
     key="100"
     prevContact={null}
   />
@@ -59,15 +61,15 @@ exports[`should render two contacts 1`] = `
   <ContactListItem
     contact={
       Object {
-        "bio": "no comment!",
+        "bio": "No comment!",
         "emails": Array [
           Object {
-            "number": "maurizio.pucci@abc.com",
-            "type": "work",
+            "address": "maurizio.pucci@abc.com",
+            "type": "lavoro",
           },
           Object {
-            "number": "mao@xyz.io",
-            "type": "personal",
+            "address": "mao@xyz.io",
+            "type": "privato",
           },
         ],
         "firstName": "Maurizio",
@@ -75,35 +77,42 @@ exports[`should render two contacts 1`] = `
         "lastName": "Pucci",
         "phones": Array [
           Object {
-            "number": "123456",
+            "number": "100 000 000",
             "type": "casa",
           },
         ],
       }
     }
+    isNew={false}
+    isReadOnly={false}
     key="100"
     prevContact={null}
   />
   <ContactListItem
     contact={
       Object {
-        "firstName": "Aaa",
-        "id": "200",
-        "lastName": "Bbb",
+        "bio": "Ciao!",
+        "emails": Array [],
+        "firstName": "Mario",
+        "id": "300",
+        "lastName": "Rossi",
+        "phones": Array [],
       }
     }
-    key="200"
+    isNew={false}
+    isReadOnly={false}
+    key="300"
     prevContact={
       Object {
-        "bio": "no comment!",
+        "bio": "No comment!",
         "emails": Array [
           Object {
-            "number": "maurizio.pucci@abc.com",
-            "type": "work",
+            "address": "maurizio.pucci@abc.com",
+            "type": "lavoro",
           },
           Object {
-            "number": "mao@xyz.io",
-            "type": "personal",
+            "address": "mao@xyz.io",
+            "type": "privato",
           },
         ],
         "firstName": "Maurizio",
@@ -111,7 +120,7 @@ exports[`should render two contacts 1`] = `
         "lastName": "Pucci",
         "phones": Array [
           Object {
-            "number": "123456",
+            "number": "100 000 000",
             "type": "casa",
           },
         ],

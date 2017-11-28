@@ -62,7 +62,6 @@ storiesOf('ContactListItem', module)
   .add('isNew', () => (
     <Story desc="Should show an empty contact in editing mode with the header 'New Contact'">
       <ContactListItem
-        contact={{}}
         isNew
         handleUpdate={action('handleUpdate')}
         handleDelete={action('handleDelete')}
