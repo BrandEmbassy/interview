@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ContactListItem from '../ContactListItem/ContactListItem';
 
+import { ContactType } from '../../types';
 import './ContactList.css';
 
 class ContactList extends Component {
@@ -17,8 +18,8 @@ class ContactList extends Component {
           <ContactListItem
             key={contact.id}
             contact={contact}
-            readOnly={this.props.readOnly}
             prevContact={index > 0 ? list[index - 1] : null}
+            isReadOnly={this.props.isReadOnly}
             handleUpdate={this.props.handleUpdate}
             handleDelete={this.props.handleDelete}
           />
@@ -36,20 +37,7 @@ class ContactList extends Component {
 }
 
 ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    bio: PropTypes.string,
-    phones: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.string,
-      number: PropTypes.string,
-    })),
-    emails: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.string,
-      address: PropTypes.string,
-    })),
-  })).isRequired
+  contacts: PropTypes.arrayOf(ContactType).isRequired
 };
 
 export default ContactList;

@@ -49,6 +49,7 @@ class App extends Component {
 
           {this.state.showAddContact &&
             <ContactListItem
+              contact={{}}
               isNew={true}
               handleCreate={this.addContact}
             />
@@ -60,7 +61,7 @@ class App extends Component {
           />
 
           <ContactList
-            readOnly={!this.state.connected}
+            isReadOnly={!this.state.connected}
             contacts={this.state.contacts}
             handleUpdate={this.updateContact}
             handleDelete={this.deleteContact}

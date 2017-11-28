@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import EditableTextBox from '../EditableTextBox/EditableTextBox';
 import EditableTextArea from '../EditableTextArea/EditableTextArea';
 import EditableList from '../EditableList/EditableList';
+
+import { ContactType } from '../../types';
 
 import faceIcon from './face.svg';
 import saveIcon from './save.svg';
@@ -14,15 +17,12 @@ class ContactListItem extends Component {
   constructor(props) {
     super(props);
 
-    const { firstName, lastName } = this.props.contact || {};
+    const { firstName, lastName } = this.props.contact;
 
     this.state = {
       expanded: this.props.isNew,
       editable: this.props.isNew,
-      newValues: {
-        firstName,
-        lastName
-      }
+      newValues: { ...this.props.contact },
     };
   }
 
@@ -32,10 +32,10 @@ class ContactListItem extends Component {
     if (this.state.expanded) bodyClassNames.push('ContactListItem__body_expanded');
     if (this.state.editable) bodyClassNames.push('ContactListItem__body_editable');
 
-    const { contact = { emails: [], phones: [] }, prevContact = {} } = this.props;
-
     const headerTemplate = (text, attrs) =>
       <h2 {...attrs} className="ContactListItem__header">{text}</h2>;
+
+    const { contact, prevContact } = this.props;
 
     const header = () => {
       if (this.props.isNew) {
@@ -58,7 +58,7 @@ class ContactListItem extends Component {
               <span>
                 <button
                   className="Contact__button Contact__button_icon"
-                  disabled={this.props.readOnly || !this.state.newValues.firstName || !this.state.newValues.lastName}
+                  disabled={this.props.isReadOnly || !this.state.newValues.firstName || !this.state.newValues.lastName}
                   onClick={this.onSaveClick}>
                   <img alt="Save contact" src={saveIcon} />
                 </button> <a href="" onClick={this.onCancelSaveClick}>Cancel</a>
@@ -67,13 +67,13 @@ class ContactListItem extends Component {
               <span>
                 <button
                   className="Contact__button Contact__button_icon"
-                  disabled={this.props.readOnly}
+                  disabled={this.props.isReadOnly}
                   onClick={this.onEditClick}>
                   <img alt="Edit contact" src={editIcon} />
                 </button>
                 <button
                   className="Contact__button Contact__button_icon Contact__button_danger"
-                  disabled={this.props.readOnly}
+                  disabled={this.props.isReadOnly}
                   onClick={this.onDeleteClick}>
                   <img alt="Delete contact" src={deleteIcon} />
                 </button>
@@ -227,6 +227,21 @@ class ContactListItem extends Component {
       editable: false
     }));
   }
+};
+
+ContactListItem.propTypes = {
+  contact: ContactType.isRequired,
+  prevContact: ContactType,
+  isReadOnly: PropTypes.bool,
+  isNew: PropTypes.bool,
+  handleUpdate: PropTypes.func,
+  handleDelete: PropTypes.func,
+  handleCreate: PropTypes.func,
+};
+
+ContactListItem.defaultProps = {
+  isReadOnly: false,
+  isNew: false,
 };
 
 export default ContactListItem;
