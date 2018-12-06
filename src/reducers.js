@@ -1,6 +1,32 @@
-// import React from "react";
 import { combineReducers } from "redux";
-// import { combineReducers } from "react-redux";
+import findIndex from "lodash/findIndex";
+import { data } from "./data/data";
+
+const initialState = {
+  visible: false,
+  editable: false,
+  contactId: null
+};
+const modal = (state = initialState, action) => {
+  switch (action.type) {
+    case "SHOW_DETAIL_MODAL":
+      return {
+        visible: true,
+        editable: action.editable,
+        contactId: action.contactId
+      };
+    case "SHOW_CREATE_MODAL":
+      return {
+        visible: true,
+        editable: true,
+        contactId: null
+      };
+    case "CLOSE_MODAL":
+      return initialState;
+    default:
+      return state;
+  }
+};
 
 const contact = (state, action) => {
   switch (action.type) {
@@ -24,16 +50,23 @@ const contact = (state, action) => {
       return state;
   }
 };
-const contacts = (state = [], action) => {
+const contacts = (state = data, action) => {
   switch (action.type) {
     case "ADD_CONTACT":
       return [...state, contact(undefined, action)];
+    case "DELETE_CONTACT":
+      const index = findIndex(
+        state,
+        contact => contact.id === action.contactId
+      );
+      return index < 0
+        ? state
+        : [...state.slice(0, index), ...state.slice(index + 1)];
     default:
       return state;
   }
 };
 const filter = (state = "SHOW_ALL", action) => {
-  console.log("action", action);
   switch (action.type) {
     case "SET_FILTER":
       return action.filter;
@@ -42,27 +75,8 @@ const filter = (state = "SHOW_ALL", action) => {
   }
 };
 
-// Action creators
-// let nextContactId = 0;
-// const addContact = ({ name, bio, phone, email }) => {
-//   return {
-//     type: "ADD_CONTACT",
-//     id: nextContactId++,
-//     name,
-//     bio,
-//     phone,
-//     email
-//   };
-// };
-
-// const setFilter = filter => {
-//   return {
-//     type: "SET_FILTER",
-//     filter: filter
-//   };
-// };
-
 const contactsApp = combineReducers({
+  modal: modal,
   contacts: contacts,
   filter: filter
 });

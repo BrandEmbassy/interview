@@ -8,10 +8,6 @@ import { Provider } from "react-redux";
 
 import contactsApp from "./reducers";
 
-/* <Provider store={createStore(contactsApp)}>
-<App />
-</Provider>, */
-
 ReactDOM.render(
   <Provider store={createStore(contactsApp)}>
     <App />
