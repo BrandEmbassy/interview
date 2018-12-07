@@ -7,7 +7,7 @@ const ListContacts = ({ contacts, onContactClick }) => (
       <Contact
         key={contact.id}
         name={contact.name}
-        onClick={() => onContactClick(contact.id)}
+        onClick={() => onContactClick(contact)}
       />
     ))}
   </div>

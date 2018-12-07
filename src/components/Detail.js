@@ -1,32 +1,38 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import { editContactModal } from "../actions/detailModal";
 
 class Detail extends Component {
-  componentDidMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(() => this.forceUpdate());
+  constructor(props) {
+    super(props);
+    const { name, bio, phone, email } = this.props.modal;
+    this.state = {
+      name,
+      bio,
+      phone,
+      email
+    };
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
+  shouldComponentUpdate(nextProps, nextState) {
+    const { name, bio, phone, email } = nextProps.modal;
+    this.setState(
+      {
+        name,
+        bio,
+        phone,
+        email
+      },
+      () => this.forceUpdate()
+    );
   }
 
   render() {
-    const { store } = this.context;
-    const state = store.getState();
-
-    const {
-      contacts,
-      modal: { editable, contactId }
-    } = state;
-    // console.log("contacts", contacts);
-    const contact = contacts.find(contact => {
-      return contact.id === contactId;
-    });
-    // console.log("contact", contact);
-    const { name, bio, phone, email } = contact || {};
-
-    console.log("name", name);
+    const editable = this.props.editable;
+    const editContactModal = this.props.editContactModal;
+    const onClose = this.props.onClose;
+    const { name, bio, phone, email } = this.state;
 
     return (
       <div className="detail">
@@ -73,48 +79,25 @@ class Detail extends Component {
                 placeholder="E-mail"
                 disabled={!editable}
               />
-              {
-                // TODO: for email validation
-                // <span className="error-msg">Invalid E-mail</span>
-                //         <input
-                //           type="text"
-                //           className="email error"
-                //           value="brand&embassy.com"
-                //           placeholder="E-mail"
-                //         />
-              }
             </div>
           </div>
 
           {editable ? (
             <div className="item__footer">
               <div className="button button--positive">Save</div>
+              <div className="button button--negative" onClick={onClose}>
+                Cancel
+              </div>
             </div>
           ) : (
             <div className="item__footer">
               <div
                 className="button"
-                onClick={() => {
-                  store.dispatch({
-                    type: "SHOW_DETAIL_MODAL",
-                    editable: true,
-                    contact: state.modal.contact
-                  });
-                }}
+                onClick={() => editContactModal(this.state.contact)}
               >
                 Edit
               </div>
-              <div
-                className="button button--negative"
-                onClick={() => {
-                  store.dispatch({
-                    type: "DELETE_CONTACT",
-                    contactId: contactId
-                  });
-                }}
-              >
-                Delete
-              </div>
+              <div className="button button--negative">Delete</div>
             </div>
           )}
         </div>
@@ -122,8 +105,17 @@ class Detail extends Component {
     );
   }
 }
-Detail.contextTypes = {
-  store: PropTypes.object
+
+const mapStateToProps = state => ({
+  contacts: state.contacts,
+  modal: state.modal
+});
+
+const mapDispatchToProps = {
+  editContactModal
 };
 
-export default Detail;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Detail);

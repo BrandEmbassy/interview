@@ -12,10 +12,6 @@ const SearchInput = () => {
         className="input"
         type="text"
         name=""
-        // value={input}
-        onChange={() => {
-          // TODO: there should be a dispatch that triggers filter
-        }}
         placeholder="Search ..."
       />
     </div>

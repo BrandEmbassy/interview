@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React from "react";
 import { connect } from "react-redux";
 import { onAddNewContactClicked, onContactClick } from "./actions/contactList";
 import "./App.css";

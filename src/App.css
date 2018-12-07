@@ -771,7 +771,7 @@ textarea.error {
   z-index: 999;
 }
 
-.modal-main {
+.modal__main {
   position: fixed;
   background: white;
   width: 80%;
